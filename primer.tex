@@ -1,0 +1,45 @@
+\documentclass{tufte-book}
+
+\title{Managing\\ \noindent Uncertainty:\\ \noindent A Primer}
+\author[del Rosario]{Zachary del Rosario}
+% \publisher{Publisher of This Book}
+
+\input{./tex/setup.tex} % Book-specific packages and definitions
+\makeindex
+
+% https://en.wikibooks.org/wiki/LaTeX/Modular_Documents
+% A little magic with subfiles
+\newcommand{\onlyinsubfile}[1]{#1}
+\newcommand{\notinsubfile}[1]{}
+
+\begin{document}
+
+\renewcommand{\onlyinsubfile}[1]{}
+\renewcommand{\notinsubfile}[1]{#1}
+
+% --------------------------------------------------
+% Front Matter
+% --------------------------------------------------
+\frontmatter
+\maketitle
+
+\input{./tex/copyright.tex}
+\tableofcontents
+
+% --------------------------------------------------
+% Content
+% --------------------------------------------------
+\subfile{./tex/ch1-introduction.tex}
+\subfile{./tex/ch2-sensitivity.tex}
+
+% --------------------------------------------------
+% Back Matter
+% --------------------------------------------------
+\backmatter
+
+\bibliography{pubs}
+\bibliographystyle{plain}
+
+\printindex
+
+\end{document}
