@@ -22,6 +22,6 @@ ch1:
 	mv aux/${name1}.pdf .
 
 links:
-	cp -f ~/Git/zachs_macros/zachs_macros.tex zachs_macros.tex
+	cp -f ~/Git/zachs_macros/zachs_macros.tex ./tex/zachs_macros.tex
 	cp -f ~/Git/zachs_macros/numdef.sty numdef.sty
-	cp -f ~/Git/pi_space/pubs.bib pubs.bib
+	cp -f ~/Git/pi_space/pubs.bib ./tex/pubs.bib
