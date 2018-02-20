@@ -5,22 +5,33 @@ UQ-Primer: Outline
 ** How to use this book
 * A Demonstration
 ** UQ in Action
+- Worked example interleaved with concepts
+- Sources of uncertainty
+- Consequences of (mis-)managing uncertainty
+** Summary
+- Short summary of key concepts
 * Exploration
 ** Estimation
-*** Summary Statistics
-*** Confidence Intervals
+- Summary Statistics
+- Confidence Intervals
 ** Sensitivity Analysis
-** Local
+*** Local
 - Purpose
 - Finite Differences
 - Adjoint
-** Global
+*** Global
+- Purpose
+- Morris Screening
+- Active Subspaces
+- Sobol Indices
 * Propagation
 ** Forward
-*** Monte Carlo
-*** Quadrature
+- Monte Carlo
+- Quadrature
+- Delta Method
 ** Reverse
-*** Bayesian Calibration
+- Frequentist Estimation
+- Bayesian Calibration
 * Design
 ** Robust Design
 ** Reliable Design
