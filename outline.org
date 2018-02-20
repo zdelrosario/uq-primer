@@ -1,0 +1,31 @@
+UQ-Primer: Outline
+
+* Introduction
+** Purpose
+** How to use this book
+* A Demonstration
+** UQ in Action
+* Exploration
+** Estimation
+*** Summary Statistics
+*** Confidence Intervals
+** Sensitivity Analysis
+** Local
+- Purpose
+- Finite Differences
+- Adjoint
+** Global
+* Propagation
+** Forward
+*** Monte Carlo
+*** Quadrature
+** Reverse
+*** Bayesian Calibration
+* Design
+** Robust Design
+** Reliable Design
+* Appendix
+** Basics of Probability
+** Basics of Statistics
+** Basics of Quadrature / Approximation
+** Basics of Optimization
