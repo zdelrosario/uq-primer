@@ -36,7 +36,7 @@ UQ-Primer: Outline
 ** Robust Design
 ** Reliable Design
 * Appendix
-** Basics of Probability
-** Basics of Statistics
-** Basics of Quadrature / Approximation
-** Basics of Optimization
+** Crash Course: Probability and Statistics
+** Crash Course: Quadrature and Approximation
+** Crash Course: Optimization
+** Cartesian Index Notation
