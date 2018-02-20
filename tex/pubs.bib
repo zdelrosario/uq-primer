@@ -151,7 +151,6 @@
 
 @Comment Miscellaneous
 @Comment --------------------------------------------------
-
 @misc{shvartsman2016,
   author       = {Shvartsman, S.},
   date         = {2016},
@@ -187,19 +186,27 @@
 }
 
 @misc{johnson2012,
-  author        = {Johnson, Steven G.},
-  title         = {Notes on adjoint methods for 18.335},
-  year          = {2012},
-  url           = {http://math.mit.edu/~stevenj/18.336/adjoint.pdf},
+  author = {Johnson, Steven G.},
+  title  = {Notes on adjoint methods for 18.335},
+  year   = {2012},
+  url    = {http://math.mit.edu/~stevenj/18.336/adjoint.pdf},
 }
 
 @article{fike2011development,
-  title   = {The development of hyper-dual numbers for exact second-derivative calculations},
+  title   = {The development of hyper-dual numbers for exact second-derivative
+                  calculations},
   author  = {Fike, Jeffrey A and Alonso, Juan J},
   journal = {AIAA paper},
   volume  = {886},
   pages   = {124},
   year    = {2011}
+}
+
+@article{jameson2003aerodynamic,
+  title   = {Aerodynamic shape optimization using the adjoint method},
+  author  = {Jameson, Antony},
+  journal = {Lectures at the Von Karman Institute, Brussels},
+  year    = {2003}
 }
 
 @Comment Education
@@ -236,11 +243,11 @@
 }
 
 @book{agogino2008educating,
-  title={Phase II. Educating the Engineer of 2020},
-  author={Committee on Engineering Education},
-  year={2005},
-  organization={National Academy of Engineering},
-  isbn = {0-309-55008-4}
+  title        = {Phase II. Educating the Engineer of 2020},
+  author       = {Committee on Engineering Education},
+  year         = {2005},
+  organization = {National Academy of Engineering},
+  isbn         = {0-309-55008-4}
 }
 
 @article{flore2015does,
@@ -310,7 +317,8 @@
   issn     = {0098--3004},
   doi      = {http://dx.doi.org/10.1016/j.cageo.2015.07.001},
   url      = {http://www.sciencedirect.com/science/article/pii/S0098300415300091},
-  author   = {Jefferson, J.L. and Gilbert, J.M. and Constantine, Paul G. and Maxwell, R.M.},
+  author   = {Jefferson, J.L. and Gilbert, J.M. and Constantine, Paul G. and
+                  Maxwell, R.M.},
   keywords = {Active subspaces},
   keywords = {Dimension reduction},
   keywords = {Energy flux},
@@ -336,7 +344,8 @@
 }
 
 @article{constantine2016,
-  author        = {Constantine, Paul G. and {del Rosario}, Zachary and Iaccarino, Gianluca},
+  author        = {Constantine, Paul G. and {del Rosario}, Zachary and
+                  Iaccarino, Gianluca},
   title         = {Many physical laws are ridge functions},
   journal       = {ArXiv e-prints},
   archivePrefix = {arXiv},
@@ -373,15 +382,102 @@
   year      = {2016}
 }
 
+@article{li1991,
+  title     = {Sliced inverse regression for dimension reduction},
+  author    = {Li, K-C.},
+  journal   = {Journal of the American Statistical Association},
+  volume    = {86},
+  number    = {414},
+  pages     = {316--327},
+  year      = {1991},
+  publisher = {Taylor \& Francis}
+}
+
+@article{shao2007,
+  title     = {Marginal tests with sliced average variance estimation},
+  author    = {Shao, Y., Cook, R.D., and Weisberg, S.},
+  journal   = {Biometrika},
+  pages     = {285--296},
+  year      = {2007},
+  publisher = {JSTOR}
+}
+
+@article{cook2005,
+  title     = {Sufficient dimension reduction via inverse regression: A minimum
+                  discrepancy approach},
+  author    = {Cook, R.D. and Ni, L.},
+  journal   = {Journal of the American Statistical Association},
+  volume    = {100},
+  number    = {470},
+  pages     = {410--428},
+  year      = {2005},
+  publisher = {Taylor \& Francis}
+}
+
+@article{adragni2009,
+  title     = {Sufficient dimension reduction and prediction in regression},
+  author    = {Adragni, Kofi P. and Cook, R. Dennis},
+  journal   = {Philosophical Transactions of the Royal Society of London A:
+                  Mathematical, Physical and Engineering Sciences},
+  volume    = {367},
+  number    = {1906},
+  pages     = {4385--4405},
+  year      = {2009},
+  publisher = {The Royal Society}
+}
+
 @Comment Sensitivity Analysis
 @Comment --------------------------------------------------
 @book{saltelli2004sensitivity,
   title     = {Sensitivity analysis in practice: a guide to assessing scientific models},
-  author    = {Saltelli, Andrea and Tarantola, Stefano and Campolongo, Francesca and Ratto, Marco},
+  author    = {Saltelli, Andrea and Tarantola, Stefano and Campolongo, Francesca
+                  and Ratto, Marco},
   year      = {2004},
   publisher = {John Wiley \& Sons}
 }
 
+@article{sobol1993,
+  title   = {Sensitivity estimates for nonlinear mathematical models},
+  author  = {Sobol, I.M.},
+  journal = {Mathematical Modelling and Computational Experiments},
+  volume  = {1},
+  number  = {4},
+  pages   = {407--414},
+  year    = {1993}
+}
+
+@article{crestaux2009polynomial,
+  title     = {Polynomial chaos expansion for sensitivity analysis},
+  author    = {Crestaux, Thierry and Le Ma{\i}ˆtre, Olivier and Martinez, Jean-Marc},
+  journal   = {Reliability Engineering \& System Safety},
+  volume    = {94},
+  number    = {7},
+  pages     = {1161--1172},
+  year      = {2009},
+  publisher = {Elsevier}
+}
+
+@article{owen2013variance,
+  title     = {Variance components and generalized Sobol' indices},
+  author    = {Owen, Art B.},
+  journal   = {SIAM/ASA Journal on Uncertainty Quantification},
+  volume    = {1},
+  number    = {1},
+  pages     = {19--41},
+  year      = {2013},
+  publisher = {SIAM}
+}
+
+@article{owen2017shapley,
+  title     = {On Shapley value for measuring importance of dependent inputs},
+  author    = {Owen, Art B. and Prieur, Cl{\'e}mentine},
+  journal   = {SIAM/ASA Journal on Uncertainty Quantification},
+  volume    = {5},
+  number    = {1},
+  pages     = {986--1002},
+  year      = {2017},
+  publisher = {SIAM}
+}
 
 @Comment Machine Learning
 @Comment --------------------------------------------------
@@ -402,7 +498,8 @@
  acmid      = {2952034},
  publisher  = {Academic Press Professional, Inc.},
  address    = {San Diego, CA, USA},
- keywords   = {Constitutive models, Machine learning, Tensor invariants, Turbulence models},
+ keywords   = {Constitutive models, Machine learning, Tensor invariants,
+                  Turbulence models},
 }
 
 @article{schmidt2009,
@@ -422,7 +519,8 @@
 
 @article{brunton2016,
   author  = {Brunton, Steven L. and Proctor, Joshua L. and Kutz, J. Nathan},
-  title   = {Discovering governing equations from data by sparse identification of nonlinear dynamical systems},
+  title   = {Discovering governing equations from data by sparse identification
+                  of nonlinear dynamical systems},
   volume  = {113},
   number  = {15},
   pages   = {3932-3937},
@@ -435,7 +533,8 @@
 
 @inproceedings{scholkopf1997kernel,
   title        = {Kernel principal component analysis},
-  author       = {Sch{\"o}lkopf, Bernhard and Smola, Alexander and M{\"u}ller, Klaus-Robert},
+  author       = {Sch{\"o}lkopf, Bernhard and Smola, Alexander and M{\"u}ller,
+                  Klaus-Robert},
   booktitle    = {International Conference on Artificial Neural Networks},
   pages        = {583--588},
   year         = {1997},
@@ -557,15 +656,6 @@
   publisher = {Cambridge University Press}
 }
 
-@article{sobol1993,
-  title   = {Sensitivity estimates for nonlinear mathematical models},
-  author  = {Sobol, I.M.},
-  journal = {Mathematical Modelling and Computational Experiments},
-  volume  = {1},
-  number  = {4},
-  pages   = {407--414},
-  year    = {1993}
-}
 
 @article{more2012,
   title     = {Estimating derivatives of noisy simulations},
@@ -589,7 +679,7 @@
   publisher = {Elsevier}
 }
 
-@ARTICLE{2015arXiv150701778B,
+@article{bolin2015,
    author       = {{Bolin}, D. and {Lindgren}, F.},
     title       = "{Quantifying the uncertainty of contour maps}",
   journal       = {ArXiv e-prints},
@@ -606,28 +696,6 @@
 @book{smith2013uncertainty,
   title     = {Uncertainty quantification: theory, implementation, and applications},
   author    = {Smith, Ralph C.},
-  year      = {2013},
-  publisher = {SIAM}
-}
-
-@article{crestaux2009polynomial,
-  title     = {Polynomial chaos expansion for sensitivity analysis},
-  author    = {Crestaux, Thierry and Le Ma{\i}ˆtre, Olivier and Martinez, Jean-Marc},
-  journal   = {Reliability Engineering \& System Safety},
-  volume    = {94},
-  number    = {7},
-  pages     = {1161--1172},
-  year      = {2009},
-  publisher = {Elsevier}
-}
-
-@article{owen2013variance,
-  title     = {Variance components and generalized Sobol' indices},
-  author    = {Owen, Art B.},
-  journal   = {SIAM/ASA Journal on Uncertainty Quantification},
-  volume    = {1},
-  number    = {1},
-  pages     = {19--41},
   year      = {2013},
   publisher = {SIAM}
 }
@@ -896,49 +964,6 @@
 
 @Comment Statistics
 @Comment --------------------------------------------------
-@Article{efron1986,
-  title   = {Bootstrap methods for standard errors, confidence intervals, and
-                  other measures of statistical accuracy},
-  author  = {Efron, B. and Tibshirani, R.},
-  journal = {Statistical Science},
-  year    = {1986},
-  volume  = {1},
-  number  = {1},
-  page    = {54--77}
-}
-
-@article{li1991,
-  title     = {Sliced inverse regression for dimension reduction},
-  author    = {Li, K-C.},
-  journal   = {Journal of the American Statistical Association},
-  volume    = {86},
-  number    = {414},
-  pages     = {316--327},
-  year      = {1991},
-  publisher = {Taylor \& Francis}
-}
-
-@article{shao2007,
-  title     = {Marginal tests with sliced average variance estimation},
-  author    = {Shao, Y., Cook, R.D., and Weisberg, S.},
-  journal   = {Biometrika},
-  pages     = {285--296},
-  year      = {2007},
-  publisher = {JSTOR}
-}
-
-@article{cook2005,
-  title     = {Sufficient dimension reduction via inverse regression: A minimum
-                  discrepancy approach},
-  author    = {Cook, R.D. and Ni, L.},
-  journal   = {Journal of the American Statistical Association},
-  volume    = {100},
-  number    = {470},
-  pages     = {410--428},
-  year      = {2005},
-  publisher = {Taylor \& Francis}
-}
-
 @article{joiner1981,
   title     = {Lurking variables: Some examples},
   author    = {Joiner, Brian L.},
@@ -975,54 +1000,12 @@
                Society for Quality},
 }
 
-@article{adragni2009,
-  title     = {Sufficient dimension reduction and prediction in regression},
-  author    = {Adragni, Kofi P. and Cook, R. Dennis},
-  journal   = {Philosophical Transactions of the Royal Society of London A:
-                  Mathematical, Physical and Engineering Sciences},
-  volume    = {367},
-  number    = {1906},
-  pages     = {4385--4405},
-  year      = {2009},
-  publisher = {The Royal Society}
-}
-
 @book{cook2009,
   title     = {Regression graphics: Ideas for studying regressions through graphics},
   author    = {Cook, R. Dennis},
   volume    = {482},
   year      = {2009},
   publisher = {John Wiley \& Sons}
-}
-
-@article{owen2017,
-  author        = {Owen, Art B.},
-  title         = {A randomized Halton algorithm in R},
-  journal       = {ArXiv e-prints},
-  archivePrefix = {arXiv},
-  eprint        = {1706.02808},
-  primaryClass  = {stat.CO},
-  keywords      = {Statistics - Computation, Computer Science - Mathematical
-                  Software, Computer Science - Numerical Analysis, Mathematics -
-                  Numerical Analysis},
-  year          = {2017},
-  month         = {jun},
-  adsurl        = {http://adsabs.harvard.edu/abs/2017arXiv170602808O},
-  adsnote       = {Provided by the SAO/NASA Astrophysics Data System}
-}
-
-@article{landsman2008,
-  title   = {Stein's Lemma for elliptical random vectors},
-  journal = {Journal of Multivariate Analysis},
-  volume  = {99},
-  number  = {5},
-  pages   = {912 - 927},
-  year    = {2008},
-  note    = {},
-  issn    = {0047-259X},
-  doi     = {http://dx.doi.org/10.1016/j.jmva.2007.05.006},
-  url     = {http://www.sciencedirect.com/science/article/pii/S0047259X07000814},
-  author  = "Zinoviy Landsman and Johanna Neslehova",
 }
 
 @article{kariya1981,
@@ -1052,22 +1035,6 @@
   publisher = {Cole Publishing Co., Pacific Grove}
 }
 
-@article{stein1981estimation,
-  title     = {Estimation of the mean of a multivariate normal distribution},
-  author    = {Stein, Charles M.},
-  journal   = {The annals of Statistics},
-  pages     = {1135--1151},
-  year      = {1981},
-  publisher = {JSTOR}
-}
-
-@book{lehmann2006theory,
-  title     = {Theory of point estimation},
-  author    = {Lehmann, Erich Leo and Casella, George},
-  year      = {2006},
-  publisher = {Springer Science \& Business Media}
-}
-
 @book{anderson1958introduction,
   title     = {An introduction to multivariate statistical analysis},
   author    = {Anderson, Theodore Wilbur},
@@ -1087,6 +1054,8 @@
   publisher = {Taylor \& Francis Group}
 }
 
+@Comment Reproducibility
+@Comment --------------------------------------------------
 @article{simonsohn2014p,
   title     = {P-curve: a key to the file-drawer.},
   author    = {Simonsohn, Uri and Nelson, Leif D. and Simmons, Joseph P},
@@ -1127,15 +1096,44 @@
   publisher = {Sage Publications Sage CA: Los Angeles, CA}
 }
 
-@article{owen2017shapley,
-  title     = {On Shapley value for measuring importance of dependent inputs},
-  author    = {Owen, Art B. and Prieur, Cl{\'e}mentine},
-  journal   = {SIAM/ASA Journal on Uncertainty Quantification},
-  volume    = {5},
-  number    = {1},
-  pages     = {986--1002},
-  year      = {2017},
-  publisher = {SIAM}
+@Comment Monte Carlo
+@Comment --------------------------------------------------
+@article{owen2017,
+  author        = {Owen, Art B.},
+  title         = {A randomized Halton algorithm in R},
+  journal       = {ArXiv e-prints},
+  archivePrefix = {arXiv},
+  eprint        = {1706.02808},
+  primaryClass  = {stat.CO},
+  keywords      = {Statistics - Computation, Computer Science - Mathematical
+                  Software, Computer Science - Numerical Analysis, Mathematics -
+                  Numerical Analysis},
+  year          = {2017},
+  month         = {jun},
+  adsurl        = {http://adsabs.harvard.edu/abs/2017arXiv170602808O},
+  adsnote       = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@book{owen2013montecarlo,
+   author = {Owen, Art B.},
+   year   = 2013,
+   title  = {Monte Carlo theory, methods and examples}
+}
+
+@Comment Estimation
+@Comment --------------------------------------------------
+@article{landsman2008,
+  title   = {Stein's Lemma for elliptical random vectors},
+  journal = {Journal of Multivariate Analysis},
+  volume  = {99},
+  number  = {5},
+  pages   = {912 - 927},
+  year    = {2008},
+  note    = {},
+  issn    = {0047-259X},
+  doi     = {http://dx.doi.org/10.1016/j.jmva.2007.05.006},
+  url     = {http://www.sciencedirect.com/science/article/pii/S0047259X07000814},
+  author  = "Zinoviy Landsman and Johanna Neslehova",
 }
 
 @article{vangel1996confidence,
@@ -1157,16 +1155,55 @@
   publisher = {John Wiley \& Sons}
 }
 
-@book{owen2013montecarlo,
-   author = {Owen, Art B.},
-   year   = 2013,
-   title  = {Monte Carlo theory, methods and examples}
+@Article{efron1986,
+  title   = {Bootstrap methods for standard errors, confidence intervals, and
+                  other measures of statistical accuracy},
+  author  = {Efron, B. and Tibshirani, R.},
+  journal = {Statistical Science},
+  year    = {1986},
+  volume  = {1},
+  number  = {1},
+  page    = {54--77}
+}
+
+@article{oehlert1992,
+ ISSN      = {00031305},
+ URL       = {http://www.jstor.org/stable/2684406},
+ abstract  = {The delta method is an intuitive technique for approximating the
+                  moments of functions of random variables. This note reviews
+                  the delta method and conditions under which delta-method
+                  approximate moments are accurate.},
+ author    = {Gary W. Oehlert},
+ journal   = {The American Statistician},
+ number    = {1},
+ pages     = {27-29},
+ publisher = {[American Statistical Association, Taylor & Francis, Ltd.]},
+ title     = {A Note on the Delta Method},
+ volume    = {46},
+ year      = {1992}
+}
+
+@article{stein1981estimation,
+  title     = {Estimation of the mean of a multivariate normal distribution},
+  author    = {Stein, Charles M.},
+  journal   = {The annals of Statistics},
+  pages     = {1135--1151},
+  year      = {1981},
+  publisher = {JSTOR}
+}
+
+@book{lehmann2006theory,
+  title     = {Theory of point estimation},
+  author    = {Lehmann, Erich Leo and Casella, George},
+  year      = {2006},
+  publisher = {Springer Science \& Business Media}
 }
 
 @Comment Robust Design
 @Comment --------------------------------------------------
 @article{verderaime1994,
-  title   = {Illustrated structural application of universal first-order reliability method},
+  title   = {Illustrated structural application of universal first-order
+                  reliability method},
   author  = {Verderaime, Vincent S.},
   journal = {NASA STI/Recon Technical Report N},
   volume  = {95},
@@ -1186,7 +1223,8 @@
  }
 
 @article{ryan1994,
-  title     = {Application of probabilistic analysis and design methods in space programs},
+  title     = {Application of probabilistic analysis and design methods in space
+                  programs},
   author    = {Ryan, RS and Townsend, JS},
   journal   = {Journal of Spacecraft and Rockets},
   volume    = {31},
@@ -1279,7 +1317,7 @@
 }
 
 @book{wickham2009,
-    author    = {Hadley Wickham},
+    author    = {Wickham, Hadley},
     title     = {ggplot2: Elegant Graphics for Data Analysis},
     publisher = {Springer-Verlag New York},
     year      = {2009},
@@ -1425,7 +1463,8 @@
 }
 
 @article{stamatelatos2011probabilistic,
-  title   = {Probabilistic risk assessment procedures guide for NASA managers and practitioners},
+  title   = {Probabilistic risk assessment procedures guide for NASA managers
+                  and practitioners},
   author  = {Stamatelatos, Michael and Dezfuli, Homayoon and Apostolakis, George
                   and Everline, Chester and Guarro, Sergio and Mathias, Donovan
                   and Mosleh, Ali and Paulos, Todd and Riha, David and Smith,
@@ -1435,7 +1474,8 @@
 }
 
 @book{slay1988post,
-  title     = {Post-Challenger Evaluation of Space Shuttle Risk Assessment and Management},
+  title     = {Post-Challenger Evaluation of Space Shuttle Risk Assessment and
+                  Management},
   author    = {Slay, Alton},
   year      = {1988},
   publisher = {National Academies}
@@ -1462,11 +1502,11 @@
 }
 
 @misc{tufte2003,
-  title = {Columbia Evidence -- Analysis of Key Slide},
+  title  = {Columbia Evidence -- Analysis of Key Slide},
   author = {Tufte, E.},
-  year = {2003},
-  month = {March},
-  url = {www.edwardtufte.com}
+  year   = {2003},
+  month  = {March},
+  url    = {www.edwardtufte.com}
 }
 
 @book{gibson1986chrome,

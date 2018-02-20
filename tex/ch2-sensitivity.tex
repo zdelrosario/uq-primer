@@ -397,4 +397,485 @@ operator -- it \emph{shifts} initial data forward (or backward) in time to give 
 solution at a desired time. Commuting terms and applying the shifts results in
 \eqref{eq:shifted} above.
 
+\section{Global Sensitivity Analysis}
+\label{sec:org81b0ac8}
+Last time, we talked about local sensitivity analysis, both in terms of how we
+might use the derivative, and how we might go about computing it. While useful
+for various purposes, local sensitivity fails to capture trends outside a
+selected neighborhood. This is what global sensitivity seeks to address. Figure
+\ref{fig:ex1} illustrates problematic behavior for both local and global
+approaches.
+
+\begin{figure}[!ht]
+  \centering\includegraphics[width=0.75\textwidth]{./images/ex1}
+  \caption{Local sensitivity would fail to capture the behavior of the blue
+  function (in terms of giving zero sensitivity) at the point of interest (black dot),
+  whereas global sensitivity would return a finite value.}
+  \label{fig:ex1}
+\end{figure}
+
+\subsection{Dimension reduction}
+\label{sec:orga5b0484}
+Why perform global sensitivity analysis? One reason is to perform \emph{dimension
+reduction}; that is, principled reduction of the dimensionality of a system.
+Figure \ref{fig:curse} depicts the \emph{curse of dimensionality}, which states
+(roughly) that the computational expense of a procedure tends to grow
+\emph{exponentially} with the dimension of the problem. The most direct way to
+address this issue is to reduce dimensionality -- to reduce the number of input
+parameters we need to consider.
+
+Suppose we perform a sensitivity analysis and find that our qoi \(f(\vx)\) is
+relatively unaffected by its input \(x_1\). We could set \(x_1=c\) to a constant
+nominal value, and continue with \(f(c,x_2,\dots,x_d)\), which has dimension
+\(d-1\). This would reduce the expense involved with studying our qoi, and since
+the reduction is \emph{exponential} this could potentially enable studies previous
+intractable. Global sensitivity analysis provides principled tools to perform
+dimension reduction.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.75\textwidth]{./images/curse_of_dimensionality}
+  \caption{Cartoon depicting computational expense under the Curse of Dimensionality.
+  The most direct way to address this curse is to reduce the effective dimension
+  of our problem. One way to reduce dimensionality is to identify parameters
+  which are unimportant, and freeze them to nominal values. Global sensitivity
+  analysis allows us to determine such unimportant factors.}
+  \label{fig:curse}
+\end{figure}
+
+We'll study three types of global sensitivity analysis:
+\begin{enumerate}
+\item Morris Screening, which seeks to identify unimportant parameters in an economical fashion.
+\item Active Subspaces, which identify important \emph{directions} in parameter space.
+\item Sobol Indices, which attribute variability in the output to particular parameters.
+\end{enumerate}
+
+\subsection{Parameter interactions}
+\label{sec:org87ec37f}
+So far in sensitivity analysis, we have only talked about derivatives. For the
+first derivative, we consider the change in a function as we perturb a single
+variable. In the case where parameters only affect our qoi linearly, this is
+sufficient, as effects are additive. However, if there are nonlinear
+\emph{interactions} between parameters, this presents an issue for this one-at-a-time
+style of sensitivity analysis. As a concrete example, consider the function
+
+\begin{equation}
+  f = 0.3 x_1 + 8.0 x_1 x_2,
+\end{equation}
+
+\noindent on the domain \(\vx\in[0,1]^2\). Clearly, the mixed term dominates the
+behavior of the function. The first derivative does not capture this interactive
+effect, by definition. Capturing interactions of parameters could be
+accomplished by considering the second derivative, as is done in generalizations
+of Morris screening. However, the Sobol indices handle this by a different means
+entirely.
+
+\section{Morris Screening}
+\label{sec:orgf5d704d}
+Morris screening is closely related to the derivative, and can be thought of as
+studying the mean and variance of the derivative. The textbook
+\cite{smith2013uncertainty} goes through this procedure in gory detail; these
+notes will give only a brief introduction, as we'll focus more on Sobol indices.
+Morris screening considers statistics of the \emph{elementary effects}, defined by
+
+\begin{equation}\label{eq:elem-effect}
+  d_{i}(\vx_j) = \frac{f(\vx_j+\Delta \ve_i) - f(\vx_j)}{\Delta},
+\end{equation}
+
+\noindent where \(\ve_i\) is the i-th standard basis vector,\footnote{The vector with
+all zeros, except for a one in the i-th entry} and \(\Delta\) is a large stepsize.
+Note that \eqref{eq:elem-effect} is simply a first-order approximation of the
+derivative; however, since \(\Delta\) is relatively large, this is a coarse
+approximation to the derivative. These elementary effects are used to construct
+global sensitivity measures
+
+\begin{equation}\begin{aligned}
+  \mu_i^* &= \frac{1}{r}\sum_{j=1}^r |d_{i}(\vx_j)|, \\
+  \sigma_i^2 &= \frac{1}{r-1}\sum_{j=1}^r(d_{i}(\vx_j)-\mu_i)^2, \mu_i=\frac{1}{r}\sum_{j=1}^rd_{i}(\vx_).
+\end{aligned}\end{equation}
+
+Note that considering elementary effects misses interactions, for the reasons
+discussed above. Generalizations of this technique consider higher-order
+derivatives, which probe interactions. This procedure is called \emph{screening}
+because it allows us to determine whether individual parameters are unimportant,
+but does not quantify relative variable importance. To determine relative
+importance, we can turn to Sobol indices. However, Morris screening is a
+relatively cheap procedure, and thus is a good tool to be aware of.
+
+\section{Active Subspaces}
+\label{sec:org7724f8f}
+The active subspace is a more recent dimension reduction technique, and is
+somewhat different in spirit from other global sensitivity analysis
+procedures.\cite{constantine2015} Consider the function
+
+\begin{equation}\label{eq:as-ex}
+  f(\vx) = \f12(0.3x_1+0.7x_2)^2.
+\end{equation}
+
+\noindent For this qoi, both its parameters are important. However, the function
+clearly varies only along the direction \((0.3,0.7)^T\), and not at all along the
+direction \((0.7,-0.3)^T\). Rather than picking and freezing individual
+parameters, the active subspace considers \emph{linear combinations} of the inputs
+which are important. These correspond to directions in parameter space. Figure
+\ref{fig:as-ex} depicts the active subspace for \eqref{eq:as-ex}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.75\textwidth]{./images/contour_plot}
+  \caption{Isolines and active direction for \eqref{eq:as-ex}}
+  \label{fig:as-ex}
+\end{figure}
+
+The active subspace is computed by studying the outer product of the gradient;
+taking an expectation with respect to the density for \(\vx\), we define
+
+\begin{equation}\label{eq:as-c}
+  \mC = \E[\nabla_{\vx}f\nabla_{\vx}f^T].
+\end{equation}
+
+\noindent Note that \(\mC\) is symmetric semi-positive definite, thus it admits an
+eigenvalue decomposition \(\mC=\mW\m\Lambda\mW^T\). A basis for the active
+subspace is identified by separating the magnitude-ordered eigenvalues
+\(\m\Lambda=\text{Diag}([\m\Lambda_a,\m\Lambda_i])\) and their associated
+eigenvectors \(\mW=[\mW_a,\mW_i]\). This split is often chosen based on the
+relative magnitude of the eigenvalues.
+
+In contrast with Morris screening, we may use the eigenvalues \(\lambda_i\) to
+rank the associated directions \(\vw_i\). The \(\lambda_i\) are related to the
+mean-squared directional derivative associated with the appropriate eigenvector.
+Thus, ranking the directions can only be done in an average sense; the
+eigenvalues may hide extreme local behavior. Furthermore, the active subspace
+requires gradient information; this is fine if we access to this information,
+say through an adjoint solver. If gradients are unavailable, we would need to
+turn to other approaches, such as finite differences or surrogate modeling,
+which increases the expense.
+
+Exploiting the active subspace involves a number of challenges, and is both
+application dependent and an active area of research. To illustrate some of
+these challenges, suppose we define the \emph{active} and \emph{inactive variables} based
+on the decomposition above
+
+\begin{equation}\begin{aligned}
+  \vx_a &= \mW^T_a\vx, \\
+  \vx_i &= \mW^T_i\vx.
+\end{aligned}\end{equation}
+
+\noindent We would like to re-parameterize our qoi in terms of the \(\vx_a\) to
+reduce dimensionality. However, the naive statement \(f(\vx)=f(\mW_a\vx_a)\) is
+false! Furthermore, we must determine the domain of \(\vx_a\); this is a
+projection of the original domain \(\Omega\) on the subspace \(\cR(\mW_a)\), which
+is in general quite complicated.
+
+\section{Sobol Indices}
+\label{sec:orgd776a4d}
+Both Morris screening and the active subspace consider some average of the
+gradient. In contrast, Sobol indices are based on \emph{variance}. The Sobol indices
+may be used to attribute variance of the qoi to subsets of the input parameters.
+It is a useful, well-studied, and commonly-used technique for global sensitivity
+analysis, so we will spend some time discussing it.
+
+Sobol indices require a random variable interpretation of our quantity of
+interest, so we'll introduce some notation used throughout the section. Let
+\(\mX\sim\rho\) be our random input parameters, distributed according to a joint
+density \(\rho\) over our parameter space \(\Omega\).\footnote{Sobol indices also have
+some properties that rely on \emph{independence} of the input parameters. We will
+return to this point later.} Then our output qoi is also a random variable
+\(Y=f(\mX)\). We denote by \(\E[Y] = \int f(\vx)\rho(\vx)d\vx\) the expectation, and
+by \(\V[Y]=\E[(Y-\E[Y])^2]\) the variance. Note that the following useful identity
+involving the variance holds
+
+\begin{equation}
+  \V[Y] = \E[Y^2] - \E[Y]^2.
+\end{equation}
+
+We denote conditioning by a vertical bar; this corresponds to holding particular
+random inputs fixed in value, and leaving them out of the integral for a
+particular expectation. For example, if \(Y=f(X_1,X_2,X_3)\), then
+
+\begin{equation}
+  \E_{X_2,X_3}[Y|X_1=x_1] = \int f(x_1,x_2,x_3)\rho(x_1,x_2,x_3)dx_2dx_2,
+\end{equation}
+
+\noindent where we use subscripts to make explicit the integration variables.
+Note that \(\E_{X_2,X_3}[Y|X_1]\) is still a random variable\footnote{when it lacks the
+equality \(X_1=x_1\)}, due to the variability arising from \(X_1\). We will use
+conditional variance to decompose the total variance \(\V[Y]\) according to
+different input contributions. This will involve expressions of the sort
+\(\E_{X_2,X_2}[\V_{X_1}[Y|X_1]]\).\footnote{which is no longer a random variable, as we
+have integrated out all of the parameters}
+
+In what follows, we will drop the variable subscripts, as they tend to render
+expressions indecipherable. The same information is implied by the conditioning;
+the expression \(\V[Y|X_1]\) carries out the integration keeping \(X_1\) fixed,
+which is then integrated out in the expression \(\E[\V[Y|X_1]]\).
+
+\subsection{Intuition}
+\label{sec:orge6ee014}
+The Sobol indices are based on a decomposition of the variance of our output
+qoi.\footnote{This necessitates a random variable interpretation of both our inputs
+and outputs. In the absence of `truly' random inputs, one can assign uniform
+distributions to the uncertain parameters.} In the next section, we'll look at a
+formal treatment using the functional analysis of variance. Before that, we'll
+go through a more simple treatment of the same problem, in order to build
+intuition.\footnote{The primer by Saltelli et al.\cite{saltelli2004sensitivity} is a
+good, quick read on sensitivity analysis. I follow that text for this
+subsection.}
+
+First, we will introduce some notation to help keep track of variable subsets.
+Let \(\vu\) be an \emph{index set}; that is \(\vu\subseteq\{1,\dots,d\}\). We will use
+\(\vu\) to denote subsets of the input variables; in the example above, we used
+\(\vu=\{2,3\}\) to give us \(\mX_{\vu}=\{X_2,X_3\}\). Let \(-\vu\) be the set
+complementary to \(\vu\) with respect to \(\{1,\dots,d\}\); in the example above
+\(-\vu=\{1\}\).
+
+Next, we will prove a simple identity, which will allow us to attribute the
+variance \(\V[Y]\) to different inputs. Note that for any index set \(\vu\), we have
+
+\begin{equation}\begin{aligned}\label{eq:var-decomp}
+  \E[\V[Y|\mX_{\vu}]] + \V[\E[Y|\mX_{\vu}]] &= %
+  \E[\E[Y^2|\mX_{\vu}] - \cancel{ \E[Y|\mX_{\vu}]^2 }] \\
+  &+ \cancel{\E[\E[Y|\mX_{\vu}]^2]} - \E[\E[Y|\mX_{\vu}]]^2, \\
+  &= \E[Y^2] - \E[Y]^2, \\
+  &= \V[Y^2].
+\end{aligned}\end{equation}
+
+\noindent \Cref{eq:var-decomp} allows us to decompose the variance into two
+terms \emph{that we can interpret}. First, note that the expression
+\(\V[\E[Y|X_{\vu}]]\) first averages out all the variables \(\mX_{-\vu}\), then
+computes the variance due only to \(\mX_{\vu}\). We may use this expression with a
+singleton index set \(\vu=\{i\}\) to define the \emph{first-order sensitivity index}
+
+\begin{equation}\label{eq:sobol-first}
+  \underline{\tau}_{\{i\}}^2 = \frac{\V[\E[Y|X_i]]}{\V[Y]}.
+\end{equation}
+
+\noindent \Cref{eq:sobol-first} is bounded between \([0,1]\), and enables us to
+rank variables according to their importance. Practically
+\(\underline{\tau}_{\{i\}}^2\) tells us how much variance reduction we could
+expect if we were able to exactly freeze \(\mX_i\). We could use this information
+to inform which variables we should better characterize, in order to reduce
+variability.
+
+Note that we should \emph{not} use \(\underline{\tau}_{\{i\}}^2\) to perform dimension
+reduction; the first-order index does not account for interactions with other
+variables, so we may miss some important cross terms. Instead, we may consider
+the \emph{total-order sensitivity index}
+
+\begin{equation}\label{eq:sobol-total}
+  \overline{\tau}_{\{i\}}^2 = \frac{\E[\V[Y|X_{-\{i\}}]]}{\V[Y]} = %
+  1 - \frac{\V[\E[Y|X_{-\{i\}}]]}{\V[Y]}.
+\end{equation}
+
+\noindent \Cref{eq:sobol-total} is also bounded between \([0,1]\), and accounts
+for interactions between \(X_i\) and all other variables. We may interpret
+\eqref{eq:sobol-total} in at least two ways: As the variability in \(Y\) due to
+\(X_i\), averaged over all other inputs (middle expression), or as the complement
+of the variability arising from all the variables excluding \(X_i\) (right
+expression). If \(\overline{\tau}_{\{i\}}^2\) is zero or small, we can be
+confident that \(X_i\) contributes little to the variablility in \(Y\), neither
+through first-order nor interaction effects.
+
+In summary: The notation for the sensitivity indices is suggestive of their use.
+The first-order index \(\underline{\tau}_{\{i\}}^2\) can be thought of as a
+\emph{lower} bound; if it is large, then we can be confident that \(X_i\) is
+\emph{important}. In contrast the total-order index \(\overline{\tau}_{\{i\}}^2\) is an
+\emph{upper} bound; if it is small, then we can be confident that \(X_i\) is
+\emph{unimportant}.
+
+The next section gives a more formal treatment of Sobol indices coming from the
+functional ANOVA decomposition. It's optional reading.
+
+\subsection{Formulation}
+\label{sec:org4f0f02c}
+Sobol indices are based on the functional analysis of variance (ANOVA)
+decomposition.\footnote{For those with a statistics background, the functional ANOVA
+is a generalization of the multiple-way ANOVA to functions of multiple
+variables.} The textbook considers only first- and second-order terms; to
+provide some additional details, we'll follow the notation of Owen
+\cite{owen2013variance} and consider all higher-order terms.
+
+We start by assuming the input parameters are statistically independent, and
+uniform on \(\vx\in[0,1]^d\).\footnote{If the parameters are independent and
+well-behaved, we can map them to a uniform distribution. The assumption of
+independence is a common, but rather strong assumption. More on this later.} The
+functional ANOVA decomposition is given by
+
+\begin{equation}\label{eq:f-anova}
+  f(\vx) = \sum_{u\subseteq\cD} f_u(\vx),
+\end{equation}
+
+\noindent where \(u=\{j_1,\dots,j_{|u|}\}\) is an index set, \(|u|\) denotes
+cardinality,\footnote{The number of elements in a set.} and the \(f_u\) are defined
+recursively by
+
+\begin{equation}\begin{aligned}\label{eq:f-anova-rec}
+  f_u(\vx) &= \int\left(f(\vx)-\sum_{v\subset u} f_v(\vx)\right)d\vx_{-u}, \\
+  &= \int f(\vx)d\vx_{-u} - \sum_{v\subset u} f_v(\vx),
+\end{aligned}\end{equation}
+
+\noindent where \(\{v\subset u\}\) denotes all proper subsets \(v\) of \(u\), and
+\(-u=u^c\) is the complementary set. To unpack this statement, first note that
+\(f_{\varnothing}=\int f(\vx)d\vx=\mu\) is simply the mean of the function. The
+singletons \(f_{\{i\}}\) are called the \emph{main effects}; these retain variability
+in a single parameter. For example, for \(i=1\) we have
+
+\begin{equation}
+  f_{\{1\}}(x_1) = \int f(x_1,x_2,\dots,x_d)dx_2\cdots dx_d - f_{\varnothing}.
+\end{equation}
+
+\noindent The functions \(f_u\) with \(|u|>1\) describe the \emph{interactions} in
+isolation of the main effects, which are subtracted off. In this way, each \(f_u\)
+considers a separate component of the variability.
+
+The variance of the qoi is given by \(\sigma^2=\int(f(\vx)-\mu)^2d\vx\), and the
+ANOVA identity allows us to sum the separate contributions via
+
+\begin{equation}\label{eq:anova-idet}
+  \sigma^2 = \sum_u \sigma_u^2,
+\end{equation}
+
+\noindent where \(\sigma_u^2 = \int f_u(\vx)^2d\vx\) for \(u\neq\varnothing\), and
+\(\sigma_{\varnothing}^2=0\). \Cref{eq:anova-idet} is extremely useful, and
+enables us to apportion fractions of the variance to different combinations of
+the input parameters.
+
+Sobol \cite{sobol1993} introduced two sensitivity indices, defined by
+
+\begin{equation}\begin{aligned}\label{eq:sobol-indices}
+  \underline{\tau}_u^2 = &\sum_{v\subseteq u}\sigma_v^2, \\
+  \overline{\tau}_u^2 = &\sum_{v\cap u\neq\varnothing}\sigma_v^2. \\
+\end{aligned}\end{equation}
+
+\noindent The index \(\underline{\tau}_u^2\) is called the \emph{closed} sensitivity
+index, while \(\overline{\tau}_u^2\) is called the \emph{total} sensitivity index. In
+words, the closed index considers the set of parameters \(u\) and all its subsets.
+The total index considers \(u\), and any component which involves this subset in
+any way. One can show that \(\underline{\tau}_u^2\leq\overline{\tau}_u^2\), which
+is intuitive given the definition. These indices are usually studied in
+normalized form \(\underline{\tau}_u^2/\sigma^2\) and
+\(\overline{\tau}_u^2/\sigma^2\), which in light of \eqref{eq:anova-idet} can be
+interpreted as fractions of the total variance.
+
+These two indices are used in different ways. If the total index
+\(\overline{\tau}_u^2\) is small, it conclusively shows that the entire subset of
+variables \(u\) is unimportant. If the closed index \(\underline{\tau}_u^2\) is
+large, it conclusively shows the set of variables \(u\) cannot be neglected.
+
+\subsection{Computation}
+\label{sec:orgb2d1060}
+The Sobol indices are defined via \emph{expectations} \(\E[Y]=\E[f(\mX)]=\int
+f(\vx)\rho(\vx)d\vx\); integrals of a quantity against the random variable
+density. Evaluating these expressions directly requires evaluating a
+multi-dimensional integral; however, integration is subject to the curse of
+dimensionality! We started looking at sensitivity analysis to avoid this curse,
+so we need a different way.
+
+A simple way to approximate an expectation is via the \emph{Monte Carlo} method; this
+involves drawing independent samples from the distribution \(\vx_i\sim\rho\) for
+\(i=1,\dots,n\), and constructing the sample estimate
+
+\begin{equation}
+  \E[f(\mX)] \approx \frac{1}{n}\sum_{i=1}^n f(\vx_i).
+\end{equation}
+
+Naive estimation of the Sobol indices via Monte Carlo can be expensive, as they
+involve \emph{nested expectations} for a cost of \(O(n^2)\). Sobol \cite{sobol1993}
+introduced a trick for a less expensive (\(O(2n)\))\footnote{Yes, this is formally
+\(O(n)\); I'm just emphasizing the fact that we need to evaluate two points for
+each sample when using the hybrid point method.} estimate using \emph{hybrid} points.
+These hybrid points are denoted by \(\vy=\vx_u:\vz_{-u}\), where \(y_j=x_j\) for
+\(j\in u\), and \(y_j=z_j\) for \(j\not\in u\). We sample \(n\) pairs
+\(\vx_i,\vz_i\overset{\text{iid}}{\sim} U(0,1)^d\), and approximate
+
+\begin{equation}\begin{aligned}
+  \hat{\mu} &= \frac{1}{2n}\sum_{i=1}^n(f(\vx_i)+f(\vx_{i,u}:\vz_{i,-u})), \\
+  \hat{\underline{\tau}}_u^2 &= \frac{1}{n}\sum_{i=1}^n f(\vx_i)f(\vx_{i,u}:\vz_{i,-u})-\hat{\mu}^2, \\
+  \hat{\overline{\tau}}_u^2 &= \frac{1}{n}\sum_{i=1}^n(f(\vx_i)-f(\vx_{i,-u}:\vz_{i,u}))^2.
+\end{aligned}\end{equation}
+
+\subsection{Stochastic codes}
+\label{sec:org1e064c1}
+Note that in Monte Carlo, we draw samples \emph{randomly}, and average them to form
+our estimate. This implies that our results are themselves random. Unlike a
+deterministic code, which will return the same output for the same input, simply
+re-running a stochastic code with the same input will produce variable outputs;
+a single output of a stochastic process is called a \emph{realization}. Making
+statements about a random process based on a single realization is like rolling
+a die a single time, and using that single number to make statements about the
+entire random process. Thus, when studying the behavior of a stochastic code, it
+is not appropriate to study a single realization alone.
+
+As a concrete example, the quantity \(\hat{\mu}\) above is a sample estimate of
+the quantity \(\E[f(\vx)]\); we call \(\hat{\mu}\) a \emph{point estimate}. By itself, a
+point estimate gives no notion of how variable our estimate is. To that end, it
+is standard practice to construct a \emph{confidence interval} (CI) separate from our
+point estimate. A confidence interval is constructed at a desired \emph{confidence
+level} (e.g. \(95\%\) confidence), and provides a quantitative notion of
+variability. If our CI is very wide, it demonstrates a large uncertainty about
+our estimate; conversely, if our CI is very narrow, we are fairly certain about
+our estimate.\footnote{Note that formally, the confidence we have in these approaches
+is in the \emph{procedures}, and not the \emph{results} themselves. A \emph{method} for
+constructing a confidence interval has a particular confidence level. An
+\emph{interval} itself either contains the true value or does not.}
+
+One easy way to construct an \emph{approximate}\footnote{The precise definition of a
+confidence interval is framed in terms of \emph{probabilistic coverage}. An
+exact CI contains the true value being estimated with probability equal to the
+confidence level. An approximate interval may be biased, or have a different
+coverage probability, but should be constructed such that it asymptotically
+(\(n\to\infty\)) recovers the exact interval.} confidence interval is to make a
+\emph{normal approximation}. For this, we assume our quantity \(f(\vx)\sim
+N(\mu,\sigma^2)\) is distributed according to an unknown normal distribution. If
+this assumption were true, then we would have
+
+\begin{equation}\label{eq:est-dist}
+  \frac{1}{n}\sum_{i=1}^n f(\vx_i) \sim N(\mu,\sigma^2/n).
+\end{equation}
+
+\noindent If we knew \(\sigma^2\) exactly, we could easily construct a \(95\%\)
+confidence interval about our point estimate via
+\([\hat{\mu}-1.96\sigma/\sqrt{n},\hat{\mu}+1.96\sigma/\sqrt{n}]\).\footnote{The value
+\(1.96\) is the approximate value of the \(97.5\%\) point of the standard normal
+distribution; it effectively cuts off \(2.5\%\) on the right tail. Since we
+construct the interval symmetrically about the estimate, this adds up to \(5\%\)
+in the tails to capture the desired \(95\%\) confidence.} Note that the size of
+the interval shrinks at a rate \(1/\sqrt{n}\); it is for this reason that Monte
+Carlo is said to exhibit ``square-root convergence''.
+
+If \(n\) is large, we would be justified in using the `plug-in principle' --
+taking the variance estimate \(s^2=\frac{1}{n-1}\sum_{i=1}^n(f(\vx)-\hat{\mu})^2\)
+and substituting it for \(\sigma^2\). However if \(n\) is small, this will not be a
+good approximation. Furthermore, the normal assumption may be quite poor,
+depending on \(f\) and the true distribution of \(\vx\); if we assume
+\(\hat{\overline{\tau}}_u^2\) is normally distributed, this introduces the
+possibility of the index taking a negative value. This is clearly impossible for
+the true \(\overline{\tau}_u^2\), and CI constructed under the normal assumption
+at low sample counts could give unrealistic results.
+
+The normal approximation is endorsed by the \emph{central limit theorem}, which
+(roughly) states that the sum of \(n\) independent, identically distributed random
+variables tends towards a normal distribution as \(n\to\infty\).\footnote{With some
+additional requirements; the iid random variables must have finite mean and
+variance as well.} For large sample sizes \(n\), both \(\hat{\mu}\) and \(s^2\) will
+be very nearly normal, endorsing the simple CI procedure above.
+
+As a final note, when studying a simple problem for verification purposes, one
+can always re-run the procedure to build an ensemble of results.\footnote{One might
+be tempted to iterate the random seed while re-running the code. This can create
+some subtle issues. For more notes on numerical paranoia, see Chapter 3 of Art
+Owen's book on Monte Carlo.\cite{owen2013montecarlo}} We could compute the
+variance based on the approximately-normal \(\hat{\mu}\) estimates, and construct
+confidence intervals based on this quantity. However, since we are not re-using
+samples, but instead drawing new ones for each estimate, this is a more
+accurate, albeit more expensive, procedure.
+
+\subsection{Correlated parameters}
+\label{sec:org718c51b}
+The requirement of independent parameters is quite limiting, as many practical
+problems of interest exhibit correlations between inputs. There exist other
+sensitivities which overcome these concptual issues; for example, Shapley
+values. \cite{owen2017shapley} However, computational issues involved with
+correlated parameters still remain -- this is considered a hard problem, and is
+an active area of research.
+
 \end{document}
