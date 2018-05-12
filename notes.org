@@ -1,0 +1,169 @@
+A disorganized braindump
+
+* Overarching design
+From chatting with Gianluca (2018-04-18):
+
+Our goal: Put together a 'nice' texbook for this summer
+- 'What is uncertain and what is not?'
+
+1. Formulating your problem -- What question are you trying to answer?
+   Learn about your problem -- What do I know? What is uncertain? What is not?
+   Wrangle the input uncertainties (probabilistic or interval?) -- justify
+   Identify the model inadequacies -- How might these affect our conclusions?
+
+2. Propagate the uncertainty.
+
+3. So what?
+   Communicate results
+   Make decisions
+   Iterate
+
+Next time: Bring an outline
+
+Here's a more detailed process design for doing UQ in practice. The question for
+me to answer now is how to design a book that supports this? Is this the
+outline? Or a philosophy I need to provide with tools? Or something between?
+
+** Formulate the Problem
+  * Define the question to be answered
+    - What actions are being considered?
+    - Who are the stakeholders?
+    - What are the consequences?
+    - *What level of certainty is necessary to answer the question?*
+  * Learn about the problem
+    - I/O     - identify input & output variables
+    - Data    - inputs & outputs; summary statistics for rough bounds
+    - Physics - DA, relevant principles
+  * Model the problem
+    - Model data    - justify: ECDF, distributions, intervals, other
+    - Model physics - justify: coarse-graining, empirical fits
+
+** Wrangle the Uncertainty
+  * Forward (propagation)
+  * Inverse (calibration)
+
+** Formulate a Decision
+  * Address the question
+    - Answered?
+    - /Un-answerable?/
+  * Make decisions
+    - Take action
+    - Plan for revision
+  * *Iterate*
+
+* Process Example: Hierarchy of Beams
+** The Potted Plant
+The 'toy' beam problem, meant to stand in contrast with engine pylon design.
+
+*** Formulate the Problem
+Question: I want a cool cantilever for my garden; how should I design it?
+- Action: Spend reasonable $ for hanging plant
+- Stakeholders: Me, loved ones
+- Consequences: Falls on my head
+- Required Certainty: Want to be /very/ confident it will not fall on my head
+
+Learn:
+- Inputs:
+  - Beam sizing: width, height, length
+  - Material properties: yield stress
+  - Loads: loading mass, wind loading
+- Outputs:
+  - Mechanical stress: maximum stresses in beam
+- Physics:
+  - Structural mechanics: Beam bending
+  - Aerodynamics: Wind loading
+
+Model:
+- Data:
+  - Beam sizing: Deterministic, user-chosen
+  - Material properties: Supplier values
+  - Loads: FOS of 2
+- Physics
+  - Linear isotropic material
+  - Linear beam theory
+
+*** Wrangle the Uncertainty
+Forward propagation
+- 'Best estimate' stress using loads with FOS
+
+*** Formulate a Decision
+Size the beam based on 'best estimate' stresses
+
+** Engine Pylon -- Industry Standard
+The 'more real' beam problem, meant to stand in contrast with toy beam. Also
+illustrates potential pitfalls of uncritical engineering design (basis values).
+
+*** Formulate the Problem
+Question: How do I size a pylon to carry a GE-90 on a Boeing 747 to ensure
+  reliability while minimizing cost?
+- Action: Perform detailed sizing on pylon structure
+- Stakeholders: Design team, FAA, airline, passengers, etc.
+- Consequences: Hundreds to thousands of people die...
+- Required Certainty: Pr[Vehicle Family Failure] = 10^{-7}
+
+Learn:
+- Inputs:
+  - Structure geometry: Torque box sizing
+  - Material properties: Yield stress, elastic modulus, perhaps more
+  - Loads: Engine weight, gust loads, maneuver loads
+- Outputs:
+  - Mechanical: Stresses and deflections
+- Physics:
+  - Structural mechanics: Beam bending
+  - Aerodynamics: Wind and gust loading
+
+Model:
+- Data:
+  - Beam sizing: Mixed; deterministic with tolerances
+  - Material properties: Computed basis values (14 CFR 25.613)
+  - Loads: External load limit FOS of 1.5 (14 CFR 25.303)
+- Physics:
+  - Linear isotropic material
+  - Energy methods
+
+*** Wrangle the Uncertainty
+Forward propagation
+- 'Best estimate' stress using loads with FOS
+
+*** Formulate a Decision
+Size the beam based on 'best estimate' stresses
+BUT compare effective reliability as well...
+
+** Engine Pylon -- Reliable Design
+What does UQ add to the Engine Pylon problem?
+
+*** Formulate the Problem
+Question: How do I size a pylon to carry a GE-90 on a Boeing 747 to ensure
+  reliability while minimizing cost?
+- Action: Perform detailed sizing on pylon structure
+- Stakeholders: Design team, FAA, airline, passengers, etc.
+- Consequences: Hundreds to thousands of people die...
+- Required Certainty: Pr[Vehicle Family Failure] = 10^{-7}
+
+Learn:
+- Inputs:
+  - Structure geometry: Torque box sizing
+  - Material properties: Yield stress, elastic modulus, perhaps more
+  - Loads: Engine weight, gust loads, maneuver loads
+- Outputs:
+  - Mechanical: Stresses and deflections
+- Physics:
+  - Structural mechanics: Beam bending
+  - Aerodynamics: Wind and gust loading
+
+Model:
+- Data:
+  - Beam sizing: Mixed; deterministic with tolerances
+  - Material properties: Modeled distributions
+  - Loads: Modeled distributions
+- Physics:
+  - Linear isotropic material
+  - Energy methods
+
+*** Wrangle the Uncertainty
+Use simple monte carlo to estimate distribution for critical stresses.
+
+*** Formulate a Decision
+Use output distributions to define empirical margin for design.
+
+* Process Example: Columbia Foam Strike (CASE STUDY)
