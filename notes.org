@@ -1,5 +1,17 @@
 A disorganized braindump
 
+* Title
+UQ Primer is woefully generic; but serves as a decent codename.
+
+"Managing Uncertainty" captures some of the sentiment, but is also
+generic, and probably a bit misleading
+
+"Wrangling Uncertainty" captures the sentiment /and/ the content a bit better,
+but is perhaps too combative.
+
+"*Embracing Uncertainty*" frames the sentiment in a way I really like!
+- In a way, /uncertainty is exciting/
+
 * Overarching design
 From chatting with Gianluca (2018-04-18):
 
@@ -50,6 +62,22 @@ outline? Or a philosophy I need to provide with tools? Or something between?
     - Take action
     - Plan for revision
   * *Iterate*
+
+* UQ Tools for the Process
+Formulate the Problem:
+- Data: Summary / robust statistics
+- Model data: Distributions
+- Modeling: Regression
+- Model inquiry: Sensitivity analysis
+
+Wrangle the Uncertainty:
+  * Curse of Dimensionality
+  * Forward (propagation)
+    - Non-intrusive strategies (MC, qMC, PCE + quadrature)
+  * Inverse (calibration)
+    - Bayesian inference
+
+Formulate a Decision:
 
 * Process Example: Hierarchy of Beams
 ** The Potted Plant
@@ -138,7 +166,7 @@ Question: How do I size a pylon to carry a GE-90 on a Boeing 747 to ensure
 - Action: Perform detailed sizing on pylon structure
 - Stakeholders: Design team, FAA, airline, passengers, etc.
 - Consequences: Hundreds to thousands of people die...
-- Required Certainty: Pr[Vehicle Family Failure] = 10^{-7}
+- Required Certainty: Pr[Vehicle Family Failure] = 10^{-7} at CL 99.9%
 
 Learn:
 - Inputs:
@@ -167,3 +195,22 @@ Use simple monte carlo to estimate distribution for critical stresses.
 Use output distributions to define empirical margin for design.
 
 * Process Example: Columbia Foam Strike (CASE STUDY)
+* Ideas for the Classroom
+Some thoughts on how to structure and focus lectures.
+
+** Case Studies
+I want students to come away from this class with a bit of paranoia about
+uncertainty. To help encourage this, I'll present a number of case studies that
+demonstrate how a failure to address uncertainty can contribute to dramatic
+failure. Some examples include:
+
+- The Columbia Foam Strike
+
+  Boeing contractors analyzed the available data using a tool far outside its
+  calibrated parameter range. Their report was a mixture of encouraging results
+  with buried uncertainties. A better appreciation of model inadequacies and
+  uncertainty in the result may have led to a different decision sequence.
+
+- Design with Basis Values
+
+  Basis values are incompatible with design for reliability!

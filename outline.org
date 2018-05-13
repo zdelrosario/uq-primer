@@ -4,6 +4,8 @@ UQ-Primer: Outline
 ** Purpose
 ** How to use this book
 * A Demonstration
+** The Process
+
 ** UQ in Action
 - Worked example interleaved with concepts
 - Sources of uncertainty
