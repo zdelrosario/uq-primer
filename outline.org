@@ -3,40 +3,56 @@ UQ-Primer: Outline
 * Introduction
 ** Purpose
 ** How to use this book
-* A Demonstration
-** The Process
+** Acknowledgements
 
-** UQ in Action
-- Worked example interleaved with concepts
-- Sources of uncertainty
-- Consequences of (mis-)managing uncertainty
+* A Demonstration
+** A Worked Example
+- Preview of The Process
+
+** The Process
+- Formulate the Problem
+- Wrangle the Uncertainty
+- Take Action
+
 ** Summary
 - Short summary of key concepts
-* Exploration
-** Estimation
-- Summary Statistics
-- Confidence Intervals
-** Sensitivity Analysis
-*** Local
-- Purpose
-- Finite Differences
-- Adjoint
-*** Global
-- Purpose
-- Morris Screening
-- Active Subspaces
-- Sobol Indices
-* Propagation
+
+* Formulate
+** Data
+*** Summaries
+- Summary and robust statistics
+*** Distributions
+- Choosing and fitting
+
+** Models
+*** Regression
+- Linear regression
+- Gaussian processes
+*** Sensitivity
+- Local
+- Global
+
+** Questions
+- What kinds of questions might we ask?
+
+* Wrangle
+** Dimensionality
+- An introduction to the curse
+
 ** Forward
 - Monte Carlo
-- Quadrature
 - Delta Method
+- Quadrature
+
 ** Reverse
 - Frequentist Estimation
 - Bayesian Calibration
-* Design
-** Robust Design
-** Reliable Design
+
+* Act
+** Design
+** Communicate
+** Iterate
+
 * Appendix
 ** Crash Course: Probability and Statistics
 ** Crash Course: Quadrature and Approximation

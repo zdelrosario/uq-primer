@@ -73,11 +73,16 @@ Formulate the Problem:
 Wrangle the Uncertainty:
   * Curse of Dimensionality
   * Forward (propagation)
-    - Non-intrusive strategies (MC, qMC, PCE + quadrature)
+- Non-intrusive strategies (MC, qMC, PCE + quadrature)
   * Inverse (calibration)
-    - Bayesian inference
+- Bayesian inference
 
-Formulate a Decision:
+Take Action:
+  * Design
+  * Communicate
+  * Iterate
+
+What 'tools' do we have for action?!
 
 * Process Example: Hierarchy of Beams
 ** The Potted Plant
@@ -214,3 +219,21 @@ failure. Some examples include:
 - Design with Basis Values
 
   Basis values are incompatible with design for reliability!
+* The Worked Example
+Saltelli et al. (2004) begin their Primer with a worked example. While I like
+the fact that they start with something extremely practical (a worked example),
+they iteratively increase model complexity in order to introduce different
+techniques. I think this makes sense for their context of using SA in model
+building.
+
+However, our aim is to introduce the process of doing UQ to support action; I
+think our worked example should go 'end-to-end': Start with a problem
+formulation, wrangle the uncertainty, and take an action. This means we need one
+simple-but-compelling example to kick off the primer. It should be /very/
+carefully chosen to demonstrate all the features we want to highlight.
+
+So this example should outline the entire process, but highlight particular
+features, which we'll need to pick carefully.
+
+Features:
+- ???
