@@ -209,6 +209,10 @@ uncertainty. To help encourage this, I'll present a number of case studies that
 demonstrate how a failure to address uncertainty can contribute to dramatic
 failure. Some examples include:
 
+- Global Warming and Sensitivity Analysis
+
+  'Global wobble' example!
+
 - The Columbia Foam Strike
 
   Boeing contractors analyzed the available data using a tool far outside its
@@ -219,6 +223,7 @@ failure. Some examples include:
 - Design with Basis Values
 
   Basis values are incompatible with design for reliability!
+
 * The Worked Example
 Saltelli et al. (2004) begin their Primer with a worked example. While I like
 the fact that they start with something extremely practical (a worked example),
