@@ -19,8 +19,13 @@ UQ-Primer: Outline
 
 * Formulate
 ** Data
+- Types of data: Physical and Simulation
+
 *** Summaries
-- Summary and robust statistics
+- Central tendency: mean and median
+- Variability: standard deviation and iqr
+- Skepticism: Outliers, boxplots
+
 *** Distributions
 - Choosing and fitting
 
@@ -33,7 +38,7 @@ UQ-Primer: Outline
 - Global
 
 ** Questions
-- What kinds of questions might we ask?
+- Do I trust my data?
 
 * Wrangle
 ** Dimensionality

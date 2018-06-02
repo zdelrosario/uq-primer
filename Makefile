@@ -1,6 +1,7 @@
 filename=primer
 name1=ch1-introduction
-name2=ch2-sensitivity
+name2=ch2-demonstration
+name3=ch3-exploration
 
 main:
 	pdflatex -aux-directory=aux -output-directory=aux ${filename}
@@ -18,8 +19,15 @@ clean:
 
 ch1:
 	pdflatex -aux-directory=aux -output-directory=aux tex/${name1}
-
 	mv aux/${name1}.pdf .
+
+ch2:
+	pdflatex -aux-directory=aux -output-directory=aux tex/${name2}
+	mv aux/${name2}.pdf .
+
+ch3:
+	pdflatex -aux-directory=aux -output-directory=aux tex/${name3}
+	mv aux/${name3}.pdf .
 
 links:
 	cp -f ~/Git/zachs_macros/zachs_macros.tex ./tex/zachs_macros.tex

@@ -1,0 +1,88 @@
+\documentclass[../primer.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Formulate}
+%% --------------------------------------------------
+
+\section{Data}
+%% --------------------------------------------------
+Data are our quantitative anchor to reality.\footnote{One could
+  \href{http://phdcomics.com/comics.php?f=1816}{make a case} for data in the
+  plural (data are facts) or in the singular (data is information). We will use
+  the former.} They allow us to make numerical statements about the physical
+world, and thus are invaluable to solving problems. However, data are not
+infallible -- one must have both skepticism and appreciation of variability in
+order to use data effectively. We will consider two kinds of data in this
+primer:
+
+\textbf{Physical Data} are comprised of measurements of the physical world. The
+vast majority of physical measurements involve the comparison of some physical
+quantity of interest against a defined standard; this is most obviously seen in
+simple measurements of length, where one can compare a meter stick against a
+physical object. More complicated measurements involve some quantity which
+cannot be directly measured, but can instead be obtained through a
+transformation based on a physical model. An example: It would be challenging to
+measure pressure directly. However, we can build a barometer out of a sealed
+body with fluid, which essentially converts pressure changes into length
+changes. Carrying out the transformation from measured lengths to pressures
+requires an appeal to hydrostatics, which carries with it some particular
+assumptions.
+
+Variation in physical data arises from \emph{unknown variables}, what we
+sometimes call \emph{lurking variables}.\cite{box1966} In the barometer example
+above, suppose that our instrument experienced both temperature and pressure
+changes. If our barometer used a fluid whose density changed with the pressure,
+\emph{and if we did not account for the temperature changes}, then even at a
+constant external pressure, we might measure fluctuating values. In this case,
+we would call temperature a lurking variable. Detecting and controlling lurking
+variables is challenging, but necessary to improve physical
+measurements.\cite{joiner1981,delRosario2017lurking}
+
+Luckily, the variations in physical data tend to exhibit `nice' properties, and
+so often lend themselves to statistical characterization. For this reason, the
+tools of probability and statistics are very well-suited to tackling physical
+data.
+
+\textbf{Simulation Data} are the result of models. They are connected to reality
+only insofar as their generating model is connected to reality. However,
+simulation data has a huge advantage over physical data; one can use simulation
+data to make quantitative statements about reality \emph{without physical
+  testing}. This can be useful for overcoming constraints of cost (as with
+aircraft testing) or legality (as with nuclear weapons). Perhaps one of the
+greatest triumphs of simulation is human spaceflight. Using little more than
+Newton's laws, early pioneers of spaceflight managed to compute trajectories
+that sent astronauts to the moon and back -- physical data alone could not have
+stood up this effort.
+
+Of course, we should not oversell the value of simulation. The Apollo program
+was built on top of the experience and physical data gathered from Project
+Gemini, and before that Mercury. Models themselves are built from studying
+physical data, and always carry some assumptions -- assumptions which may be
+disconnected from reality. While physical data are subject to variability,
+models are often subject to \emph{discrepancy}, often modeled as a difference
+between a model prediction and the 'true' value that would arise from a perfect
+measurement in physical reality.\cite{higdon2004calibration-prediction}
+
+Despite the fundamental difference between variability and discrepancy,
+discrepancy is often modeled using probability and statistics as
+well.\cite{kennedy2001bayesian,higdon2004calibration-prediction} As I am writing
+this sentence, there is an open debate about the suitability of this approach.
+Rather than wade into this argument, we will accept the use of probability for
+discrepancy as normative, and proceed to treat both physical and simulation data
+with the same toolkit.
+
+\subsection{Summaries}
+%% -------------------------
+
+\subsection{Distributions}
+%% -------------------------
+
+\section{Models}
+%% --------------------------------------------------
+
+\section{Questions}
+%% --------------------------------------------------
+
+
+\end{document}
