@@ -72,8 +72,48 @@ Rather than wade into this argument, we will accept the use of probability for
 discrepancy as normative, and proceed to treat both physical and simulation data
 with the same toolkit.
 
+For what follows, we will consider a set of data $X_i\in\R{}$ for $i =
+1,\dots,n$. These data are measurements of some true underlying value $X_i = Y +
+\epsilon_i$, where the $\epsilon_i$ are errors arising either from lurking
+variables or discrepancies.
+
 \subsection{Summaries}
 %% -------------------------
+\textbf{Central tendency} is a key concept with a rather descriptive name. A
+measure of central tendency is a single number which describes the `location' or
+`typical value' of data. There are two important measures of central tendency:
+the \emph{mean} and the \emph{median}.
+
+The \emph{mean} (average) is defined via
+
+\begin{equation} \label{eq:def-mean}
+  \overline{X} = \frac{1}{n}\sum_{i=1}^n X_i.
+\end{equation}
+
+\noindent In terms of the true value, the mean is given by $\overline{X} = Y +
+\frac{1}{n}\sum_{i=1}^n \epsilon_i$. While the mean has a number of useful
+statistical properties, it has an intuitive justification: In the case where the
+errors $\epsilon_i$ are `evenly' distributed about zero, they will cancel to
+yield the true value $Y$.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.85\textwidth]{./images/michelson_scatter}
+
+  \caption{Albert Michelson's 1880 speed-of-light measurements. The mean
+    (pictured as a red line) is appropriate as a nominal value.}
+\end{figure}
+
+While the mean is a sensible measure of central tendency, it does have some
+weaknesses. We will illustrate these by contrasting against another measure of
+central tendency.
+
+\bigskip
+The \emph{median}
+
+\textbf{Variability}
+
+\textbf{Skepticism}
 
 \subsection{Distributions}
 %% -------------------------

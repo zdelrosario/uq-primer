@@ -4,7 +4,7 @@ name2=ch2-demonstration
 name3=ch3-exploration
 
 main:
-	pdflatex -aux-directory=aux -output-directory=aux ${filename}
+	pdflatex -aux-directory=aux --shell-escape -output-directory=aux ${filename}
 	bibtex aux/${filename}
 	pdflatex -aux-directory=aux -output-directory=aux ${filename}
 	pdflatex -aux-directory=aux -output-directory=aux ${filename}
