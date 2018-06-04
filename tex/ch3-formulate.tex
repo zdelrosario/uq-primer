@@ -79,12 +79,20 @@ variables or discrepancies.
 
 \subsection{Summaries}
 %% -------------------------
+Working directly with data is challenging. Often, there is simply too much
+information to make sense of manually. To that end, we often employ
+\emph{summaries} -- single numbers which describe a set of data.\footnote{These
+  values are more formally called \emph{summary statistics}.} There are
+different kinds of summaries, which serve different purposes.
+
 \textbf{Central tendency} is a key concept with a rather descriptive name. A
 measure of central tendency is a single number which describes the `location' or
-`typical value' of data. There are two important measures of central tendency:
-the \emph{mean} and the \emph{median}.
+`typical value' of data. We will discuss two important measures of central
+tendency: the \emph{mean} and the \emph{median}.
 
-The \emph{mean} (average) is defined via
+The \emph{mean}\marginnote{\underline{Definition:} The \emph{sample mean} is the
+  sum of all the data in a set, divided by the number of samples. It is a
+  measure of central tendency.} is defined via
 
 \begin{equation} \label{eq:def-mean}
   \overline{X} = \frac{1}{n}\sum_{i=1}^n X_i.
@@ -109,11 +117,36 @@ weaknesses. We will illustrate these by contrasting against another measure of
 central tendency.
 
 \bigskip
-The \emph{median}
+The \emph{median}\marginnote{\underline{Definition:} The \emph{sample median} is
+  the middle value of a dataset.}
 
-\textbf{Variability}
+\textbf{Spread}
+
+The \emph{standard deviation}\marginnote{\underline{Definition:}}
+
+The \emph{interquartile range}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.85\textwidth]{./images/michelson_ci}
+
+  \caption{Albert Michelson's 1880 speed-of-light measurements. The standard
+    deviation is used to construct an interval around the data which captures a
+    large fraction of the data. We will introduce the notion of \emph{confidence
+      intervals} later when we discuss distributions.}
+\end{figure}
 
 \textbf{Skepticism}
+
+\emph{Outliers}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.85\textwidth]{./images/michelson_boxplot}
+
+  \caption{Albert Michelson's 1880 speed-of-light measurements. The data are
+    presented as a boxplot, which highlights a number of potential outliers.}
+\end{figure}
 
 \subsection{Distributions}
 %% -------------------------
