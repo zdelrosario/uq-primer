@@ -82,19 +82,23 @@ variables or discrepancies.
 Working directly with data is challenging. Often, there is simply too much
 information to make sense of manually. To that end, we often employ
 \emph{summaries} -- single numbers which describe a set of data.\footnote{These
-  values are more formally called \emph{summary statistics}.} There are
-different kinds of summaries, which serve different purposes.
+  values are more formally called \emph{summary statistics}. Since we are
+  describing data here, really we should call the following \emph{sample}
+  estimates, in contrast with population values. We will make this distinction
+  below when discussing distributions.} There are different kinds of summaries,
+which serve different purposes. We will introduce different features of data we
+might seek to represent, and some summaries that support them.
 
 \textbf{Central tendency} is a key concept with a rather descriptive name. A
 measure of central tendency is a single number which describes the `location' or
 `typical value' of data. We will discuss two important measures of central
 tendency: the \emph{mean} and the \emph{median}.
 
-The \emph{mean}\marginnote{\underline{Definition:} The \emph{sample mean} is the
-  sum of all the data in a set, divided by the number of samples. It is a
+The \emph{mean}\marginnote{\underline{Concept:} The \emph{sample mean} is the
+  sum of all the data in a set, divided by the number of samples. It is a common
   measure of central tendency.} is defined via
 
-\begin{equation} \label{eq:def-mean}
+\begin{equation} \label{eq:def-sample-mean}
   \overline{X} = \frac{1}{n}\sum_{i=1}^n X_i.
 \end{equation}
 
@@ -103,6 +107,8 @@ The \emph{mean}\marginnote{\underline{Definition:} The \emph{sample mean} is the
 statistical properties, it has an intuitive justification: In the case where the
 errors $\epsilon_i$ are `evenly' distributed about zero, they will cancel to
 yield the true value $Y$.
+
+(Example of using the mean to define a nominal speed of light.)
 
 \begin{figure}[!ht]
   \centering
@@ -117,24 +123,70 @@ weaknesses. We will illustrate these by contrasting against another measure of
 central tendency.
 
 \bigskip
-The \emph{median}\marginnote{\underline{Definition:} The \emph{sample median} is
-  the middle value of a dataset.}
+The \emph{median}\marginnote{\underline{Concept:} The \emph{sample median} is
+  the middle value of a dataset. It is a robust measure of central tendency.} is
+the `middle' value of a dataset, most easily described through an example.
+Suppose our data is given by $\{5, 3, 6, -1, 4\}$. We find the median by
+ordering the data $\{-1, 3, 4, 5, 6\}$ and selecting the middle number; in this
+case $4$. In the case where we have an even number of data points, we average
+the middle two values.\footnote{e.g. $\{5, 3, 6, -1\}$ yields $\f12(3+5) = 4$}
 
-\textbf{Spread}
+More generally, we can understand the median in terms of \emph{order
+  statistics}, which are simply the ordered values of a dataset. Given our data
+$X_i$, the order statistics are defined by
 
-The \emph{standard deviation}\marginnote{\underline{Definition:}}
+\begin{equation} \label{eq:def-order}
+  X_{(1)} \leq X_{(2)} \leq \dots \leq X_{(n-1)} \leq X_{(n)}.
+\end{equation}
 
-The \emph{interquartile range}
+The median is then given by $X_{(n/2)}$, which is simply notation for the middle
+value. A definition which automatically handles the $n$ odd case is given by
+
+\begin{equation} \label{eq:def-sample-median}
+  \tilde{X} = \f12\left(X_{(\floor{n/2})} + X_{(\ceil{n/2})}\right).
+\end{equation}
+
+(Robustness example using income data)
+
+\textbf{Spread} is another apt term for a property of data. The spread is
+synonymous with the variability of the data. If our data are thought to be
+corrupted measurements of a true value, then spread can be thought of as the
+inverse of precision. Similar to central tendency, we will introduce two notions
+of spread.\footnote{In fact, in statistics lingo, \emph{precision} is inverse
+  variance.}
+
+The \emph{standard deviation}\marginnote{\underline{Concept:} The \emph{sample
+    variance} is the mean-squared distance of the data from its mean. The
+  \emph{sample standard deviation} is its square root.} is a common measure of
+spread. It is defined via
+
+\begin{equation} \label{eq:def-sample-sd}
+  S = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (X_i - \overline{X})^2}.
+\end{equation}
+
+Note that we must first compute the sample mean $\overline{X}$ before we can
+compute $S$. Somewhat mysteriously, the denominator for $S$ is $n-1$, not $n$.
+This is a subtle point that will have to wait until we introduce distributions.
+For now, it will suffice to say that for small $n$, this factor\footnote{called
+  the \emph{Bessel correction}} is necessary to ensure an accurate
+estimate.\footnote{A bit more detail: Using the sample mean $\overline{X}$
+  within $S$ causes us to loose a \emph{degree of freedom} -- a notion of
+  information available from the data. We account for this `double use' of
+  information through the Bessel correction.}
+
+(Example using sd to define a CI for the speed of light.)
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.85\textwidth]{./images/michelson_ci}
 
   \caption{Albert Michelson's 1880 speed-of-light measurements. The standard
-    deviation is used to construct an interval around the data which captures a
-    large fraction of the data. We will introduce the notion of \emph{confidence
-      intervals} later when we discuss distributions.}
+    deviation is used to construct an interval which captures a large fraction
+    of the data. We will introduce the notion of \emph{confidence intervals}
+    later when we discuss distributions.}
 \end{figure}
+
+The \emph{interquartile range}
 
 \textbf{Skepticism}
 
