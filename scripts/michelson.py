@@ -12,41 +12,47 @@ filename_scatter = "../images/michelson_scatter." + ext
 filename_ci      = "../images/michelson_ci." + ext
 
 # Read the data
-df       = pd.read_csv(filename_data)
+df       = pd.read_csv(filename_data, header = 5)
 m, n     = df.shape
 
-kps_mean   = np.mean(df["kps_air"])
-kps_median = np.median(df["kps_air"])
-kps_max    = np.max(df["kps_air"])
-kps_min    = np.min(df["kps_air"])
+speed_mean   = np.mean(df["speed"])
+speed_median = np.median(df["speed"])
+speed_max    = np.max(df["speed"])
+speed_min    = np.min(df["speed"])
 
-kps_var   = np.var(df["kps_air"])
-kps_sd    = np.sqrt(kps_var)
+speed_var   = np.var(df["speed"])
+speed_sd    = np.sqrt(speed_var)
 
 # Mean
 plt.figure()
-plt.plot([-0.35, +0.35], [kps_mean, kps_mean], "r--", label = "mean")
-plt.plot([0] * m, df["kps_air"], "k.")
-plt.axis([-1, +1, kps_min * 0.9999, kps_max * 1.0001])
-plt.xticks([0], ["c"])
+plt.plot([-0.35, +0.35], [speed_mean, speed_mean], "r--", label = "mean")
+plt.plot([0] * m, df["speed"], "k.")
+plt.axis([-1, +1, speed_min * 0.9999, speed_max * 1.0001])
+
+plt.xticks([0], ["Speed of Light"])
+plt.ylabel("Millions of Meters per Second")
 
 plt.savefig(filename_scatter)
 plt.close()
 
 # CI
 plt.figure()
-plt.plot([-0.5, +0.5], [kps_mean - 1.96 * kps_sd, kps_mean - 1.96 * kps_sd], "r-")
-plt.plot([-0.5, +0.5], [kps_mean + 1.96 * kps_sd, kps_mean + 1.96 * kps_sd], "r-")
-plt.plot([0] * m, df["kps_air"], "k.")
-plt.axis([-1, +1, kps_min * 0.9999, kps_max * 1.0001])
+plt.plot([-0.5, +0.5], [speed_mean - 1.96 * speed_sd, speed_mean - 1.96 * speed_sd], "r-")
+plt.plot([-0.5, +0.5], [speed_mean + 1.96 * speed_sd, speed_mean + 1.96 * speed_sd], "r-")
+plt.plot([0] * m, df["speed"], "k.")
+plt.axis([-1, +1, speed_min * 0.9999, speed_max * 1.0001])
+
 plt.xticks([0], ["c"])
+plt.ylabel("Millions of Meters per Second")
 
 plt.savefig(filename_ci)
 plt.close()
 
 # Boxplot
 plt.figure()
-plt.boxplot(df["kps_air"], labels = ["c"])
+
+plt.boxplot(df["speed"], labels = ["c"])
+plt.ylabel("Millions of Meters per Second")
 
 plt.savefig(filename_boxplot)
 plt.close()
