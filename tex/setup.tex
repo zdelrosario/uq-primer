@@ -4,9 +4,10 @@
 \usepackage{units}
 \usepackage{makeidx}
 \usepackage{lettrine}                 % For  \lettrine{}
-\usepackage{cleveref}                 % For \Cref{}
 \usepackage{amssymb}                  % For \circledast
 \usepackage{cancel}                   % For \cancel{}
+\input{./tex/zachs_macros}            % Loads amsmath; load cleveref after
+\usepackage{cleveref}                 % For \Cref{}
 
 \usepackage{hyperref}
 \hypersetup{
@@ -27,7 +28,6 @@
 
 \usepackage{subfiles}
 
-\input{./tex/zachs_macros}
 
 %%% Macros
 \newcommand{\monthyear}{%
