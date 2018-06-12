@@ -1,0 +1,107 @@
+---
+title: "Census Bureau Data: Income Percentiles"
+author: "Zach"
+date: 2018-06-11
+output:
+  github_document:
+    toc: true
+    toc_depth: 6
+---
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(readxl)
+
+### Parameters --------------------------------------------------
+## File paths
+file.census <- "~/Documents/data/census_bureau/hinc06.xls"
+## 'Largest' income
+hi.max <- 500000000L
+```
+
+First, let's load and tidy the census bureau income data.
+[Link](https://www.census.gov/data/tables/time-series/demo/income-poverty/cps-hinc/hinc-06.2016.html)
+to the original data.
+
+```{r load.data}
+## Load and tidy the data
+df.census <-
+    read_excel(
+        file.census,
+        skip = 9,
+        col_names = FALSE
+    ) %>%
+    select(
+        income.bracket = X__1,
+        count = X__2,
+        dollars = X__3,
+        standard.error = X__4
+    ) %>%
+    separate(
+        income.bracket,
+        into = c("lo", "hi"),
+        sep = "\\sto\\s"
+    )
+## Fix the leading row
+df.census$hi[[1]] <- df.census$lo[[1]]
+df.census$lo[[1]] <- 0
+## Fix the trailing row
+df.census$hi[[dim(df.census)[1]]] <- hi.max
+
+df.census <-
+    df.census %>%
+    mutate(
+        lo   = parse_number(lo),
+        hi   = parse_number(hi),
+        wid  = hi - lo,
+        dens = count / wid
+    ) %>%
+    rowid_to_column("ID")
+```
+
+Next, let's compute some summaries.
+
+```{r summaries}
+income.mean <-
+    df.census %>%
+    weighted.mean(x = .$dollars, w = .$count)
+
+income.median <-
+    df.census %>%
+    mutate(
+        val = cumsum(dens) / sum(dens),
+        dis = abs(val - 0.5)
+    ) %>%
+    filter(min_rank(dis) <= 1) %>%
+    pull(dollars)
+```
+
+Finally, let's visualize the distribution of incomes.
+
+```{r plot.data}
+df.census %>%
+    filter(hi < hi.max) %>%
+    ggplot(aes(lo, dens)) +
+    geom_segment(
+        aes(xend = hi, yend = lead(dens))
+    ) +
+    geom_vline(
+        aes(xintercept = income.mean, linetype = "Mean"),
+        show.legend = TRUE,
+        color = "red"
+    ) +
+    geom_vline(
+        aes(xintercept = income.median, linetype = "Median"),
+        show.legend = TRUE,
+        color = "black"
+    ) +
+    scale_linetype_manual(
+        name = NULL,
+        values = c(2, 2),
+        guide = guide_legend(override.aes = list(color = c("red", "black")))
+    ) +
+    labs(
+        x = "Income",
+        y = "Density"
+    )
+```
