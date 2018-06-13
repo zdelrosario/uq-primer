@@ -79,22 +79,27 @@ variables or discrepancies.
 
 \subsection{Summaries}
 %% -------------------------
+\marginnote{These summary values are more formally called \emph{summary
+    statistics}. Since we are describing data here, really we should call the
+  following \emph{sample} estimates, in contrast with population values. We will
+  make this distinction below when discussing distributions.}
+
 Working directly with data is challenging. Often, there is simply too much
 information to make sense of manually. To that end, we often employ
-\emph{summaries} -- single numbers which describe a set of data.\footnote{These
-  values are more formally called \emph{summary statistics}. Since we are
-  describing data here, really we should call the following \emph{sample}
-  estimates, in contrast with population values. We will make this distinction
-  below when discussing distributions.} There are different kinds of summaries,
-which serve different purposes. We will introduce different features of data we
-might seek to represent, and some summaries that support them.
+\emph{summaries} -- single numbers which describe a set of data. There are
+different kinds of summaries, which serve different purposes. We will introduce
+different features of data we might seek to represent, and some summaries that
+support them.
+
+\marginnote{\underline{Concept:} \emph{Central tendency} is a notion of where a
+  distribution or data are located.}
 
 \textbf{Central tendency} is a key concept with a rather descriptive name. A
 measure of central tendency is a single number which describes the `location' or
 `typical value' of data. We will discuss two important measures of central
 tendency: the \emph{mean} and the \emph{median}.
 
-The \emph{mean}\marginnote{\underline{Concept:} The \emph{sample mean} is the
+The \emph{mean}\marginnote{\underline{Definition:} The \emph{sample mean} is the
   sum of all the data in a set, divided by the number of samples. It is a common
   measure of central tendency.} is defined via
 
@@ -134,13 +139,17 @@ weaknesses. We will illustrate these by contrasting against another measure of
 central tendency.
 
 \bigskip
-The \emph{median}\marginnote{\underline{Concept:} The \emph{sample median} is
+The \emph{median}\marginnote{\underline{Definition:} The \emph{sample median} is
   the middle value of a dataset. It is a robust measure of central tendency.} is
 the `middle' value of a dataset, most easily described through an example.
 Suppose our data is given by $\{5, 3, 6, -1, 4\}$. We find the median by
 ordering the data $\{-1, 3, 4, 5, 6\}$ and selecting the middle number; in this
 case $4$. In the case where we have an even number of data points, we average
 the middle two values.\footnote{e.g. $\{5, 3, 6, -1\}$ yields $\f12(3+5) = 4$}
+
+\marginnote{Perhaps unsurprisingly, there is no universal agreement on a
+  definition for the sample median. We will adopt Tukey's
+  definition,\cite{tukey1977exploratory} but know that there are others.}
 
 More generally, we can understand the median in terms of \emph{order
   statistics}, which are simply the ordered values of a dataset. Given our data
@@ -164,6 +173,11 @@ median using data from the US Census Bureau. A small number of very large values
 (sometimes called \emph{outliers}) can significantly impact the mean. In these
 cases, the median can be a better measure of central tendency.
 
+This being said, the mean is a more \emph{efficient} (less variable) estimator
+of central tendency than the median, under particular
+conditions.\cite{mosteller1977data} As we'll recommend below, one should use
+multiple techniques in practice, at least when investigating a new set of data.
+
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.85\textwidth]{./images/income}
@@ -179,6 +193,9 @@ cases, the median can be a better measure of central tendency.
   \label{fig:income-median}
 \end{figure}
 
+\marginnote{\underline{Concept:} \emph{Spread} is a notion of how disperse a
+  distribution or data are.}
+
 \textbf{Spread} is another apt term for a property of data. The spread is
 synonymous with the variability of the data. If our data are thought to be
 corrupted measurements of a true value, then spread can be thought of as the
@@ -186,7 +203,7 @@ inverse of precision. Similar to central tendency, we will introduce two notions
 of spread.\footnote{In fact, in statistics lingo, \emph{precision} is inverse
   variance.}
 
-The \emph{standard deviation}\marginnote{\underline{Concept:} The \emph{sample
+The \emph{standard deviation}\marginnote{\underline{Definition:} The \emph{sample
     variance} is the mean-squared distance of the data from its mean. The
   \emph{sample standard deviation} is its square root. Both are measures of
   spread.} is a common measure of spread. It is defined via
@@ -207,16 +224,15 @@ estimate.\footnote{A bit more detail: Using the sample mean $\overline{X}$
 
 One may use the standard deviation to construct ranges, rather than single
 values.\marginnote{A wider interval is less trustworthy than a narrow one; there
-  are more true values that are compatible with the available data. One can use
-  a confidence interval to draw more robust conclusions; if the entire interval
-  is compatible with some conclusion -- if the interval itself falls within some
-  acceptable range -- then this enables one to draw a more robust conclusion.} A
-common construction is a \emph{confidence interval}, which is a simple idea with
-some subtle points. Essentially, if there exists a true value -- like $Y$ --
-then a confidence interval will include that value at some known
-\emph{confidence level}, often $95\%$ or $99\%$. An interval gives more
-information than a mean alone; in addition to location, it conveys the quality
-of an estimate, based on its width.
+  are more true values that are compatible with the available data. However, if
+  the entire interval is compatible with some conclusion -- if the interval
+  itself falls within some acceptable range -- then this enables one to draw a
+  more robust conclusion.} A common construction is a \emph{confidence
+  interval}, which is a simple idea with some subtle points. Essentially, if
+there exists a true value -- like $Y$ -- then a confidence interval will include
+that value at some known \emph{confidence level}, often $95\%$ or $99\%$. An
+interval gives more information than a mean alone; in addition to location, it
+conveys the quality of an estimate, based on its width.
 
 Figure \ref{fig:michelson-ci} depicts a $95\%$ confidence interval for the speed
 of light, based on Michelson's 1879 data. Note that this interval includes the
@@ -233,42 +249,31 @@ true value, and gives an accurate sense of the spread of the data.
   \label{fig:michelson-ci}
 \end{figure}
 
-The \emph{interquartile range}\marginnote{\underline{Concept:} The \emph{sample
-    interquartile range} is the distance between the sample quartiles. It a
-  robust measure of spread.} is to the standard deviation as the median is to
-the mean. It is a robust measure of spread, and as its name implies it involes
-the difference between \emph{quartiles} (the quarter-quantiles) of the data. We
-can compute the interquartile range via
+The \emph{interquartile range}\marginnote{\underline{Definition:} The
+  \emph{sample interquartile range} is the distance between the sample
+  quartiles. It a robust measure of spread.} (iqr) is to the standard deviation
+as the median is to the mean. It is a robust measure of spread, and as its name
+implies it involes the difference between \emph{quartiles} (the
+quarter-quantiles) of the data. We can compute the interquartile range via
 
 \begin{equation} \label{eq:iqr-sample}
-  \text{IQR} = Q_3 - Q_1,
+  \text{iqr} = Q_3 - Q_1,
 \end{equation}
 
 \noindent where $Q_1$ is the median of the lower $\floor{N/2}$ of the data, and
-$Q_3$ is the median of the upper fraction.[CITATION NEEDED] The mean was
+$Q_3$ is the median of the upper fraction.\cite{tukey1977eda} The mean was
 susceptible to outliers; since the variance is essentially a mean of
 squared-differences, the standard deviation is similarly vulnerable to outliers.
 
-(Boxplot example)
+Using the quartiles and the iqr, we can construct a \emph{boxplot}; a very
+useful visual depiction of summaries. The box itself is constructed from the
+quartiles of the given data ($Q_1$, the median $Q_2$, and $Q_3$), while the
+lines\footnote{sometimes called \emph{whiskers} or \emph{fences}} are extended
+from the quartiles by a multiple of the iqr. Points which lie outside these
+extended ranges are depicted as points, and are potentially of interest.
 
-\textbf{Skepticism} is vitally important when analyzing data.
-
-\emph{Approaches} are important, and when analyzing data, one should employ
-multiple methods to compare their results. Tukey\cite{tukey1979robust}
-stated this quite directly when he wrote
-
-\begin{quote}
-It is perfectly proper to use both classical and robust/resistant methods
-routinely, and only worry when they differ enough to matter. BUT when they
-differ, you should think HARD.
-\end{quote}
-
-This is why we covered both classical (mean, standard deviation) and robust
-(median, iqr) summaries -- in practice, you should use both.
-
-\emph{Outliers}
-
-\emph{Errors}
+While there are multiple versions of the boxplot,\cite{frigge1989some} all are
+useful for summarizing data.
 
 \begin{figure}[!ht]
   \centering
@@ -277,6 +282,37 @@ This is why we covered both classical (mean, standard deviation) and robust
   \caption{Albert Michelson's 1880 speed-of-light measurements. The data are
     presented as a boxplot, which highlights a number of potential outliers.}
 \end{figure}
+
+\textbf{Skepticism} is vitally important when analyzing data. In practice, one
+should be skeptical both of the data, \emph{and} of the techniques used to
+analyze the data.
+
+\emph{Techniques} are vulnerable to faulty assumptions -- when analyzing data,
+one should employ multiple methods and compare their results.
+Tukey\cite{tukey1979robust} stated this quite directly when he wrote
+
+\begin{quote}
+It is perfectly proper to use both classical and robust/resistant methods
+routinely, and only worry when they differ enough to matter. BUT when they
+differ, you should think HARD.
+\end{quote}
+
+This is why we covered both classical (mean, standard deviation) and robust
+(median, iqr) summaries -- in practice, you should use both, at least when first
+studying a new dataset. This will enable you to catch features of the data that
+might otherwise go undetected, such as the difference between the mean and
+median in the Census data above.
+
+\emph{Data} are also vulnerable to errors, and may contain outliers. When first
+studying a new dataset, one should first check for these sorts of problems.
+Common approaches include checking for impossible values (e.g. zero-width
+measurements of a diamond) or gross outliers (for which a boxplot is very
+helpful).
+
+More broadly, one should engage in \emph{exploratory data analysis} before
+proceeding with more analytical investigations.\cite{tukey1977eda} This is a
+crucial step where one seeks to understand the data, especially to check
+assumptions that subsequent analyses may rest upon.
 
 \subsection{Distributions}
 %% -------------------------
