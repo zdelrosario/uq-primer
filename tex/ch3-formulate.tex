@@ -173,7 +173,9 @@ cases, the median can be a better measure of central tendency.
     density corresponds to a larger number of instances of that income. Notice
     that mean is pulled considerably towards higher incomes, despite the
     preponderance of lower incomes. The median is less affected by a small
-    number of large values -- it is often used as a nominal value for income.}
+    number of large values -- it is often used as a nominal value for income.
+    The fact that the mean and median do \emph{not} agree here is telling -- it
+    signals that something worth noting is happening in the data.}
   \label{fig:income-median}
 \end{figure}
 
@@ -249,7 +251,20 @@ squared-differences, the standard deviation is similarly vulnerable to outliers.
 
 (Boxplot example)
 
-\textbf{Skepticism}
+\textbf{Skepticism} is vitally important when analyzing data.
+
+\emph{Approaches} are important, and when analyzing data, one should employ
+multiple methods to compare their results. Tukey\cite{tukey1979robust}
+stated this quite directly when he wrote
+
+\begin{quote}
+It is perfectly proper to use both classical and robust/resistant methods
+routinely, and only worry when they differ enough to matter. BUT when they
+differ, you should think HARD.
+\end{quote}
+
+This is why we covered both classical (mean, standard deviation) and robust
+(median, iqr) summaries -- in practice, you should use both.
 
 \emph{Outliers}
 
