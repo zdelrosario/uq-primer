@@ -106,17 +106,28 @@ The \emph{mean}\marginnote{\underline{Concept:} The \emph{sample mean} is the
 \frac{1}{n}\sum_{i=1}^n \epsilon_i$. While the mean has a number of useful
 statistical properties, it has an intuitive justification: In the case where the
 errors $\epsilon_i$ are `evenly' distributed about zero, they will cancel to
-yield the true value $Y$.
+yield the true value $Y$.\footnote{We will make this more precise below.}
 
-(Example of using the mean to define a nominal speed of light.)
+Figure \ref{fig:michelson-mean} depicts an example usage of the mean; it
+presents data that Albert Michelson collected in 1879 to determine the speed of
+light.\cite{dorsey1944velocity} There, we use the mean to pursue a `nominal'
+value for the speed of light, and compare it against the true value.
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.85\textwidth]{./images/michelson_scatter}
 
-  \caption{Albert Michelson's 1880 speed-of-light measurements. The mean
-    (pictured as a red line) is appropriate as a nominal value.}
+  \caption{Albert Michelson's 1880 speed-of-light measurements. The mean is
+    appropriate as a nominal value. The exact value is plotted for comparison.
+    Visually, Michelson's mean value is `close' to the true value, though this
+    begs the question `how close is close?' We can make the notion of
+    `closeness' more precise by considering the variability of the data.}
+  \label{fig:michelson-mean}
 \end{figure}
+
+\marginnote{Somewhat cheekily, we can note that $c = 299,792,458 m/s$ is
+  \emph{exact}, as the meter is \emph{defined} in terms of the speed of
+  light.\cite{thompson2008}}
 
 While the mean is a sensible measure of central tendency, it does have some
 weaknesses. We will illustrate these by contrasting against another measure of
@@ -139,14 +150,32 @@ $X_i$, the order statistics are defined by
   X_{(1)} \leq X_{(2)} \leq \dots \leq X_{(n-1)} \leq X_{(n)}.
 \end{equation}
 
-The median is then given by $X_{(n/2)}$, which is simply notation for the middle
-value. A definition which automatically handles the $n$ odd case is given by
+\noindent The median is then given by $X_{(n/2)}$, which is simply notation for
+the middle value. A definition which automatically handles the $n$ odd case is
+given by
 
 \begin{equation} \label{eq:def-sample-median}
-  \tilde{X} = \f12\left(X_{(\floor{n/2})} + X_{(\ceil{n/2})}\right).
+  \tilde{X} = \f12\left(X_{(\floor{n/2})} + X_{(\ceil{n/2})}\right),
 \end{equation}
 
-(Robustness example using income data)
+\noindent where $\floor{\cdot}, \ceil{\cdot}$ define the floor and ceiling
+functions. Figure \ref{fig:income-median} provides an example usage of the
+median using data from the US Census Bureau. A small number of very large values
+(sometimes called \emph{outliers}) can significantly impact the mean. In these
+cases, the median can be a better measure of central tendency.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.85\textwidth]{./images/income}
+
+  \caption{Distribution of sampled household incomes in the US, circa 2016.
+    We'll cover density plots a bit later; but for now note that a higher
+    density corresponds to a larger number of instances of that income. Notice
+    that mean is pulled considerably towards higher incomes, despite the
+    preponderance of lower incomes. The median is less affected by a small
+    number of large values -- it is often used as a nominal value for income.}
+  \label{fig:income-median}
+\end{figure}
 
 \textbf{Spread} is another apt term for a property of data. The spread is
 synonymous with the variability of the data. If our data are thought to be
@@ -157,8 +186,8 @@ of spread.\footnote{In fact, in statistics lingo, \emph{precision} is inverse
 
 The \emph{standard deviation}\marginnote{\underline{Concept:} The \emph{sample
     variance} is the mean-squared distance of the data from its mean. The
-  \emph{sample standard deviation} is its square root.} is a common measure of
-spread. It is defined via
+  \emph{sample standard deviation} is its square root. Both are measures of
+  spread.} is a common measure of spread. It is defined via
 
 \begin{equation} \label{eq:def-sample-sd}
   S = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (X_i - \overline{X})^2}.
@@ -174,23 +203,57 @@ estimate.\footnote{A bit more detail: Using the sample mean $\overline{X}$
   information available from the data. We account for this `double use' of
   information through the Bessel correction.}
 
-(Example using sd to define a CI for the speed of light.)
+One may use the standard deviation to construct ranges, rather than single
+values.\marginnote{A wider interval is less trustworthy than a narrow one; there
+  are more true values that are compatible with the available data. One can use
+  a confidence interval to draw more robust conclusions; if the entire interval
+  is compatible with some conclusion -- if the interval itself falls within some
+  acceptable range -- then this enables one to draw a more robust conclusion.} A
+common construction is a \emph{confidence interval}, which is a simple idea with
+some subtle points. Essentially, if there exists a true value -- like $Y$ --
+then a confidence interval will include that value at some known
+\emph{confidence level}, often $95\%$ or $99\%$. An interval gives more
+information than a mean alone; in addition to location, it conveys the quality
+of an estimate, based on its width.
+
+Figure \ref{fig:michelson-ci} depicts a $95\%$ confidence interval for the speed
+of light, based on Michelson's 1879 data. Note that this interval includes the
+true value, and gives an accurate sense of the spread of the data.
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.85\textwidth]{./images/michelson_ci}
 
   \caption{Albert Michelson's 1880 speed-of-light measurements. The standard
-    deviation is used to construct an interval which captures a large fraction
-    of the data. We will introduce the notion of \emph{confidence intervals}
-    later when we discuss distributions.}
+    deviation is used to construct a confidence interval around the sample mean,
+    which here includes the true speed of light. We will introduce the notion of
+    \emph{confidence intervals} later when we discuss distributions.}
+  \label{fig:michelson-ci}
 \end{figure}
 
-The \emph{interquartile range}
+The \emph{interquartile range}\marginnote{\underline{Concept:} The \emph{sample
+    interquartile range} is the distance between the sample quartiles. It a
+  robust measure of spread.} is to the standard deviation as the median is to
+the mean. It is a robust measure of spread, and as its name implies it involes
+the difference between \emph{quartiles} (the quarter-quantiles) of the data. We
+can compute the interquartile range via
+
+\begin{equation} \label{eq:iqr-sample}
+  \text{IQR} = X_{(3N/4)} - X_{(N/4)},
+\end{equation}
+
+\noindent where we use the same averaging trick as above for non-integer values.
+The mean was susceptible to outliers; since the variance is essentially a mean
+of squared-differences, the standard deviation is similarly vulnerable to
+outliers.
+
+(Boxplot example)
 
 \textbf{Skepticism}
 
 \emph{Outliers}
+
+\emph{Errors}
 
 \begin{figure}[!ht]
   \centering

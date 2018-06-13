@@ -15,6 +15,7 @@ library(readxl)
 ### Parameters --------------------------------------------------
 ## File paths
 file.census <- "~/Documents/data/census_bureau/hinc06.xls"
+file.img.density <-"../images/income.eps"
 ## 'Largest' income
 hi.max <- 500000000L
 ```
@@ -79,11 +80,18 @@ income.median <-
 Finally, let's visualize the distribution of incomes.
 
 ```{r plot.data}
+label.income <- function(x) {
+    str_c("$", as.character(x / 1e3), "K")
+}
+
 df.census %>%
     filter(hi < hi.max) %>%
     ggplot(aes(lo, dens)) +
+    geom_smooth(se = FALSE) +
     geom_segment(
-        aes(xend = hi, yend = lead(dens))
+        aes(xend = hi, yend = lead(dens)),
+        color = "grey50",
+        linetype = 2
     ) +
     geom_vline(
         aes(xintercept = income.mean, linetype = "Mean"),
@@ -100,8 +108,15 @@ df.census %>%
         values = c(2, 2),
         guide = guide_legend(override.aes = list(color = c("red", "black")))
     ) +
+    scale_x_continuous(
+        labels = label.income,
+        limits = c(0, 2e5)
+    ) +
     labs(
         x = "Income",
-        y = "Density"
+        y = "Density",
+        caption = "Source: US Census Bureau"
     )
+
+ggsave(filename = file.img.density)
 ```
