@@ -239,13 +239,13 @@ the difference between \emph{quartiles} (the quarter-quantiles) of the data. We
 can compute the interquartile range via
 
 \begin{equation} \label{eq:iqr-sample}
-  \text{IQR} = X_{(3N/4)} - X_{(N/4)},
+  \text{IQR} = Q_3 - Q_1,
 \end{equation}
 
-\noindent where we use the same averaging trick as above for non-integer values.
-The mean was susceptible to outliers; since the variance is essentially a mean
-of squared-differences, the standard deviation is similarly vulnerable to
-outliers.
+\noindent where $Q_1$ is the median of the lower $\floor{N/2}$ of the data, and
+$Q_3$ is the median of the upper fraction.[CITATION NEEDED] The mean was
+susceptible to outliers; since the variance is essentially a mean of
+squared-differences, the standard deviation is similarly vulnerable to outliers.
 
 (Boxplot example)
 
