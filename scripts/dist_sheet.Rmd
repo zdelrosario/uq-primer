@@ -1,0 +1,108 @@
+---
+title: "Distribution Cheat Sheet"
+author: "Zach"
+date: 2018-06-14
+output:
+  github_document:
+    toc: true
+    toc_depth: 6
+---
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(latex2exp)
+
+### Parameters --------------------------------------------------
+n.z <- 400
+z.min <- -10
+z.max <- +10
+
+u.a <- -7
+u.b <- -3
+
+Z <- seq(from = z.min, to = z.max, length.out = n.z)
+```
+
+This is a visual cheat sheet of common distributions.
+
+```{r gen.data}
+get.family <- function(name) {
+    case_when(
+        str_detect(name, "t\\d")   ~ "bell",
+        str_detect(name, "normal") ~ "bell",
+        str_detect(name, "chi")    ~ "supp",
+        str_detect(name, "unif")   ~ "supp",
+        TRUE ~ "other"
+    )
+}
+
+df.data <-
+    tibble(
+        Z = Z,
+        d.normal = dnorm(Z),
+        d.t1     = dt(Z, df = 1),
+        d.t3     = dt(Z, df = 3),
+        d.unif   = dunif(Z, min = u.a, max = u.b),
+        d.chisq1 = dchisq(Z, df = 1),
+        d.chisq3 = dchisq(Z, df = 3),
+        d.chisq5 = dchisq(Z, df = 5)
+    ) %>%
+    gather(
+        key   = "type",
+        value = "d",
+        d.normal:d.chisq5
+    ) %>%
+    mutate(
+        family = get.family(type)
+    )
+
+df.ann <-
+    tribble(
+        ~Z,   ~d, ~family, ~label,
+         5, 0.45,  "bell", "Gaussian",
+         5, 0.40,  "bell", TeX("$\\mathbf{E}\\[Z\\] = 0$", output = "character"),
+         5, 0.35,  "bell", TeX("$\\mathbf{V}\\[Z\\] = 1$", output = "character"),
+        -9, 0.45,  "bell", "Student~t",
+        -9, 0.40,  "bell", TeX("$\\mathbf{E}\\[T\\] = 0$", output = "character"),
+        -9, 0.35,  "bell", TeX(
+          "$\\mathbf{V}\\[T\\] = (df)/(df-2)$ for $df\\,>\\,2$",
+          output = "character"
+        ),
+        -9, 0.30,  "bell", TeX(
+          "$\\mathbf{V}\\[T\\] = \\infty$ for $1\\,<\\,\\nu\\,<\\,2$",
+          output = "character"
+        ),
+         5, 0.45,  "supp", "Chi-Squared",
+         5, 0.40,  "supp", TeX("$\\mathbf{E}\\[\\chi\\] = df$", output = "character"),
+         5, 0.35,  "supp", TeX("$\\mathbf{V}\\[\\chi\\] = 2df$", output = "character"),
+        -9, 0.45,  "supp", "Uniform",
+        -9, 0.40,  "supp", TeX(
+          "$\\mathbf{E}\\[U\\] = (b+a)/(2)$",
+          output = "character"
+        ),
+        -9, 0.35,  "supp", TeX(
+          "$\\mathbf{V}\\[U\\] = (b-a)^2/(12)$",
+          output = "character"
+        ),
+    )
+```
+
+```{r cheat.sheet, fig.width=5}
+df.data %>%
+    ggplot(aes(x = Z, y = d)) +
+    geom_line(aes(color = type)) +
+    geom_label(
+        data = df.ann,
+        mapping = aes(label = label),
+        parse = TRUE,
+        hjust = 0,
+        vjust = 0
+    ) +
+    scale_y_continuous(
+        limits = c(0, 0.5)
+    ) +
+    facet_grid(family ~ ., scales = "free_y") +
+    theme(
+        legend.position = "top"
+    )
+```
