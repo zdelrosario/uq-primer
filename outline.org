@@ -24,6 +24,7 @@ UQ-Primer: Outline
 *** Summaries
 - Central tendency: mean and median
 - Variability: standard deviation and iqr
+- Dependence: covariance and correlation
 - Skepticism: Outliers, boxplots
 
 *** Distributions

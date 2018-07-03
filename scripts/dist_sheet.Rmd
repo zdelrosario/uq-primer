@@ -24,6 +24,7 @@ Z <- seq(from = z.min, to = z.max, length.out = n.z)
 
 ## Filenames
 file.out <- "../images/dist_sheet.eps"
+norm.out <- "../images/dist_normal.eps"
 ```
 
 This is a visual cheat sheet of common distributions.
@@ -90,6 +91,8 @@ df.ann <-
     )
 ```
 
+The distribution cheat sheet.
+
 ```{r cheat.sheet, fig.width=5}
 df.data %>%
     ggplot(aes(x = Z, y = d)) +
@@ -110,4 +113,28 @@ df.data %>%
     )
 
 ggsave(filename = file.out)
+```
+
+Just the normal distribution.
+
+```{r normal}
+df.data %>%
+    filter(type == "d.normal") %>%
+    arrange(Z) %>%
+    mutate(
+        c = cumsum(d),
+        c = c / max(c)
+    ) %>%
+    ggplot(aes(Z)) +
+    geom_line(aes(y = d, linetype = "PDF")) +
+    geom_line(aes(y = c, linetype = "CDF")) +
+    labs(
+        x = "Z",
+        y = "Density"
+    ) +
+    theme(
+        legend.position = "bottom"
+    )
+
+ggsave(filename = norm.out)
 ```
