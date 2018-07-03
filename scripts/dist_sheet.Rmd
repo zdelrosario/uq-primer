@@ -72,7 +72,7 @@ df.ann <-
           output = "character"
         ),
         -9, 0.30,  "bell", TeX(
-          "$\\mathbf{V}\\[T\\] = \\infty$ for $1\\,<\\,df\\,<\\,2$",
+          "$\\mathbf{V}\\[T\\] = \\infty$ for $1\\,<\\,df\\,\\leq\\,2$",
           output = "character"
         ),
          5, 0.45,  "supp", "chi-Squared",
