@@ -446,9 +446,14 @@ particular (weak) form of convergence. Note that while $X$ \emph{may not be
   normal}, the sample mean converges to a normal distribution centered around
 the true mean $\E[X]$. Note also that the variance of this asymptotic
 distribution scales as $1/n$; thus the standard deviation scales as
-$1/\sqrt{n}$. The normal distribution $N(\E[X], \V[X]/n)$ is called the
-\textbf{sampling distribution} for the estimator $\overline{X}$; this
-distribution will be useful later when we define \emph{confidence intervals}.
+$1/\sqrt{n}$.
+
+The normal distribution $N(\E[X], \V[X]/n)$ is called the \textbf{sampling
+  distribution} for the estimator $\overline{X}$; this distribution will be
+useful later when we define \emph{confidence intervals}. The standard deviation
+of the sampling distribution -- in this case $\sigma/\sqrt{n}$ -- is called the
+\textbf{standard error} of the estimate, and is a measure of the noise in our
+estimate.
 
 \noindent\textbf{Chi-Squared Distribution}
 
@@ -478,10 +483,11 @@ exactly normal. \textcolor{red}{TODO} Bessel's correction?
 
 The chi-squared distribution is constructed from squared normals. In the case
 where $X$ is exactly normal, we may use the sample mean and variance to
-construct
+construct a normalized quantity, which can be expressed in terms of the ratio of
+an independent standard normal and chi-squared variables
 
 \begin{equation} \label{eq:t-def}
-  \frac{\overline{X} - \mu}{S/\sqrt{n}} = t_{n-1},
+  \frac{\overline{X} - \mu}{S/\sqrt{n}} = \frac{Z}{\sqrt{\chi^2_{n-1}/(n-1)}} \equiv t_{n-1},
 \end{equation}
 
 \noindent where $t_{n-1}$ follows \emph{Student's t distribution} with $n-1$
@@ -523,11 +529,47 @@ terms of their parameters.
   \label{fig:dist-sheet}
 \end{figure*}
 
-\noindent\textbf{Other Distributions}
+\noindent\textbf{Other Distributions} \textcolor{red}{TODO} A list and brief
+commentary on other distributions.
 
+\noindent\textbf{Matching Moments} is a simple way to fit a distribution to
+data. For a normal distribution this is easy, as it is parameterized in terms of
+its mean and variance -- given data, we could easily compute the sample mean and
+variance, and construct a normal distribution that matches these estimated
+moments. This is not necessarily a good idea; suppose the moment estimates were
+quite noisy (have high standard error) -- this additional variability would not
+be accounted by simply matching moments.
 
-\noindent\textbf{Matching Moments}
+These difficulties are compounded by the inherent difficulty in estimating
+higher-order moments. While the normal distribution is defined by its mean and
+variance alone, other distributions have more parameters to fit. In general,
+higher-order moments -- larger exponents in $\E[X^k]$ -- are more difficult to
+estimate. This is because we loose \textbf{degrees of freedom} in the data by
+estimating the lower-moments. Recall that the sample mean $\overline{X}$ appears
+in each term of the sample variance;\footnote{given by $S^2 = \sum_{i=1}^n (X_i
+  - \overline{X})^2$} we have used the data to estimate the quantity
+$\overline{X}$, and have lost some available information in doing so. This
+notion of information is made formal in the degrees of freedom, which can be
+understood in terms of the dimension of the subspace spanned by the data --
+computing the sample mean essentially introduces a constraint, which reduces the
+dimension of the data available for the variance by one. This reduction reduces
+the effective sample size to $n-1$, which is captured in the Bessel correction,
+and points to the difficulty in estimating the variance, relative to the mean.
+Higher moments compound this difficulty with further reduction in degrees of
+freedom.
 
+The difficulty in estimating higher moments is closely related to tail behavior,
+and is a fundamental issue. For instance, the kurtosis $\text{Kurt}[X] =
+\E\left[\left(\frac{X - \mu}{\sigma}\right)^4\right]$ is a fourth-order moment,
+commonly used to describe tail behavior -- a kurtosis greater (or smaller) than
+that of a similar normal distribution points to heavier (or lighter) tails.
+
+Finally, note that a chosen distribution introduces \emph{additional}
+information beyond the fitted moments, in particular fixing higher-order moments
+in terms of the parameters. For instance, assuming a normal vs Student's t makes
+an assertion about tail behavior, and both assume a symmetric distribution.
+Modeling a random quantity requires careful thought about what behavior it may
+exhibit, and should ideally be supported by both data and relevant knowledge.
 
 \noindent\textbf{Confidence Intervals}
 
@@ -535,8 +577,9 @@ terms of their parameters.
 %% --------------------------------------------------
 Scientists and engineers use models to answer questions. Scientists build models
 to encode hypotheses relating physical quantities, then gather data to test
-these hypotheses. Engineers build predictive models to simulate physical
-processes, in order to support the design of systems.
+these hypotheses, in order to come to a fuller understanding of the physical
+world. Engineers build predictive models to simulate physical processes, in
+order to support the design of systems.
 
 Above, we used distributions to model uncertain quantities; here, we will
 discuss means to model \emph{relationships between quantities}.
