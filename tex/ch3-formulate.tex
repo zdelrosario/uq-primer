@@ -686,12 +686,45 @@ of the same characteristics as models from physics.
 
 \subsection{Model Form Uncertainty}
 %% -------------------------
-In contrast with input uncertainty, \textbf{model form uncertainty}
+
 
 \subsection{Sensitivity Analysis}
 %% -------------------------
+Above, we posed the question ``Is the uncertainty in $Y$ significant?'' A full
+answer to this question requires choosing a context and propagating the
+uncertainty in $Y$. \textbf{Sensitivity analysis} asks a slightly different
+question: ``How do uncertainties in $\mX$ affect those in $Y$?'' First studying
+the sensitivity of a model $f(\cdot)$ can identify the inputs which are most
+important to $Y$, which has multiple benefits.
 
-There are at least two broad families of sensitivity analysis
+For instance, one might be interested in reducing the uncertainty in $Y$, and
+would like to determine a subset of $\mX$ for further study, in order to reduce
+input uncertainty for a subset of variables. Sensitivity analysis can also allow
+one to determine if particular inputs are \emph{unimportant}, with regard to the
+output uncertainty. This enables one to fix these unimportant inputs to nominal
+values, making uncertainty propagation cheaper, possibly rendering an
+intractable computational problem feasible.
+
+There are at least two broad families of sensitivity analysis: local and global.
+Figure \ref{fig:local-vs-global} provides a cartoon example, intended to
+illustrate the difference and need for these two separate approaches.
+
+\begin{figure}[!ht]
+  \centering\includegraphics[width=0.75\textwidth]{./images/local_vs_global}
+  \caption{Cartoon functions to depict differences between local and global
+    sensitivity. The vertical axis corresponds to the output qoi, while the
+    horizontal corresponds to an input quantity. The black dot is the point of
+    interest for local sensitivity. The blue curve has a great deal of global
+    sensitivity, but zero local sensitivity. The red curve has comparatively
+    little global sensitivity, but a large local sensitivity. Which metric is
+    important depends on the objective of the study.}
+  \label{fig:local-vs-global}
+\end{figure}
+
+\textbf{Local sensitivity analysis} usually refers to computing derivatives
+of an output quantity $y$ with respect to the inputs $\vx$.
+
+\textbf{Global sensitivity analysis}
 
 
 \section{Questions}
