@@ -571,7 +571,44 @@ an assertion about tail behavior, and both assume a symmetric distribution.
 Modeling a random quantity requires careful thought about what behavior it may
 exhibit, and should ideally be supported by both data and relevant knowledge.
 
-\noindent\textbf{Confidence Intervals}
+\noindent\textbf{Confidence Intervals} are a common way of expressing
+uncertainty about an estimated quantity. In contrast with reporting a single
+estimated value -- a \textbf{point estimate} -- a confidence interval brackets
+the true quantity to be estimated, at a desired \emph{confidence level} -- a
+probability of containing the true value. Note that the confidence in this
+framework is in the \emph{procedure that generates the interval}, and \emph{not
+  in the interval itself}.\footnote{Confidence intervals are frequentist
+  constructions, which rely on the assumption that there exist true values to be
+  estimated. Under this assumption, any given interval either does or does not
+  include the true value. Thus, the associated confidence needs to be understood
+  as a property of the process that generated the interval, and not a particular
+  given interval itself.}
+
+For example, it is common to seek confidence intervals for mean estimates, which
+gives a sense of how trustworthy an estimate is -- a `wide' interval indicates
+that one is not very certain about the estimate. Note that the sample mean
+(under appropriate assumptions) is asymptotically normal;\footnote{with
+  $\overline{X} \sim \dN(\mu, \sigma^2/n)$} one can use this limiting behavior
+to construct \emph{approximate} confidence intervals. If we happened to have the
+exact variance (which never happens in practice), we could define a symmetric
+confidence interval around a given sample mean at a desired confidence level
+$C\in[0,1]$ via
+
+\begin{equation} \label{eq:mean-ci}
+  [\overline{X} - z_C \sigma, \overline{X} + z_c \sigma],
+\end{equation}
+
+\noindent where $z_c = - \Phi^{-1}(\frac{1-C}{2})$, and $\Phi^{-1}(\cdot)$ is
+the standard inverse normal CDF. In the case where $\overline{X}$ was exactly
+normal, \Cref{eq:mean-ci} would have the desired coverage probability. However,
+if $\overline{X}$ were only asymptotically normal this would not be the case,
+but the realized coverage probability would approach the desired as one drew
+more samples. Note that in practice, would would need to use the sample standard
+deviation instead $S$, which would introduce another level of approximation. In
+the case where $n$ is small, say $n < 10$, it may be prudent to account for this
+additional approximation by using Student's t distribution.\footnote{One could
+  do this by using a $t_c$ value in place of $z_c$, choosing from the inverse t
+  CDF with appropriate degrees of freedom $df = n - 1$.}
 
 \section{Models}
 %% --------------------------------------------------
@@ -582,13 +619,79 @@ world. Engineers build predictive models to simulate physical processes, in
 order to support the design of systems.
 
 Above, we used distributions to model uncertain quantities; here, we will
-discuss means to model \emph{relationships between quantities}.
+discuss means to model \emph{relationships between quantities}. We will briefly
+discuss different means to do this -- using either physics or data -- then focus
+on how to assess models with regard to uncertainty, introducing the notion of
+\emph{sensitivity analysis}.
 
-\subsection{Regression}
+To keep a consistent nomenclature, here and throughout we will consider models
+which take some deterministic input $\vx \in \R{m}$, and return a single,
+deterministic, scalar output $y \in \R{}$, with the functional relation
+
+\begin{equation}
+  y = f(\vx).
+\end{equation}
+
+\noindent Note that we may have multiple output quantities of interest $y_i$,
+which arise from multiple functions $f_i(\vx)$; however, not all techniques we
+will study generalize well to vector outputs, so we will primarily consider
+scalar outputs.
+
+\subsection{Kinds of Models}
+%% -------------------------
+Scientists and engineers often derive \textbf{models from physics}; i.e. from
+physical principles and laws. These relations are derived under particular
+assumptions, and thus are only as accurate as their assumptions.
+
+For instance, Newton's laws form a good model for the dynamics of rigid bodies
+at human length- and time-scales. From this set of simple rules, one can derive
+equations of motion which can be solved for the dynamics of a system.
+
+Many physical laws involve constants that are fitted from physical data; for
+instance, Newton's laws introduce mass as a constant of proportionality between
+force and acceleration. The laws create a mapping from these (possibly fitted)
+values to the output quantities of interest, such as the trajectory of a rigid
+body. The physical laws will often include other inputs of interest, such as a
+time duration ahead of some starting condition, or a location in space.
+
+In the classical dynamics setting, the inputs $\vx$ might include the masses of
+objects, initial positions, and a time of interest, while $y$ might be the
+position of a particular body at the time of interest. These inputs, and their
+dependent predictions, are usually thought to be determinstic under physical
+laws.\footnote{Some notable exceptions include quantum mechanics and statistical
+  mechanics.} For a single input $\vx$, we obtain a unique value $y$.
+
+However, in many practical cases, the inputs $\vx$ are not known exactly, but
+may be thought of instead as a multivariate random variable $\mX$. In this case,
+the mapping $f(\vx)$ creates a new random variable $Y = f(\mX)$, with randomness
+induced by the uncertain inputs $\mX$, and transformed by the model arising from
+physics. This leads to a very practical question: ``Is the uncertainty in $Y$
+significant?'' The answer to this question depends both on how uncertain we are
+about $Y$, and for what purpose we intend to use this information. The latter
+depends on problem formulation, while the former falls under the purview of
+uncertainty propagation.
+
+For instance, the gravitational constant $G$ is necessary for studying problems
+in celestial mechanics. Some measurements of $G$ have uncertainty on the order
+of 150 parts per million.\cite{rosi2014precision} Even without elaborate
+uncertainty propagation, it seems reasonable that this level of uncertainty
+would not pose a serious challenge to launching satellites to orbit. However,
+the same measurement above disagrees with the accepted\footnote{by the Committee
+  on Data for Science and Technology} value of $G$ by $1.5$ standard deviations
+-- for scientific purposes this difference could be significant, particularly
+since there is no predicted value for $G$ arising from theory.
+
+Scientists and engineers also derive \textbf{models from data}, which share many
+of the same characteristics as models from physics.
+
+\subsection{Model Form Uncertainty}
+%% -------------------------
+In contrast with input uncertainty, \textbf{model form uncertainty}
+
+\subsection{Sensitivity Analysis}
 %% -------------------------
 
-\subsection{Sensitivity}
-%% -------------------------
+There are at least two broad families of sensitivity analysis
 
 
 \section{Questions}
