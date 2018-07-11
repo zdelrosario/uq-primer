@@ -622,11 +622,12 @@ Above, we used distributions to model uncertain quantities; here, we will
 discuss means to model \emph{relationships between quantities}. We will briefly
 discuss different means to do this -- using either physics or data -- then focus
 on how to assess models with regard to uncertainty, introducing the notion of
-\emph{sensitivity analysis}.
+\emph{sensitivity analysis}, and detailing some methods and their usage.
 
 To keep a consistent nomenclature, here and throughout we will consider models
-which take some deterministic input $\vx \in \R{m}$, and return a single,
-deterministic, scalar output $y \in \R{}$, with the functional relation
+which take some deterministic input $\vx \in \cD \subseteq \R{m}$ in a domain
+$\cD$, and return a single, deterministic, scalar output $y \in \R{}$, with the
+functional relation
 
 \begin{equation}
   y = f(\vx).
@@ -688,10 +689,10 @@ of the same characteristics as models from physics.
 %% -------------------------
 
 
-\subsection{Sensitivity Analysis}
+\subsection{Sensitivity Analysis: Overview}
 %% -------------------------
 Above, we posed the question ``Is the uncertainty in $Y$ significant?'' A full
-answer to this question requires choosing a context and propagating the
+answer to this question requires choosing a context and computing the
 uncertainty in $Y$. \textbf{Sensitivity analysis} asks a slightly different
 question: ``How do uncertainties in $\mX$ affect those in $Y$?'' First studying
 the sensitivity of a model $f(\cdot)$ can identify the inputs which are most
@@ -707,7 +708,7 @@ intractable computational problem feasible.
 
 There are at least two broad families of sensitivity analysis: local and global.
 Figure \ref{fig:local-vs-global} provides a cartoon example, intended to
-illustrate the difference and need for these two separate approaches.
+illustrate the difference and need for these two separate, broad mentalities.
 
 \begin{figure}[!ht]
   \centering\includegraphics[width=0.75\textwidth]{./images/local_vs_global}
@@ -721,10 +722,59 @@ illustrate the difference and need for these two separate approaches.
   \label{fig:local-vs-global}
 \end{figure}
 
-\textbf{Local sensitivity analysis} usually refers to computing derivatives
-of an output quantity $y$ with respect to the inputs $\vx$.
+\textbf{Local sensitivity analysis} usually refers to computing derivatives of
+an output quantity $y$ with respect to the inputs $\vx$.\footnote{Sometimes
+  `sensitivity' is used interchangeably with `derivative'.} A local analysis is
+appropriate when one is interested in the behavior at and around `special'
+points in the domain $\cD$. For example, we might be interested in the stability
+of an optimal value for a constrained optimization problem -- a local
+sensitivity analysis would aid in this study.\footnote{The Karush-Kuhn-Tucker
+  conditions formalize some -- but not all -- aspects of this sort of
+  sensitivity analysis.\footnote{boyd2004convex}}
 
-\textbf{Global sensitivity analysis}
+\textbf{Global sensitivity analysis} usually refers to attributing
+\emph{variability} in the output $y$ to the different inputs $\vx$. Often,
+variability is quantified in terms of variance.\footnote{though alternatives
+  exist; for instance one may seek to attribute portions of skewness, kurtosis,
+  or other moments to different inputs.} For example, we might be interested in
+determining which single input $X_i$ contributes the most variance to the output
+$Y$, in order to better characterize the distribution of $X_i$ and ultimate
+reduce uncertainty in the output.
+
+As implied by the names, the two mentalities seek different pieces of
+information. Depending on the context, one or the other may be the `right'
+perspective to adopt. Figure \ref{fig:local-vs-global} provides a simple cartoon
+illustration of two cases where local and global sensitivities will be in
+disagreement.
+
+\subsection{Local Sensitivity Analysis}
+%% -------------------------
+[Motivation]
+
+Local sensitivity analysis can be accomplished in a rather straightforward
+fashion via a \textbf{finite difference}. For a first-order approximation, one
+simply chooses a base point $\vx$ and considers a finite step-size $\Delta x$
+approximation to the (partial) derivative
+
+\begin{equation}
+  \frac{\partial f}{\partial x_i} \approx \frac{f(x_1,\dots,x_i+\Delta
+    x,\dots,x_d) - f(\vx)}{\Delta x}.
+\end{equation}
+
+However, there are some complications with this approach. First, this
+computational procedure requires additional evaluations, with a cost that grows
+linearly with dimensionality $d$. If we require $N$ evaluations of the gradient
+for a desired procedure (e.g. building a map of the gradient or performing
+quadrature), then our total cost will be $O(Nd)$.
+
+The other complication is choosing a sensible $\Delta x$. Recent work has
+studied the selection of $\Delta x$ based on measuring the /empirical noise/ of
+a function; that is, tailoring the step-size based on the observered variability
+in a computed qoi arising from a computational procedure.\cite{more2012}
+
+
+\subsection{Global Sensitivity Analysis}
+%% -------------------------
 
 
 \section{Questions}
