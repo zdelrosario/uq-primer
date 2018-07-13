@@ -13,7 +13,16 @@ main:
 
 clean:
 	rm -f aux/${filename}.{log,aux,out,bbl,blg,fls,ilg,nlo,idx,lof,lot,nav,snm,toc,nls}
-	rm -f aux/${name1}.{log,aux,out,bbl,blg,fls,ilg,nlo,idx,lof,lot,nav,snm,toc,nls}
+	rm -f aux/${filename}.aux
+	rm -f aux/${filename}.bbl
+	rm -f aux/${filename}.blg
+	rm -f aux/${filename}.fls
+	rm -f aux/${filename}.ilg
+	rm -f aux/${filename}.toc
+	rm -f aux/${filename}.nls
+	rm -f aux/${filename}.idx
+	rm -f aux/${filename}.log
+	rm -f aux/${filename}.out
 	rm -f aux/${filename}.fdb_latexmk
 	rm -f aux/.${filename}.tex.swp
 
