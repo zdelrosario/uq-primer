@@ -4,6 +4,35 @@
 
 \chapter{Formulate}
 %% --------------------------------------------------
+Any engineer or scientist worth their salt approaching a new problem first by
+\textbf{formulating} it. This involves posing the the question(s) to be
+answered, gathering relevant data and information, and obtaining or building
+relevant models. This chapter focuses on tools and concepts to aid in the
+formulation stage, with a particular eye towards handling uncertainty.
+
+We start with the most important step: What \emph{question} or \emph{questions}
+are we attempting to answer? This critical component will inform all following
+work, and so should be posed as early as possible.
+
+\section{Questions}
+%% --------------------------------------------------
+``First secret: The most important question is the
+question.''\cite{saltelli2000sensitivity} -- Andrea Saltelli
+
+The most important element of this process is unfortunately the most difficult
+for us to provide specific advice; `the question' depends on the context, and is
+inherently a value judgement on the part of the investigator. However, the
+top-level inquiries in engineering and scientific applications often lead to
+similar sub-questions, of which we can provide some examples.
+
+An engineer may ask ``How can I design a safe, cost-effective bridge to cross
+this river?'' This naturally leads to the question ``How can I measure safety of
+a given design?'', which is commonly posed as a probabilistic (reliability)
+problem. The engineer should also ask ``What models will be appropriate for this
+design task?'' This may lead the engineer to seek a validated Finite Element
+code to aid in structural design. An engineer should also ask ``What are my
+constraints and requirements for design?'' Some of these factors in design may
+be uncertain, such as wind loading conditions.
 
 \section{Data}
 %% --------------------------------------------------
@@ -679,15 +708,28 @@ uncertainty propagation, it seems reasonable that this level of uncertainty
 would not pose a serious challenge to launching satellites to orbit. However,
 the same measurement above disagrees with the accepted\footnote{by the Committee
   on Data for Science and Technology} value of $G$ by $1.5$ standard deviations
--- for scientific purposes this difference could be significant, particularly
-since there is no predicted value for $G$ arising from theory.
+-- repeated instances of measurements differing by this amount would be of
+concern from a scientific perspective.
 
 Scientists and engineers also derive \textbf{models from data}, which share many
-of the same characteristics as models from physics.
+of the same characteristics as models from physics. \textcolor{red}{TODO} A bit
+on regression / data-driven modeling.
+
+Finally, we note that the distinction between models from physics and data is,
+at least philosophically, somewhat arbitrary. All physical laws are in some way
+derived from observations of the physical world. However, commonly accepted laws
+have generally been subjected to extensive testing, and have survived attempts
+at falsification.\cite{popper2005logic} Physical laws represent our best
+understanding of the physical world to date, and therefore are usually more
+trustworthy than models derived from a particular dataset.
+
+\subsection{Validation}
+%% -------------------------
+\textcolor{red}{TODO}
 
 \subsection{Model Form Uncertainty}
 %% -------------------------
-
+\textcolor{red}{TODO}
 
 \subsection{Sensitivity Analysis: Overview}
 %% -------------------------
@@ -736,10 +778,10 @@ sensitivity analysis would aid in this study.\footnote{The Karush-Kuhn-Tucker
 \emph{variability} in the output $y$ to the different inputs $\vx$. Often,
 variability is quantified in terms of variance.\footnote{though alternatives
   exist; for instance one may seek to attribute portions of skewness, kurtosis,
-  or other moments to different inputs.} For example, we might be interested in
-determining which single input $X_i$ contributes the most variance to the output
-$Y$, in order to better characterize the distribution of $X_i$ and ultimate
-reduce uncertainty in the output.
+  or other moments to different inputs.\cite{owen2014higher}} For example, we
+might be interested in determining which single input $X_i$ contributes the most
+variance to the output $Y$, in order to better characterize the distribution of
+$X_i$ and ultimate reduce uncertainty in the output.
 
 As implied by the names, the two mentalities seek different pieces of
 information. Depending on the context, one or the other may be the `right'
@@ -749,7 +791,7 @@ disagreement.
 
 \subsection{Local Sensitivity Analysis}
 %% -------------------------
-[Motivation]
+\textcolor{red}{TODO} Motivation
 
 Local sensitivity analysis can be accomplished in a rather straightforward
 fashion via a \textbf{finite difference}. For a first-order approximation, one
@@ -855,6 +897,8 @@ $\lambda_k$. We then evaluate the total derivative via
     \lambda_k A^{-1}_{jk}\left(-\frac{\partial A_{kl}}{\partial x_i}y_l +
     \frac{\partial b_k}{\partial x_i}\right).
 \end{equation}
+
+\textcolor{red}{TODO} Example
 
 \subsection{Global Sensitivity Analysis}
 %% -------------------------
@@ -1100,9 +1144,8 @@ The first-order index $\underline{\tau}_{\{i\}}^2$ can be thought of as a
 is an \emph{upper} bound; if it is small, then we can be confident that $X_i$ is
 \emph{unimportant}.
 
-\section{Questions}
-%% --------------------------------------------------
-``First secret: The most important question is the
-question.''\cite{saltelli2000sensitivity}
+\textcolor{red}{TODO} Example
+
+
 
 \end{document}

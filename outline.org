@@ -18,6 +18,12 @@ UQ-Primer: Outline
 - Short summary of key concepts
 
 * Formulate
+** Questions
+- What is my objective?
+- What do I need to know?
+- Do I trust my data?
+- Is my model adequate?
+
 ** Data
 - Types of data: Physical and Simulation
 
@@ -31,32 +37,42 @@ UQ-Primer: Outline
 - Choosing and fitting
 
 ** Models
-*** Regression
-- Linear regression
-- Gaussian processes
-*** Sensitivity
+*** Kinds of models
+- From physics
+- From data
+
+*** Model Form Uncertainty
+- Discrepancy
+
+*** Sensitivity Analysis
 - Local
 - Global
-
-** Questions
-- Do I trust my data?
 
 * Wrangle
 ** Dimensionality
 - An introduction to the curse
 
 ** Forward
-- Monte Carlo
-- Delta Method
-- Quadrature
+*** Monte Carlo
+*** Delta Method
+*** Quadrature
 
 ** Reverse
-- Frequentist Estimation
-- Bayesian Calibration
+*** Frequentist Estimation
+*** Bayesian Calibration
 
 * Act
 ** Design
+*** Robust design
+*** Reliability design
+
+** Test
+*** Hypothesis testing
+*** Bayes factors
+
 ** Communicate
+*** QMU
+
 ** Iterate
 
 * Appendix
