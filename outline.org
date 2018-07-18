@@ -22,6 +22,7 @@ UQ-Primer: Outline
 - What is my objective?
 - What do I need to know?
 - Do I trust my data?
+- Do I trust my assumptions?
 - Is my model adequate?
 
 ** Data
@@ -40,6 +41,9 @@ UQ-Primer: Outline
 *** Kinds of models
 - From physics
 - From data
+
+*** Validation
+-
 
 *** Model Form Uncertainty
 - Discrepancy

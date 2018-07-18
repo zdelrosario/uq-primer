@@ -16,8 +16,8 @@ work, and so should be posed as early as possible.
 
 \section{Questions}
 %% --------------------------------------------------
-``First secret: The most important question is the
-question.''\cite{saltelli2000sensitivity} -- Andrea Saltelli
+``First secret: The most important question is the question.'' -- Andrea
+Saltelli\cite{saltelli2000sensitivity}
 
 The most important element of this process is unfortunately the most difficult
 for us to provide specific advice; `the question' depends on the context, and is
@@ -34,7 +34,33 @@ code to aid in structural design. An engineer should also ask ``What are my
 constraints and requirements for design?'' Some of these factors in design may
 be uncertain, such as wind loading conditions.
 
-\section{Data}
+A scientist may ask ``How can I better understand the interaction between fluid
+and particles in a turbulent flow?'' \textcolor{red}{TODO} Fuller example
+
+Once the high-level objective of an investigation has been established, the
+analyst should ask a number of follow-up questions:
+
+``What do I need to know?'' What knowledge is necessary to build an appropriate
+model for the problem, and what data is necessary to feed the model? What
+assumptions will be appropriate for the problem at hand? Gathering this
+information is necessary for further analysis -- failure to pose appropriate
+assumptions or obtain relevant data can seriously cripple further efforts.
+
+``Do I trust my data?'' When studying data, one should exercise some amount of
+skepticism, especially when approaching a new dataset. Errors can enter data
+very easily -- easy sanity checks can help to catch such problems. One should
+also question whether the data are representative of the problem to be studied.
+Section \ref{sec:data} provides some tools and concepts to study data and
+exercise skepticism towards a dataset.
+
+``Do I trust my assumptions?'' If the data are \emph{truly} representative of
+the problem to be studied, then one can often test assumptions against the data.
+Note that this is a one-way diagnostic -- one can only falsify an assumption,
+not `prove' that assumptions are true! Assuming that one can operationalize an
+assumption as a model, Section \ref{sec:models} provides some tools to question
+and quantify the validity of assumptions.
+
+\section{Data} \label{sec:data}
 %% --------------------------------------------------
 Data are our quantitative anchor to reality.\footnote{One could
   \href{http://phdcomics.com/comics.php?f=1816}{make a case} for data in the
@@ -313,7 +339,7 @@ useful for summarizing data.
 \end{figure}
 
 \textcolor{red}{TODO} \textbf{Correlation} is important for studying the
-relationship between variables.
+relationship between variables. \textcolor{red}{TODO} Spearman's $\rho$?
 
 \textbf{Skepticism} is vitally important when analyzing data. In practice, one
 should be skeptical both of the data, \emph{and} of the techniques used to
@@ -639,7 +665,7 @@ additional approximation by using Student's t distribution.\footnote{One could
   do this by using a $t_c$ value in place of $z_c$, choosing from the inverse t
   CDF with appropriate degrees of freedom $df = n - 1$.}
 
-\section{Models}
+\section{Models} \label{sec:models}
 %% --------------------------------------------------
 Scientists and engineers use models to answer questions. Scientists build models
 to encode hypotheses relating physical quantities, then gather data to test
@@ -722,6 +748,15 @@ have generally been subjected to extensive testing, and have survived attempts
 at falsification.\cite{popper2005logic} Physical laws represent our best
 understanding of the physical world to date, and therefore are usually more
 trustworthy than models derived from a particular dataset.
+
+Note also that models tend to be more trustworthy for simpler, more-extensively
+tested physical systems. Newton's laws provide an extremely accurate model for
+projectile motion. One could derive a \emph{stock and flow model} for ecological
+dynamics under conservation principles, but the analyst would need to account
+for all manner of sinks, sources, and interactions between species and the
+environment. Plikey and Plikey-Jarvis\cite{plikey2007useless} provide numerous
+negative examples in environmental science, and warn against unwarranted trust
+in such models.
 
 \subsection{Validation}
 %% -------------------------
