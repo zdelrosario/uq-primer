@@ -701,7 +701,12 @@ assumptions, and thus are only as accurate as their assumptions.
 
 For instance, Newton's laws form a good model for the dynamics of rigid bodies
 at human length- and time-scales. From this set of simple rules, one can derive
-equations of motion which can be solved for the dynamics of a system.
+equations of motion which can be solved for the dynamics of a system. Stepping
+up in complexity, many scientific and engineering models are expressed as
+partial differential equations, which form a map between the input parameters
+$\vx$ -- expressing boundary conditions, geometries, material properties and so
+on -- and the outputs $\vy$ -- expressing resulting stresses, displacements,
+flow fields, trajectories, and so on.
 
 Many physical laws involve constants that are fitted from physical data; for
 instance, Newton's laws introduce mass as a constant of proportionality between
@@ -756,11 +761,72 @@ dynamics under conservation principles, but the analyst would need to account
 for all manner of sinks, sources, and interactions between species and the
 environment. Plikey and Plikey-Jarvis\cite{plikey2007useless} provide numerous
 negative examples in environmental science, and warn against unwarranted trust
-in such models.
+in such models. A key step in building trust in a model is \emph{validation}.
 
 \subsection{Validation}
 %% -------------------------
-\textcolor{red}{TODO}
+\textbf{Validation} is a key step in model building, and is one of the core
+motivations behind performing uncertainty quantification. Validation is often
+paired and discussed alongside \textbf{verification}. We present the AIAA
+definitions of verification and validation, by way of Oberkampf and
+Barone.\cite{oberkampf2006measures}
+
+\textbf{Verification} is: The process of determining that a model implementation
+accurately represents the developer’s conceptual description of the model and
+the solution to the model.
+
+\textbf{Validation} is: The process of determining the degree to which a model
+is an accurate representation of the real world from the perspective of the
+intended uses of the model.
+
+Both are exercises in determining correctness, but \emph{verification} is an
+exercise in \emph{software}, while \emph{validation} is an exercise in
+\emph{physics}. Since many scientific and engineering models are expressed in
+terms of nonlinear partial differential equations, including coarse-graining
+model assumptions and requiring numerical approximation for solution procedures,
+both verification and validation are important tasks. However, our emphasis in
+this primer is on uncertainty rather than numerical error: From here we will
+focus on validation.
+
+The definition of validation above requires a comparison of model predictions --
+simulation data -- against real-world measurements -- physical data. A model is
+invalid if it does not accurately predict real world behavior; that is, if given
+the same inputs $\vx$ as those realized in the physical world, the output of the
+model $y$ does not match the physical data. However, this is a somewhat na\"ive
+perspective: Given that physical data are always subject to some uncertainty,
+what value of $\vx$ should we use in our model to predict $y$?
+
+To support validation efforts, numerical analysts have developed
+\textbf{uncertainty propagation} (UP) techniques -- algorithms that aid in
+propagating input uncertainty $\mX$ through a model $f(\mX)$ to quantify
+uncertainty in its output $Y$. UP enables one to specify uncertainty observed in
+a physical experiment, and compute a compatible uncertainty in the output, which
+can then be compared with physical data. This helps to set reasonable
+expectations for model validation: If the output uncertainty is large, then we
+know the combination of input data and model may not lead to any firm
+conclusion, and better data or models may be required. If the output uncertainty
+is small, and the resulting output does not compare favorably with they physical
+data, then the model is likely invalid.
+
+It is somewhat difficult to conclusively determine that a model has been
+`validated'. Formally, any scientific theory can only be \textbf{falsified}; it
+is not possible to `prove' any theory to be true.\cite{popper2005logic}
+\emph{Validated} is a somewhat weaker condition than \emph{proven} -- note that
+the AIAA definition -- an engineering perspective -- references the
+\emph{degree} of model agreement, based on intended use. Thus validation is
+inherently relative to the model's \emph{purpose}. A model for an aircraft may
+be validated for steady cruise conditions, but known to be false for takeoff and
+landing configurations. Similarly, the theory of relativity could be said to be
+validated for very large-scale behavior -- on the order of planets, systems, and
+galaxies -- but invalid for the very small -- the domain of quantum mechanics.
+
+Even a `validated' model used in its intended parameter regime may contain
+surprises. Unaccounted phenomena -- missing physics -- can enter in unexpected
+ways, particularly in complex systems with interacting components. In some
+cases, it is simply not possible to carry out the experiments directly related
+to the physical phenomena of interest; in these cases, we may want a way to
+quantify the uncertainty not in the inputs $\mX$, \emph{but in the model
+  itself}. This leads to the study of \emph{model form uncertainty}.
 
 \subsection{Model Form Uncertainty}
 %% -------------------------
@@ -782,6 +848,16 @@ one to determine if particular inputs are \emph{unimportant}, with regard to the
 output uncertainty. This enables one to fix these unimportant inputs to nominal
 values, making uncertainty propagation cheaper, possibly rendering an
 intractable computational problem feasible.
+
+A different perspective on the same use is to determine what physical data is
+most worth gathering. Clearly, if the output of interest $y$ is insensitive to a
+particular input $x_i$, then gathering more data on this predictor is not a
+useful exercise. Sensitivity analysis on a model can help to inform follow-up
+experiments, which can be useful to support the allocation of scientific and
+engineering resources. However, it is important to note that all sensitivity
+being studied is that of the \emph{model}, and not of \emph{physics} -- if the
+model is not an accurate description of reality, the resulting analysis may be
+misleading!
 
 There are at least two broad families of sensitivity analysis: local and global.
 Figure \ref{fig:local-vs-global} provides a cartoon example, intended to
