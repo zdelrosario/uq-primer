@@ -4,7 +4,7 @@
 
 \chapter{Formulate}
 %% --------------------------------------------------
-Any engineer or scientist worth their salt approaching a new problem first by
+Any engineer or scientist worth their salt approaches a new problem first by
 \textbf{formulating} it. This involves posing the the question(s) to be
 answered, gathering relevant data and information, and obtaining or building
 relevant models. This chapter focuses on tools and concepts to aid in the
@@ -658,12 +658,13 @@ the standard inverse normal CDF. In the case where $\overline{X}$ was exactly
 normal, \Cref{eq:mean-ci} would have the desired coverage probability. However,
 if $\overline{X}$ were only asymptotically normal this would not be the case,
 but the realized coverage probability would approach the desired as one drew
-more samples. Note that in practice, would would need to use the sample standard
-deviation instead $S$, which would introduce another level of approximation. In
-the case where $n$ is small, say $n < 10$, it may be prudent to account for this
-additional approximation by using Student's t distribution.\footnote{One could
-  do this by using a $t_c$ value in place of $z_c$, choosing from the inverse t
-  CDF with appropriate degrees of freedom $df = n - 1$.}
+more samples. Note that in practice, we would would need to use the sample
+standard deviation $S$ in place of the unknown $\sigma$, which would introduce
+another level of approximation. In the case where $n$ is small, say $n < 10$, it
+may be prudent to account for this additional approximation by using Student's t
+distribution.\footnote{One could do this by using a $t_c$ value in place of
+  $z_c$, choosing from the inverse t CDF with appropriate degrees of freedom $df
+  = n - 1$.}
 
 \section{Models} \label{sec:models}
 %% --------------------------------------------------
@@ -813,12 +814,13 @@ It is somewhat difficult to conclusively determine that a model has been
 is not possible to `prove' any theory to be true.\cite{popper2005logic}
 \emph{Validated} is a somewhat weaker condition than \emph{proven} -- note that
 the AIAA definition -- an engineering perspective -- references the
-\emph{degree} of model agreement, based on intended use. Thus validation is
-inherently relative to the model's \emph{purpose}. A model for an aircraft may
-be validated for steady cruise conditions, but known to be false for takeoff and
-landing configurations. Similarly, the theory of relativity could be said to be
-validated for very large-scale behavior -- on the order of planets, systems, and
-galaxies -- but invalid for the very small -- the domain of quantum mechanics.
+\emph{degree} of model agreement, based on \emph{intended use}. Thus validation
+is inherently relative to the model's \emph{purpose}. A model for an aircraft
+may be validated for steady cruise conditions, but known to be false for takeoff
+and landing configurations. Similarly, the theory of relativity could be said to
+be validated for very large-scale behavior -- on the order of planets, systems,
+and galaxies -- but invalid for the very small -- the domain of quantum
+mechanics.
 
 Even a `validated' model used in its intended parameter regime may contain
 surprises. Unaccounted phenomena -- missing physics -- can enter in unexpected
@@ -838,7 +840,7 @@ Higdon et al.\cite{higdon2004calibration-prediction} suggest a means to model
 and quantify discrepancy and input uncertainty, even in the setting of limited
 physical and simulation data.
 
-\subsection{Sensitivity Analysis: Overview}
+\section{Sensitivity Analysis}
 %% -------------------------
 Above, we posed the question ``Is the uncertainty in $Y$ significant?'' A full
 answer to this question requires choosing a context and computing the

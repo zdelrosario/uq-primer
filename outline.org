@@ -48,7 +48,7 @@ UQ-Primer: Outline
 *** Model Form Uncertainty
 - Discrepancy
 
-*** Sensitivity Analysis
+** Sensitivity Analysis
 - Local
 - Global
 
@@ -61,7 +61,7 @@ UQ-Primer: Outline
 *** Delta Method
 *** Quadrature
 
-** Reverse
+** Inverse
 *** Frequentist Estimation
 *** Bayesian Calibration
 
