@@ -48,18 +48,32 @@ UQ-Primer: Outline
 *** Model Form Uncertainty
 - Discrepancy
 
+*** Regression
+- Data-driven modeling
+- Can model discrepancy
+
 ** Sensitivity Analysis
 - Local
 - Global
 
 * Wrangle
 ** Dimensionality
-- An introduction to the curse
+*** The Curse of Dimensionality
+*** Dimension Reduction
 
 ** Forward
-*** Monte Carlo
 *** Delta Method
+- Inexpensive
+- Asymptotic argument
+
+*** Monte Carlo
+- Trivially simple
+- Dimension independent
+- Slow to converge
+
 *** Quadrature
+- Spectral convergence
+- Susceptible to dimensionality
 
 ** Inverse
 *** Frequentist Estimation
