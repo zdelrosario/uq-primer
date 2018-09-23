@@ -91,9 +91,9 @@ distribution for the output.
 We often use Monte Carlo to approximate an expectation;\footnote{Remember from
   probability theory that many useful quantities can be expressed as
   expectations; for instance, a probability of exceeding some threshold $\P[Y>y]
-  = \E[\i1(Y-y)]$, where $\i1(\cdot)$ is the indicator function. We can think of
+  = \E[H(Y-y)]$, where $H(\cdot)$ is the Heaviside function. We can think of
   this as modifying the function that maps the inputs $\mX$; in the previous
-  example the new function is $\i1(f(\mX))$.} the Monte Carlo estimate for the
+  example the new function is $H(f(\mX)-y)$.} the Monte Carlo estimate for the
 mean of $Y$ is given by
 
 \begin{equation} \label{eq:ch4-mc-mean}
@@ -105,7 +105,11 @@ it is a sample mean, as discussed above in Section \ref{sec:ch3-data}. The law
 of large numbers guarantees that as $m\to\infty$, the Monte Carlo estimate
 approaches its true value -- so long as the true value
 exists.\cite{owen2013montecarlo}\footnote{That is, the target expectation must
-  be finite.} The Monte Carlo estimate has variance equal to
+  be finite.}
+
+Note that we have taken a \emph{deterministic} quantity $\E[Y]$, and constructed
+a \emph{random variable estimate} $\hat{\mu}_m$. The Monte Carlo estimate has
+variance equal to
 
 \begin{equation} \label{eq:ch4-mc-var}
   \E[(\hat{\mu}_m - \E[Y])^2] = \frac{\V[Y]}{m},
@@ -131,6 +135,7 @@ Carlo, a good introduction is Reference \cite{owen2013montecarlo}.
 
 \subsection{Quadrature}
 %% --------------------------------------------------
+An alternative
 
 \section{Inverse}
 %% --------------------------------------------------

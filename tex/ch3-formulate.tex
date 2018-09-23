@@ -14,6 +14,7 @@ We start with the most important step: What \emph{question} or \emph{questions}
 are we attempting to answer? This critical component will inform all following
 work, and so should be posed as early as possible.
 
+%% --------------------------------------------------
 \section{Questions} \label{sec:ch3-questions}
 %% --------------------------------------------------
 ``First secret: The most important question is the question.'' -- Andrea
@@ -60,6 +61,7 @@ not `prove' that assumptions are true! Assuming that one can operationalize an
 assumption as a model, Section \ref{sec:models} provides some tools to question
 and quantify the validity of assumptions.
 
+%% --------------------------------------------------
 \section{Data} \label{sec:ch3-data}
 %% --------------------------------------------------
 Data are our quantitative anchor to reality.\footnote{One could
@@ -383,8 +385,8 @@ a coin flip, the roll of a twenty-sided die, the ambient temperature in New York
 City, the thrust output of a jet engine subject to uncertain inlet conditions.
 Note that some of the preceding examples are discrete (the coin and die), while
 the others are continuous (temperature and thrust). While discrete random
-variables certainly have their applications, they are less common in scientific
-and engineering applications, so we will focus on continuous distributions.
+variables certainly have their applications, we will focus on continuous
+distributions.
 
 Why would we bother modeling uncertain quantities? In cases where we have data,
 we can use a model to do \emph{inference}. Suppose our random variable model
@@ -626,18 +628,18 @@ an assertion about tail behavior, and both assume a symmetric distribution.
 Modeling a random quantity requires careful thought about what behavior it may
 exhibit, and should ideally be supported by both data and relevant knowledge.
 
-\noindent\textbf{Confidence Intervals} are a common way of expressing
-uncertainty about an estimated quantity. In contrast with reporting a single
-estimated value -- a \textbf{point estimate} -- a confidence interval brackets
-the true quantity to be estimated, at a desired \emph{confidence level} -- a
-probability of containing the true value. Note that the confidence in this
-framework is in the \emph{procedure that generates the interval}, and \emph{not
-  in the interval itself}.\footnote{Confidence intervals are frequentist
-  constructions, which rely on the assumption that there exist true values to be
-  estimated. Under this assumption, any given interval either does or does not
-  include the true value. Thus, the associated confidence needs to be understood
-  as a property of the process that generated the interval, and not a particular
-  given interval itself.}
+\textbf{Confidence Intervals} are a common way of expressing uncertainty about
+an estimated quantity. In contrast with reporting a single estimated value -- a
+\textbf{point estimate} -- a confidence interval brackets the true quantity to
+be estimated, at a desired \emph{confidence level} -- a probability of
+containing the true value. Note that the confidence in this framework is in the
+\emph{procedure that generates the interval}, and \emph{not in the interval
+  itself}.\footnote{Confidence intervals are frequentist constructions, which
+  rely on the assumption that there exist true values to be estimated. Under
+  this assumption, any given interval either does or does not include the true
+  value. Thus, the associated confidence needs to be understood as a property of
+  the process that generated the interval, and not a particular given interval
+  itself.}
 
 For example, it is common to seek confidence intervals for mean estimates, which
 gives a sense of how trustworthy an estimate is -- a `wide' interval indicates
@@ -666,6 +668,7 @@ distribution.\footnote{One could do this by using a $t_c$ value in place of
   $z_c$, choosing from the inverse t CDF with appropriate degrees of freedom $df
   = n - 1$.}
 
+%% --------------------------------------------------
 \section{Models} \label{sec:models}
 %% --------------------------------------------------
 Scientists and engineers use models to answer questions. Scientists build models
@@ -832,19 +835,97 @@ quantify the uncertainty not in the inputs $\mX$, \emph{but in the model
 
 \subsection{Model Form Uncertainty}
 %% -------------------------
-\textcolor{red}{TODO}
+As we noted above, models can exhibit \emph{discrepancy} in comparison with the
+physical phenomena they are intended to model. These can arise due to errors in
+reasoning, or due to \emph{intentional choices} made to simplify calculations.
+In the presence of such discrepancy, the functional form of the model is said to
+be in error, leading to a source of uncertainty in the model's predictions. This
+is known as \textbf{model form uncertainty}. Model form is a difficult type of
+uncertainty to treat, but arguably the most important!
 
-\textcolor{red}{TODO} Projectile drag example
+As a concrete example, let's consider projectile motion. Aerodynamic drag is
+known to be important in a variety of settings, and a number of different
+treatments are available for our use. Perhaps the most accurate approach would
+be to solve the Navier-Stokes equations exactly for the full
+projectile-atmosphere interaction, which would resolve nearly all the physical
+phenomena at play.\footnote{Even then, we neglect relativistic and quantum
+  effects! These are certainly less important at human scales, though.}
 
-Higdon et al.\cite{higdon2004calibration-prediction} suggest a means to model
-and quantify discrepancy and input uncertainty, even in the setting of limited
-physical and simulation data.
+A considerable step down in complexity would be to simply solve for projectile
+motion using Newton's laws, but model the effects of drag. A bevy of models is
+available to use, including familiar linear and quadratic approaches.
+\textcolor{red}{TODO} Finish example, provide plots
+
+As engineers and scientists with years of training in physics, it is easy --
+perhaps pedantic -- for us to clearly articulate the phenomena lost in dragless
+projectile motion. However, the same sort of \emph{model error} is present in
+more complicated problems -- errors which we may not even know exist. To help in
+identifying cases where model form uncertainty may be present, we introduce a
+few interrelated concepts that characterize these errors.
+
+\textbf{Missing physics} is a simple enough concept, though unknown unknowns are
+always difficult to treat. The Tacoma Narrows Bridge is the quintessential
+example of how things can go horribly wrong when physical phenomena are simply
+not accounted for. The 1940's bridge design was carried out under static wind
+load conditions, while its eventual collapse was due to dynamic
+phenomena.[\textcolor{red}{CITATION NEEDED}]
+
+This sort of error can occur when when moves into an unfamiliar domain; either
+in terms of fields of study, or when moving to different physical \emph{scales}.
+
+\textbf{Scale} is an ubiquitous concept in physics, and often forms the
+boundaries between disciplines. While many physical phenomena change
+continuously across changes in length-, time-, mass-, and other-scales,
+qualitative changes occur as well. Clearly, if qualitative changes are not
+accounted in physical models, then there will be some form of discrepancy.
+However, the surprises in moving to a different field can be humbling.
+
+As a mechanical engineer with a background in fluids and aircraft, I often
+regarded the momentum imparted by photons as an academic curiosity, perhaps of
+interest to those designing solar sails. I was personally astounded to learn
+from graduate student colleagues that satellite designers have to account for
+\emph{solar radiation pressure} in their designs! When the ambient force-scales
+are in micro-Newtons, such `small' effects become quite
+relevant.\footnote{Designers of the Internation Space Station had to account for
+  the difference in Earth's graviational attraction across the station, as the
+  structure is large enough that a non-negligible \emph{graviational moment} is
+  applied!}
+
+Neglecting radiation pressure on aircraft is possible due to \emph{scale
+  separation} -- the pressure contributions due to photons are so small compared
+to fluid pressure that the phenomena can be neglected without much consequence.
+`New' phenomena can become relevant when the scales of interest change
+dramatically, but more subtle effects can occur due to scale
+\emph{interactions}.
+
+\textbf{Interaction} is the generic term we give to phenomena, usually
+considered separately, that work together to produce some effect. Interactions
+are most obvious when domains cross, such as when fluids and structures interact
+to produce aeroelastic flutter. Such effects can also occur within a single
+domain \textcolor{red}{TODO} Example
+
+How can we handle model form uncertainty? Higdon et
+al.\cite{higdon2004calibration-prediction} suggest a means to fuse information
+available from physical and simulation data, and build an approximation to the
+discrepancy between the two sets. Their approach is to construct a discrepancy
+function $\delta(\vx)$\footnote{specifically, they use \emph{gaussian process
+    regression} to construct thsi function} such that
+
+\begin{equation}
+  y_i = f(\vx_i) + \delta(\vx_i) + \epsilon_i,
+\end{equation}
+
+\noindent where $f$ is the simulation output, $\epsilon_i$ is experimental
+error, $\delta$ represents model form uncertainty, and the $y_i$ are physical
+data, collected at nominal conditions $\vx_i$. They admit that extrapolating
+beyond the collected data $\{y_i,\vx_i\}$ can be challenging, and note that
 
 \subsection{Regression}
 %% -------------------------
 
+%% --------------------------------------------------
 \section{Sensitivity Analysis}
-%% -------------------------
+%% --------------------------------------------------
 Above, we posed the question ``Is the uncertainty in $Y$ significant?'' A full
 answer to this question requires choosing a context and computing the
 uncertainty in $Y$. \textbf{Sensitivity analysis} asks a slightly different
