@@ -747,8 +747,26 @@ the same measurement above disagrees with the accepted\footnote{by the Committee
 concern from a scientific perspective.
 
 Scientists and engineers also derive \textbf{models from data}, which share many
-of the same characteristics as models from physics. \textcolor{red}{TODO} A bit
-on regression / data-driven modeling.
+of the same characteristics as models from physics. Such data-driven models also
+provide a mapping from inputs to outputs, enabling prediction. However, models
+from physics are \emph{conceptual} as well as \emph{quantitative}; Newton's laws
+enable one to \emph{understand} motion in the language of forces and
+accelerations. A curve fitted to trajectory data lacks this richness of
+interpretation.
+
+While physics allows one to peek `under the hood' of a physical system, data
+driven models have the potential to step outside human limits. In cases where
+the physics are poorly understood -- and appropriate data is available -- one
+can use a data driven approach to model phenomena and solve problems. A data
+driven approach can also -- in principle -- scale to arbitrary problem size,
+assuming sufficient computation and information are available. In cases when
+pragmatism is valued, data driven approaches can be very appropriate.
+
+Note that `data driven' does not necessarily mean `automatic,' or that knowledge
+of (and respect for) the underlying physical phenomena is not necessary for
+success. Building data driven models is a challenging task to do well, requiring
+both statistical, engineering, and domain knowledge. We will cover regression --
+a particular data driven approach -- in a bit of detail below.
 
 Finally, we note that the distinction between models from physics and data is,
 at least philosophically, somewhat arbitrary. All physical laws are in some way
@@ -870,8 +888,8 @@ not accounted for. The 1940's bridge design was carried out under static wind
 load conditions, while its eventual collapse was due to dynamic
 phenomena.[\textcolor{red}{CITATION NEEDED}]
 
-This sort of error can occur when when moves into an unfamiliar domain; either
-in terms of fields of study, or when moving to different physical \emph{scales}.
+This sort of error can occur when one moves into an unfamiliar domain; either in
+terms of fields of study, or when moving to different physical \emph{scales}.
 
 \textbf{Scale} is an ubiquitous concept in physics, and often forms the
 boundaries between disciplines. While many physical phenomena change
@@ -922,6 +940,7 @@ beyond the collected data $\{y_i,\vx_i\}$ can be challenging, and note that
 
 \subsection{Regression}
 %% -------------------------
+\textcolor{red}{TODO}
 
 %% --------------------------------------------------
 \section{Sensitivity Analysis}
