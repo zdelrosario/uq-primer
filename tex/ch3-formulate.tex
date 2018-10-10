@@ -2,9 +2,9 @@
 
 \begin{document}
 
-\chapter{Formulate}
+\chapter{Formulate} \label{ch3:formulate}
 %% --------------------------------------------------
-Any engineer or scientist worth their salt approaching a new problem first by
+Any engineer or scientist worth their salt approaches a new problem first by
 \textbf{formulating} it. This involves posing the the question(s) to be
 answered, gathering relevant data and information, and obtaining or building
 relevant models. This chapter focuses on tools and concepts to aid in the
@@ -14,10 +14,11 @@ We start with the most important step: What \emph{question} or \emph{questions}
 are we attempting to answer? This critical component will inform all following
 work, and so should be posed as early as possible.
 
-\section{Questions}
 %% --------------------------------------------------
-``First secret: The most important question is the
-question.''\cite{saltelli2000sensitivity} -- Andrea Saltelli
+\section{Questions} \label{sec:ch3-questions}
+%% --------------------------------------------------
+``First secret: The most important question is the question.'' -- Andrea
+Saltelli\cite{saltelli2000sensitivity}
 
 The most important element of this process is unfortunately the most difficult
 for us to provide specific advice; `the question' depends on the context, and is
@@ -34,7 +35,34 @@ code to aid in structural design. An engineer should also ask ``What are my
 constraints and requirements for design?'' Some of these factors in design may
 be uncertain, such as wind loading conditions.
 
-\section{Data}
+A scientist may ask ``How can I better understand the interaction between fluid
+and particles in a turbulent flow?'' \textcolor{red}{TODO} Fuller example
+
+Once the high-level objective of an investigation has been established, the
+analyst should ask a number of follow-up questions:
+
+``What do I need to know?'' What knowledge is necessary to build an appropriate
+model for the problem, and what data is necessary to feed the model? What
+assumptions will be appropriate for the problem at hand? Gathering this
+information is necessary for further analysis -- failure to pose appropriate
+assumptions or obtain relevant data can seriously cripple further efforts.
+
+``Do I trust my data?'' When studying data, one should exercise some amount of
+skepticism, especially when approaching a new dataset. Errors can enter data
+very easily -- easy sanity checks can help to catch such problems. One should
+also question whether the data are representative of the problem to be studied.
+Section \ref{sec:data} provides some tools and concepts to study data and
+exercise skepticism towards a dataset.
+
+``Do I trust my assumptions?'' If the data are \emph{truly} representative of
+the problem to be studied, then one can often test assumptions against the data.
+Note that this is a one-way diagnostic -- one can only falsify an assumption,
+not `prove' that assumptions are true! Assuming that one can operationalize an
+assumption as a model, Section \ref{sec:models} provides some tools to question
+and quantify the validity of assumptions.
+
+%% --------------------------------------------------
+\section{Data} \label{sec:ch3-data}
 %% --------------------------------------------------
 Data are our quantitative anchor to reality.\footnote{One could
   \href{http://phdcomics.com/comics.php?f=1816}{make a case} for data in the
@@ -178,7 +206,7 @@ the middle two values.\footnote{e.g. $\{5, 3, 6, -1\}$ yields $\f12(3+5) = 4$}
 
 \marginnote{Perhaps unsurprisingly, there is no universal agreement on a
   definition for the sample median. We will adopt Tukey's
-  definition,\cite{tukey1977exploratory} but know that there are others.}
+  definition,\cite{tukey1977eda} but know that there are others.}
 
 More generally, we can understand the median in terms of \emph{order
   statistics}, which are simply the ordered values of a dataset. Given our data
@@ -313,7 +341,7 @@ useful for summarizing data.
 \end{figure}
 
 \textcolor{red}{TODO} \textbf{Correlation} is important for studying the
-relationship between variables.
+relationship between variables. \textcolor{red}{TODO} Spearman's $\rho$?
 
 \textbf{Skepticism} is vitally important when analyzing data. In practice, one
 should be skeptical both of the data, \emph{and} of the techniques used to
@@ -357,8 +385,8 @@ a coin flip, the roll of a twenty-sided die, the ambient temperature in New York
 City, the thrust output of a jet engine subject to uncertain inlet conditions.
 Note that some of the preceding examples are discrete (the coin and die), while
 the others are continuous (temperature and thrust). While discrete random
-variables certainly have their applications, they are less common in scientific
-and engineering applications, so we will focus on continuous distributions.
+variables certainly have their applications, we will focus on continuous
+distributions.
 
 Why would we bother modeling uncertain quantities? In cases where we have data,
 we can use a model to do \emph{inference}. Suppose our random variable model
@@ -600,18 +628,18 @@ an assertion about tail behavior, and both assume a symmetric distribution.
 Modeling a random quantity requires careful thought about what behavior it may
 exhibit, and should ideally be supported by both data and relevant knowledge.
 
-\noindent\textbf{Confidence Intervals} are a common way of expressing
-uncertainty about an estimated quantity. In contrast with reporting a single
-estimated value -- a \textbf{point estimate} -- a confidence interval brackets
-the true quantity to be estimated, at a desired \emph{confidence level} -- a
-probability of containing the true value. Note that the confidence in this
-framework is in the \emph{procedure that generates the interval}, and \emph{not
-  in the interval itself}.\footnote{Confidence intervals are frequentist
-  constructions, which rely on the assumption that there exist true values to be
-  estimated. Under this assumption, any given interval either does or does not
-  include the true value. Thus, the associated confidence needs to be understood
-  as a property of the process that generated the interval, and not a particular
-  given interval itself.}
+\textbf{Confidence Intervals} are a common way of expressing uncertainty about
+an estimated quantity. In contrast with reporting a single estimated value -- a
+\textbf{point estimate} -- a confidence interval brackets the true quantity to
+be estimated, at a desired \emph{confidence level} -- a probability of
+containing the true value. Note that the confidence in this framework is in the
+\emph{procedure that generates the interval}, and \emph{not in the interval
+  itself}.\footnote{Confidence intervals are frequentist constructions, which
+  rely on the assumption that there exist true values to be estimated. Under
+  this assumption, any given interval either does or does not include the true
+  value. Thus, the associated confidence needs to be understood as a property of
+  the process that generated the interval, and not a particular given interval
+  itself.}
 
 For example, it is common to seek confidence intervals for mean estimates, which
 gives a sense of how trustworthy an estimate is -- a `wide' interval indicates
@@ -632,14 +660,16 @@ the standard inverse normal CDF. In the case where $\overline{X}$ was exactly
 normal, \Cref{eq:mean-ci} would have the desired coverage probability. However,
 if $\overline{X}$ were only asymptotically normal this would not be the case,
 but the realized coverage probability would approach the desired as one drew
-more samples. Note that in practice, would would need to use the sample standard
-deviation instead $S$, which would introduce another level of approximation. In
-the case where $n$ is small, say $n < 10$, it may be prudent to account for this
-additional approximation by using Student's t distribution.\footnote{One could
-  do this by using a $t_c$ value in place of $z_c$, choosing from the inverse t
-  CDF with appropriate degrees of freedom $df = n - 1$.}
+more samples. Note that in practice, we would would need to use the sample
+standard deviation $S$ in place of the unknown $\sigma$, which would introduce
+another level of approximation. In the case where $n$ is small, say $n < 10$, it
+may be prudent to account for this additional approximation by using Student's t
+distribution.\footnote{One could do this by using a $t_c$ value in place of
+  $z_c$, choosing from the inverse t CDF with appropriate degrees of freedom $df
+  = n - 1$.}
 
-\section{Models}
+%% --------------------------------------------------
+\section{Models} \label{sec:models}
 %% --------------------------------------------------
 Scientists and engineers use models to answer questions. Scientists build models
 to encode hypotheses relating physical quantities, then gather data to test
@@ -675,7 +705,12 @@ assumptions, and thus are only as accurate as their assumptions.
 
 For instance, Newton's laws form a good model for the dynamics of rigid bodies
 at human length- and time-scales. From this set of simple rules, one can derive
-equations of motion which can be solved for the dynamics of a system.
+equations of motion which can be solved for the dynamics of a system. Stepping
+up in complexity, many scientific and engineering models are expressed as
+partial differential equations, which form a map between the input parameters
+$\vx$ -- expressing boundary conditions, geometries, material properties and so
+on -- and the outputs $\vy$ -- expressing resulting stresses, displacements,
+flow fields, trajectories, and so on.
 
 Many physical laws involve constants that are fitted from physical data; for
 instance, Newton's laws introduce mass as a constant of proportionality between
@@ -712,8 +747,26 @@ the same measurement above disagrees with the accepted\footnote{by the Committee
 concern from a scientific perspective.
 
 Scientists and engineers also derive \textbf{models from data}, which share many
-of the same characteristics as models from physics. \textcolor{red}{TODO} A bit
-on regression / data-driven modeling.
+of the same characteristics as models from physics. Such data-driven models also
+provide a mapping from inputs to outputs, enabling prediction. However, models
+from physics are \emph{conceptual} as well as \emph{quantitative}; Newton's laws
+enable one to \emph{understand} motion in the language of forces and
+accelerations. A curve fitted to trajectory data lacks this richness of
+interpretation.
+
+While physics allows one to peek `under the hood' of a physical system, data
+driven models have the potential to step outside human limits. In cases where
+the physics are poorly understood -- and appropriate data is available -- one
+can use a data driven approach to model phenomena and solve problems. A data
+driven approach can also -- in principle -- scale to arbitrary problem size,
+assuming sufficient computation and information are available. In cases when
+pragmatism is valued, data driven approaches can be very appropriate.
+
+Note that `data driven' does not necessarily mean `automatic,' or that knowledge
+of (and respect for) the underlying physical phenomena is not necessary for
+success. Building data driven models is a challenging task to do well, requiring
+both statistical, engineering, and domain knowledge. We will cover regression --
+a particular data driven approach -- in a bit of detail below.
 
 Finally, we note that the distinction between models from physics and data is,
 at least philosophically, somewhat arbitrary. All physical laws are in some way
@@ -723,16 +776,175 @@ at falsification.\cite{popper2005logic} Physical laws represent our best
 understanding of the physical world to date, and therefore are usually more
 trustworthy than models derived from a particular dataset.
 
+Note also that models tend to be more trustworthy for simpler, more-extensively
+tested physical systems. Newton's laws provide an extremely accurate model for
+projectile motion. One could derive a \emph{stock and flow model} for ecological
+dynamics under conservation principles, but the analyst would need to account
+for all manner of sinks, sources, and interactions between species and the
+environment. Pilkey and Pilkey-Jarvis\cite{pilkey2007useless} provide numerous
+negative examples in environmental science, and warn against unwarranted trust
+in such models. A key step in building trust in a model is \emph{validation}.
+
 \subsection{Validation}
 %% -------------------------
-\textcolor{red}{TODO}
+\textbf{Validation} is a key step in model building, and is one of the core
+motivations behind performing uncertainty quantification. Validation is often
+paired and discussed alongside \textbf{verification}. We present the AIAA
+definitions of verification and validation, by way of Oberkampf and
+Barone.\cite{oberkampf2006measures}
+
+\textbf{Verification} is: The process of determining that a model implementation
+accurately represents the developer's conceptual description of the model and
+the solution to the model.
+
+\textbf{Validation} is: The process of determining the degree to which a model
+is an accurate representation of the real world from the perspective of the
+intended uses of the model.
+
+Both are exercises in determining correctness, but \emph{verification} is an
+exercise in \emph{software}, while \emph{validation} is an exercise in
+\emph{physics}. Since many scientific and engineering models are expressed in
+terms of nonlinear partial differential equations, including coarse-graining
+model assumptions and requiring numerical approximation for solution procedures,
+both verification and validation are important tasks. However, our emphasis in
+this primer is on uncertainty rather than numerical error: From here we will
+focus on validation.
+
+The definition of validation above requires a comparison of model predictions --
+simulation data -- against real-world measurements -- physical data. A model is
+invalid if it does not accurately predict real world behavior; that is, if given
+the same inputs $\vx$ as those realized in the physical world, the output of the
+model $y$ does not match the physical data. However, this is a somewhat na\"ive
+perspective: Given that physical data are always subject to some uncertainty,
+what value of $\vx$ should we use in our model to predict $y$?
+
+To support validation efforts, numerical analysts have developed
+\textbf{uncertainty propagation} (UP) techniques -- algorithms that aid in
+propagating input uncertainty $\mX$ through a model $f(\mX)$ to quantify
+uncertainty in its output $Y$. UP enables one to specify uncertainty observed in
+a physical experiment, and compute a compatible uncertainty in the output, which
+can then be compared with physical data. This helps to set reasonable
+expectations for model validation: If the output uncertainty is large, then we
+know the combination of input data and model may not lead to any firm
+conclusion, and better data or models may be required. If the output uncertainty
+is small, and the resulting output does not compare favorably with they physical
+data, then the model is likely invalid.
+
+It is somewhat difficult to conclusively determine that a model has been
+`validated'. Formally, any scientific theory can only be \textbf{falsified}; it
+is not possible to `prove' any theory to be true.\cite{popper2005logic}
+\emph{Validated} is a somewhat weaker condition than \emph{proven} -- note that
+the AIAA definition -- an engineering perspective -- references the
+\emph{degree} of model agreement, based on \emph{intended use}. Thus validation
+is inherently relative to the model's \emph{purpose}. A model for an aircraft
+may be validated for steady cruise conditions, but known to be false for takeoff
+and landing configurations. Similarly, the theory of relativity could be said to
+be validated for very large-scale behavior -- on the order of planets, systems,
+and galaxies -- but invalid for the very small -- the domain of quantum
+mechanics.
+
+Even a `validated' model used in its intended parameter regime may contain
+surprises. Unaccounted phenomena -- missing physics -- can enter in unexpected
+ways, particularly in complex systems with interacting components. In some
+cases, it is simply not possible to carry out the experiments directly related
+to the physical phenomena of interest; in these cases, we may want a way to
+quantify the uncertainty not in the inputs $\mX$, \emph{but in the model
+  itself}. This leads to the study of \emph{model form uncertainty}.
 
 \subsection{Model Form Uncertainty}
 %% -------------------------
+As we noted above, models can exhibit \emph{discrepancy} in comparison with the
+physical phenomena they are intended to model. These can arise due to errors in
+reasoning, or due to \emph{intentional choices} made to simplify calculations.
+In the presence of such discrepancy, the functional form of the model is said to
+be in error, leading to a source of uncertainty in the model's predictions. This
+is known as \textbf{model form uncertainty}. Model form is a difficult type of
+uncertainty to treat, but arguably the most important!
+
+As a concrete example, let's consider projectile motion. Aerodynamic drag is
+known to be important in a variety of settings, and a number of different
+treatments are available for our use. Perhaps the most accurate approach would
+be to solve the Navier-Stokes equations exactly for the full
+projectile-atmosphere interaction, which would resolve nearly all the physical
+phenomena at play.\footnote{Even then, we neglect relativistic and quantum
+  effects! These are certainly less important at human scales, though.}
+
+A considerable step down in complexity would be to simply solve for projectile
+motion using Newton's laws, but model the effects of drag. A bevy of models is
+available to use, including familiar linear and quadratic approaches.
+\textcolor{red}{TODO} Finish example, provide plots
+
+As engineers and scientists with years of training in physics, it is easy --
+perhaps pedantic -- for us to clearly articulate the phenomena lost in dragless
+projectile motion. However, the same sort of \emph{model error} is present in
+more complicated problems -- errors which we may not even know exist. To help in
+identifying cases where model form uncertainty may be present, we introduce a
+few interrelated concepts that characterize these errors.
+
+\textbf{Missing physics} is a simple enough concept, though unknown unknowns are
+always difficult to treat. The Tacoma Narrows Bridge is the quintessential
+example of how things can go horribly wrong when physical phenomena are simply
+not accounted for. The 1940's bridge design was carried out under static wind
+load conditions, while its eventual collapse was due to dynamic
+phenomena.[\textcolor{red}{CITATION NEEDED}]
+
+This sort of error can occur when one moves into an unfamiliar domain; either in
+terms of fields of study, or when moving to different physical \emph{scales}.
+
+\textbf{Scale} is an ubiquitous concept in physics, and often forms the
+boundaries between disciplines. While many physical phenomena change
+continuously across changes in length-, time-, mass-, and other-scales,
+qualitative changes occur as well. Clearly, if qualitative changes are not
+accounted in physical models, then there will be some form of discrepancy.
+However, the surprises in moving to a different field can be humbling.
+
+As a mechanical engineer with a background in fluids and aircraft, I often
+regarded the momentum imparted by photons as an academic curiosity, perhaps of
+interest to those designing solar sails. I was personally astounded to learn
+from graduate student colleagues that satellite designers have to account for
+\emph{solar radiation pressure} in their designs! When the ambient force-scales
+are in micro-Newtons, such `small' effects become quite
+relevant.\footnote{Designers of the Internation Space Station had to account for
+  the difference in Earth's graviational attraction across the station, as the
+  structure is large enough that a non-negligible \emph{graviational moment} is
+  applied!}
+
+Neglecting radiation pressure on aircraft is possible due to \emph{scale
+  separation} -- the pressure contributions due to photons are so small compared
+to fluid pressure that the phenomena can be neglected without much consequence.
+`New' phenomena can become relevant when the scales of interest change
+dramatically, but more subtle effects can occur due to scale
+\emph{interactions}.
+
+\textbf{Interaction} is the generic term we give to phenomena, usually
+considered separately, that work together to produce some effect. Interactions
+are most obvious when domains cross, such as when fluids and structures interact
+to produce aeroelastic flutter. Such effects can also occur within a single
+domain \textcolor{red}{TODO} Example
+
+How can we handle model form uncertainty? Higdon et
+al.\cite{higdon2004calibration-prediction} suggest a means to fuse information
+available from physical and simulation data, and build an approximation to the
+discrepancy between the two sets. Their approach is to construct a discrepancy
+function $\delta(\vx)$\footnote{specifically, they use \emph{gaussian process
+    regression} to construct thsi function} such that
+
+\begin{equation}
+  y_i = f(\vx_i) + \delta(\vx_i) + \epsilon_i,
+\end{equation}
+
+\noindent where $f$ is the simulation output, $\epsilon_i$ is experimental
+error, $\delta$ represents model form uncertainty, and the $y_i$ are physical
+data, collected at nominal conditions $\vx_i$. They admit that extrapolating
+beyond the collected data $\{y_i,\vx_i\}$ can be challenging, and note that
+
+\subsection{Regression}
+%% -------------------------
 \textcolor{red}{TODO}
 
-\subsection{Sensitivity Analysis: Overview}
-%% -------------------------
+%% --------------------------------------------------
+\section{Sensitivity Analysis}
+%% --------------------------------------------------
 Above, we posed the question ``Is the uncertainty in $Y$ significant?'' A full
 answer to this question requires choosing a context and computing the
 uncertainty in $Y$. \textbf{Sensitivity analysis} asks a slightly different
@@ -747,6 +959,16 @@ one to determine if particular inputs are \emph{unimportant}, with regard to the
 output uncertainty. This enables one to fix these unimportant inputs to nominal
 values, making uncertainty propagation cheaper, possibly rendering an
 intractable computational problem feasible.
+
+A different perspective on the same use is to determine what physical data is
+most worth gathering. Clearly, if the output of interest $y$ is insensitive to a
+particular input $x_i$, then gathering more data on this predictor is not a
+useful exercise. Sensitivity analysis on a model can help to inform follow-up
+experiments, which can be useful to support the allocation of scientific and
+engineering resources. However, it is important to note that all sensitivity
+being studied is that of the \emph{model}, and not of \emph{physics} -- if the
+model is not an accurate description of reality, the resulting analysis may be
+misleading!
 
 There are at least two broad families of sensitivity analysis: local and global.
 Figure \ref{fig:local-vs-global} provides a cartoon example, intended to
