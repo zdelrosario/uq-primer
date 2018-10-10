@@ -242,3 +242,7 @@ features, which we'll need to pick carefully.
 
 Features:
 - ???
+* References
+** fivethirtyeight
+Relevant Nate Silver article:
+https://fivethirtyeight.com/features/the-media-has-a-probability-problem/
