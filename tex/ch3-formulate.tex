@@ -30,13 +30,19 @@ An engineer may ask ``How can I design a safe, cost-effective bridge to cross
 this river?'' This naturally leads to the question ``How can I measure safety of
 a given design?'', which is commonly posed as a probabilistic (reliability)
 problem. The engineer should also ask ``What models will be appropriate for this
-design task?'' This may lead the engineer to seek a validated Finite Element
-code to aid in structural design. An engineer should also ask ``What are my
-constraints and requirements for design?'' Some of these factors in design may
-be uncertain, such as wind loading conditions.
+design task?'' This may lead the engineer to seek a validated structural
+analysis simulation code to aid in design. An engineer should also ask ``What
+are my constraints and requirements for design?'' Some of these factors in
+design may be uncertain, such as wind loading conditions.
 
 A scientist may ask ``How can I better understand the interaction between fluid
-and particles in a turbulent flow?'' \textcolor{red}{TODO} Fuller example
+and particles in a turbulent flow?'' The scientist should ask ``what observable
+characteristic of the flow will enable me to understand particle-fluid
+interactions?'' Often, the turbulent kinetic energy (TKE) is used to
+characterize turbulent flows, so one might measure changes in TKE due to the
+addition of particles. A scientist should always ask ``what is already known
+about this phenomenon, and what is \emph{not} known?'' which may be answered by
+literature review and conversations with peers.
 
 Once the high-level objective of an investigation has been established, the
 analyst should ask a number of follow-up questions:
@@ -55,9 +61,9 @@ Section \ref{sec:data} provides some tools and concepts to study data and
 exercise skepticism towards a dataset.
 
 ``Do I trust my assumptions?'' If the data are \emph{truly} representative of
-the problem to be studied, then one can often test assumptions against the data.
-Note that this is a one-way diagnostic -- one can only falsify an assumption,
-not `prove' that assumptions are true! Assuming that one can operationalize an
+the problem to be studied, then one can test assumptions against the data. Note
+that this is a one-way diagnostic -- one can only falsify an assumption, not
+`prove' that assumptions are true! Assuming that one can operationalize an
 assumption as a model, Section \ref{sec:models} provides some tools to question
 and quantify the validity of assumptions.
 
@@ -941,6 +947,11 @@ beyond the collected data $\{y_i,\vx_i\}$ can be challenging, and note that
 \subsection{Regression}
 %% -------------------------
 \textcolor{red}{TODO}
+
+- Regression can be used to check the validity of a model; if a model cannot
+predict the behavior in physical data -- even after tuning parameters -- then it
+cannot be an accurate representation of reality. Note that this is only
+falsification.
 
 %% --------------------------------------------------
 \section{Sensitivity Analysis}
