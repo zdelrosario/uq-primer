@@ -733,10 +733,12 @@ laws.\footnote{Some notable exceptions include quantum mechanics and statistical
   mechanics.} For a single input $\vx$, we obtain a unique value $y$.
 
 However, in many practical cases, the inputs $\vx$ are not known exactly, but
-may be thought of instead as a multivariate random variable $\mX$. In this case,
-the mapping $f(\vx)$ creates a new random variable $Y = f(\mX)$, with randomness
-induced by the uncertain inputs $\mX$, and transformed by the model arising from
-physics. This leads to a very practical question: ``Is the uncertainty in $Y$
+are uncertain. The inputs may be `genuinely' random, or may simply not be fully
+characterized. In either case, it is common to model this uncertainty on the
+inputs as a multivariate random variable $\mX$. In this case, the mapping
+$f(\vx)$ creates a new random variable $Y = f(\mX)$, with randomness induced by
+the uncertain inputs $\mX$, and transformed by the model arising from physics.
+This leads to a very practical question: ``Is the uncertainty in $Y$
 significant?'' The answer to this question depends both on how uncertain we are
 about $Y$, and for what purpose we intend to use this information. The latter
 depends on problem formulation, while the former falls under the purview of
@@ -835,6 +837,8 @@ know the combination of input data and model may not lead to any firm
 conclusion, and better data or models may be required. If the output uncertainty
 is small, and the resulting output does not compare favorably with they physical
 data, then the model is likely invalid.
+
+[\textcolor{red}{TODO} Positive and negative example of validation.]
 
 It is somewhat difficult to conclusively determine that a model has been
 `validated'. Formally, any scientific theory can only be \textbf{falsified}; it
