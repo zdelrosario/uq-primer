@@ -894,10 +894,10 @@ few interrelated concepts that characterize these errors.
 \textbf{Missing physics} is a simple enough concept, though unknown unknowns are
 always difficult to treat. The Tacoma Narrows Bridge is the quintessential
 example of how things can go horribly wrong when physical phenomena are simply
-not accounted for. The 1940's bridge design was carried out under static wind
-load conditions, as dynamic wind loading was seen as secondary to the huge
-weight of the stationary structure.\cite{scott2003} The bridge's eventual
-collapse was due to dynamic phenomena, though the precise mechanism is still
+not accounted. The 1940's bridge design was carried out under static wind load
+conditions, as dynamic wind loading was seen as secondary to the huge weight of
+the stationary structure.\cite{scott2003} The bridge's eventual collapse was due
+to dynamic phenomena, though the precise mechanism is still
 debated.\cite{billah1991resonance}
 
 This sort of error can occur when one moves into an unfamiliar domain; either in
@@ -939,7 +939,7 @@ al.\cite{higdon2004calibration-prediction} suggest a means to fuse information
 available from physical and simulation data, and build an approximation to the
 discrepancy between the two sets. Their approach is to construct a discrepancy
 function $\delta(\vx)$\footnote{specifically, they use \emph{gaussian process
-    regression} to construct thsi function} such that
+    regression} to construct this function} such that
 
 \begin{equation}
   y_i = f(\vx_i) + \delta(\vx_i) + \epsilon_i,
@@ -948,7 +948,10 @@ function $\delta(\vx)$\footnote{specifically, they use \emph{gaussian process
 \noindent where $f$ is the simulation output, $\epsilon_i$ is experimental
 error, $\delta$ represents model form uncertainty, and the $y_i$ are physical
 data, collected at nominal conditions $\vx_i$. They admit that extrapolating
-beyond the collected data $\{y_i,\vx_i\}$ can be challenging, and note that
+beyond the collected data $\{y_i,\vx_i\}$ can be challenging, and note that such
+a procedure is most defensible when used to study conditions within the confines
+of available data. One can use this discrepancy to improve predictions, or as a
+means to inform further modifications to a model.\cite{joseph2015engineering}
 
 \subsection{Regression}
 %% -------------------------
