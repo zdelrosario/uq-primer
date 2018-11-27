@@ -182,7 +182,7 @@ For what follows, we will consider a set of data $X_i\in\R{}$ for $i =
 \epsilon_i$, where the $\epsilon_i$ are errors arising either from lurking
 variables or discrepancies.
 
-\subsection{Summaries}
+\section{Summaries}
 %% -------------------------
 \marginnote{These summary values are more formally called \emph{summary
     statistics}. Since we are describing data here, really we should call the
@@ -423,7 +423,7 @@ crucial step where one seeks to understand the data, especially to check
 assumptions that subsequent analyses may rest upon. However, EDA is a broad
 subject, beyond the scope of this primer.
 
-\subsection{Distributions}
+\section{Distributions}
 %% -------------------------
 We will use distributions to model uncertain quantities. A \emph{distribution}
 defines a \emph{random variable} $X$ -- an uncertain quantity which takes
@@ -675,6 +675,11 @@ in terms of the parameters. For instance, assuming a normal vs Student's t makes
 an assertion about tail behavior, and both assume a symmetric distribution.
 Modeling a random quantity requires careful thought about what behavior it may
 exhibit, and should ideally be supported by both data and relevant knowledge.
+
+As a side note, an alternative to matching moments is to fit distribution
+parameters -- and account for their uncertainty -- via some inferential
+procedure. We will discuss \emph{predictive distributions} in Chapter
+\ref{ch:wrangle} Section \ref{sec:inverse-propagation}.
 
 \textbf{Confidence Intervals} are a common way of expressing uncertainty about
 an estimated quantity. In contrast with reporting a single estimated value -- a
@@ -1009,19 +1014,6 @@ beyond the collected data $\{y_i,\vx_i\}$ can be challenging, and note that such
 a procedure is most defensible when used to study conditions within the confines
 of available data. One can use this discrepancy to improve predictions, or as a
 means to inform further modifications to a model.\cite{joseph2015engineering}
-
-\subsection{Regression}
-%% -------------------------
-\textcolor{red}{TODO}
-
-- Regression can be used to check the validity of a model; if a model cannot
-predict the behavior in physical data -- even after tuning parameters -- then it
-cannot be an accurate representation of reality. Note that this is only
-falsification.
-
-\subsection{Cross-Validation}
-%% -------------------------
-\textcolor{red}{TODO}
 
 %% --------------------------------------------------
 \section{Sensitivity Analysis} \label{sec:sa}
