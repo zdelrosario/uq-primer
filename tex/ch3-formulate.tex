@@ -2,7 +2,7 @@
 
 \begin{document}
 
-\chapter{Formulate} \label{ch3:formulate}
+\chapter{Formulate} \label{ch:formulate}
 %% --------------------------------------------------
 Any engineer or scientist worth their salt approaches a new problem first by
 \textbf{formulating} it. This involves posing the the question(s) to be
@@ -17,7 +17,7 @@ are we attempting to answer? This critical component will inform all following
 work, and so should be posed as early as possible.
 
 %% --------------------------------------------------
-\section{Questions} \label{sec:ch3-questions}
+\section{Questions} \label{sec:questions}
 %% --------------------------------------------------
 ``First secret: The most important question is the question.'' -- Andrea
 Saltelli\cite{saltelli2000sensitivity}
@@ -66,11 +66,14 @@ exercise skepticism towards a dataset.
 the problem to be studied, then one can test assumptions against the data. Note
 that this is a one-way diagnostic -- one can only falsify an assumption, not
 `prove' that assumptions are true! Assuming that one can operationalize an
-assumption as a model, Section \ref{sec:models} provides some tools to question
-and quantify the validity of assumptions.
+assumption as a model, Section \ref{sec:models} introduces some concepts to
+question and quantify the validity of assumptions. Section \ref{sec:sa} provides
+some tools to help investigate models, Section \ref{sec:inverse-propagation} of
+Chapter \ref{ch:wrangle} gives examples of model sanity checks using inverse
+propagation, and Chapter \ref{ch:act} gives examples of validation in practice.
 
 %% --------------------------------------------------
-\section{Uncertainty} \label{sec:ch3-uncertainty}
+\section{Uncertainty} \label{sec:uncertainty}
 %% --------------------------------------------------
 \textbf{Uncertainty} is the primary subject of this primer, and deserves a bit
 of attention by itself. Many of the questions posed above lack \emph{binary}
@@ -107,7 +110,7 @@ cases, we may employ \emph{models} that link those quantities we can measure
 (inputs) to the downstream qoi with which we are ultimately concerned (outputs).
 
 %% --------------------------------------------------
-\section{Data} \label{sec:ch3-data}
+\section{Data} \label{sec:data}
 %% --------------------------------------------------
 Data are our quantitative anchor to reality.\footnote{One could
   \href{http://phdcomics.com/comics.php?f=1816}{make a case} for data in the
@@ -1021,7 +1024,7 @@ falsification.
 \textcolor{red}{TODO}
 
 %% --------------------------------------------------
-\section{Sensitivity Analysis}
+\section{Sensitivity Analysis} \label{sec:sa}
 %% --------------------------------------------------
 Above, we posed the question ``Is the uncertainty in $Y$ significant?'' A full
 answer to this question requires choosing a context and computing the
