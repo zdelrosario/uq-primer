@@ -7,8 +7,10 @@
 Any engineer or scientist worth their salt approaches a new problem first by
 \textbf{formulating} it. This involves posing the the question(s) to be
 answered, gathering relevant data and information, and obtaining or building
-relevant models. This chapter focuses on tools and concepts to aid in the
-formulation stage, with a particular eye towards handling uncertainty.
+relevant models. Often we will need to post-process these models with some form
+of sensitivity analysis, in order to support other UQ efforts. This chapter
+focuses on tools and concepts to aid in the formulation stage, with a particular
+eye towards handling uncertainty.
 
 We start with the most important step: What \emph{question} or \emph{questions}
 are we attempting to answer? This critical component will inform all following
@@ -66,6 +68,43 @@ that this is a one-way diagnostic -- one can only falsify an assumption, not
 `prove' that assumptions are true! Assuming that one can operationalize an
 assumption as a model, Section \ref{sec:models} provides some tools to question
 and quantify the validity of assumptions.
+
+%% --------------------------------------------------
+\section{Uncertainty} \label{sec:ch3-uncertainty}
+%% --------------------------------------------------
+\textbf{Uncertainty} is the primary subject of this primer, and deserves a bit
+of attention by itself. Many of the questions posed above lack \emph{binary}
+answers: The answer to ``do I trust my data?'' is neither ``yes, blindly'' nor
+``no, not at all'', but somewhere in between. Any dataset has context,
+limitations, possibly errors. They grey area between the extremes of knowledge
+is the domain of uncertainty; determining where one is in this domain is the act
+of \emph{quantifying uncertainty}. Knowing where one is allows one to plot a
+course to the desired outcome.
+
+Uncertainty comes in many different flavors. Researchers in the UQ community
+speak of reducible and irreducible forms. Reducible uncertainty is said to be
+\textbf{epistemic}, derived from the Greek word for knowledge \emph{episteme}.
+Fundamental constants of nature are thought to be just that, and one can reduce
+uncertainty in their values (increase the number of significant digits) through
+improved measurement techniques. Irreducible uncertainty is said to be
+\textbf{aleatory}, derived from the Latin word \emph{alea} -- a game with dice.
+Just as one cannot be certain of the number that will be rolled next on a die,
+some sources of uncertainty remain, to some degree, unpredictable. An example is
+manufacturing variability -- though engineers may tighten manufacturing
+tolerances, some variation in end products will always exist as a source of
+aleatory uncertainty.
+
+Note that epistemic and aleatory uncertainties are not mutually exclusive: Most
+uncertain quantities are some combination of the two. The output of a
+manufacturing process is a good example: Process control engineers might be able
+to better understand the variation in product, but can never eliminate this
+variation entirely.
+
+How do we quantify uncertainty? Our primary strategy is to gather \emph{data} on
+our target quantities of interest, and construct \emph{summaries}. On some
+occasions, we will not be able to gather data on our qoi directly; in these
+cases, we may employ \emph{models} that link those quantities we can measure
+(inputs) to the downstream qoi with which we are ultimately concerned (outputs).
 
 %% --------------------------------------------------
 \section{Data} \label{sec:ch3-data}
@@ -149,10 +188,10 @@ variables or discrepancies.
 
 Working directly with data is challenging. Often, there is simply too much
 information to make sense of manually. To that end, we often employ
-\emph{summaries} -- single numbers which describe a set of data. There are
-different kinds of summaries, which serve different purposes. We will introduce
-different features of data we might seek to represent, and some summaries that
-support them.
+\emph{summaries} -- single numbers which describe a particular attribute of a
+set of data. There are different kinds of summaries, which serve different
+purposes. We will introduce different features of data we might seek to
+represent, and some summaries that support them.
 
 \marginnote{\underline{Concept:} \emph{Central tendency} is a notion of where a
   distribution or data are located.}
