@@ -860,8 +860,8 @@ focus on validation.
 The definition of validation above requires a comparison of model predictions --
 simulation data -- against real-world measurements -- physical data. A model is
 invalid if it does not accurately predict real world behavior; that is, if given
-the same inputs $\vx$ as those realized in the physical world, the output of the
-model $y$ does not match the physical data. However, this is a somewhat na\"ive
+the same inputs $\vx$ as those realized in the physical world, the output $y$ of
+the model does not match the physical data. However, this is a somewhat na\"ive
 perspective: Given that physical data are always subject to some uncertainty,
 what value of $\vx$ should we use in our model to predict $y$?
 
@@ -874,10 +874,8 @@ can then be compared with physical data. This helps to set reasonable
 expectations for model validation: If the output uncertainty is large, then we
 know the combination of input data and model may not lead to any firm
 conclusion, and better data or models may be required. If the output uncertainty
-is small, and the resulting output does not compare favorably with they physical
+is small, and the resulting output does not compare favorably with the physical
 data, then the model is likely invalid.
-
-[\textcolor{red}{TODO} Positive and negative example of validation.]
 
 It is somewhat difficult to conclusively determine that a model has been
 `validated'. Formally, any scientific theory can only be \textbf{falsified}; it
@@ -891,6 +889,19 @@ and landing configurations. Similarly, the theory of relativity could be said to
 be validated for very large-scale behavior -- on the order of planets, systems,
 and galaxies -- but invalid for the very small -- the domain of quantum
 mechanics.
+
+Perhaps the best case of validation is when a physical model \emph{accurately}
+predicts previously-unseen physical phenomena, as with Einstein's theory of
+relativity, which accurately predicted optical phenomena in a 1919 solar
+eclipse. Less trustworthy cases of `validation' include those where tunable
+model parameters have been unscrupulously fiddled in order to match existing
+experimental results. Beware these models, especially those that have been
+matched to different experiments -- with each setting corresponding to different
+values for the parameters! Note that \emph{calibration} -- fitting unknown
+parameters inside a model using experimental data -- is not itself
+untrustworthy. Such a procedure is often necessary. The use of
+\emph{cross-validation} can help cautious analysts protect themselves -- we will
+discuss this approach later.
 
 Even a `validated' model used in its intended parameter regime may contain
 surprises. Unaccounted phenomena -- missing physics -- can enter in unexpected
@@ -1004,6 +1015,10 @@ means to inform further modifications to a model.\cite{joseph2015engineering}
 predict the behavior in physical data -- even after tuning parameters -- then it
 cannot be an accurate representation of reality. Note that this is only
 falsification.
+
+\subsection{Cross-Validation}
+%% -------------------------
+\textcolor{red}{TODO}
 
 %% --------------------------------------------------
 \section{Sensitivity Analysis}
