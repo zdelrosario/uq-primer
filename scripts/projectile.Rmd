@@ -1,0 +1,154 @@
+---
+title: "Projectile Motion Example"
+author: "Zach"
+date: 2018-11-28
+output:
+  github_document:
+    toc: true
+    toc_depth: 6
+---
+
+```{r setup}
+library(deSolve)
+library(tidyverse)
+
+param <- c(-9.8, 0.1, 0.002)
+state0 <- c(0, 0, 50, 50)
+Tall <- seq(0, 10, by = 0.01)
+
+file_traj <- "../images/projectile_traj.eps"
+
+## Projectile models
+rhs_noDrag <- function(t, state, param) {
+  with(
+    as.list(c(state, param)),
+    {
+      X = state[1]
+      Y = state[2]
+      U = state[3]
+      V = state[4]
+
+      g = param[1]
+      b = param[2]
+      k = param[3]
+
+      dX = U
+      dY = V
+      dU = 0
+      dV = g
+
+      list(c(dX, dY, dU, dV))
+    }
+  )
+}
+
+rhs_linear <- function(t, state, param) {
+  with(
+    as.list(c(state, param)),
+    {
+      X = state[1]
+      Y = state[2]
+      U = state[3]
+      V = state[4]
+      s = sqrt(U^2 + V^2)
+
+      g = param[1]
+      b = param[2]
+      k = param[3]
+
+      dX = U
+      dY = V
+      dU = -b * U
+      dV = -b * V + g
+
+      list(c(dX, dY, dU, dV))
+    }
+  )
+}
+
+rhs_quadratic <- function(t, state, param) {
+  with(
+    as.list(c(state, param)),
+    {
+      X = state[1]
+      Y = state[2]
+      U = state[3]
+      V = state[4]
+      s = sqrt(U^2 + V^2)
+
+      g = param[1]
+      b = param[2]
+      k = param[3]
+
+      dX = U
+      dY = V
+      dU = -k * U * s
+      dV = -k * V * s + g
+
+      list(c(dX, dY, dU, dV))
+    }
+  )
+}
+```
+
+```{r solve}
+res_noDrag <- ode(y = state0, times = Tall, func = rhs_noDrag, parms = param) %>%
+  as_tibble(check = F) %>%
+  rename(
+    X = `1`,
+    Y = `2`,
+    U = `3`,
+    V = `4`
+  ) %>%
+  bind_cols(
+    .,
+    tibble(model = rep("no drag", length(Tall)))
+  )
+
+res_linear <- ode(y = state0, times = Tall, func = rhs_linear, parms = param) %>%
+  as_tibble() %>%
+  rename(
+    X = `1`,
+    Y = `2`,
+    U = `3`,
+    V = `4`
+  ) %>%
+  bind_cols(
+    .,
+    tibble(model = rep("linear drag", length(Tall)))
+  )
+
+res_quadratic <- ode(y = state0, times = Tall, func = rhs_quadratic, parms = param) %>%
+  as_tibble() %>%
+  rename(
+    X = `1`,
+    Y = `2`,
+    U = `3`,
+    V = `4`
+  ) %>%
+  bind_cols(
+    .,
+    tibble(model = rep("data", length(Tall)))
+  )
+
+df_all <-
+  bind_rows(
+    res_noDrag,
+    res_linear
+  ) %>%
+  bind_rows(
+    .,
+    res_quadratic
+  )
+```
+
+```{r plot}
+df_all %>%
+  ggplot(aes(X, Y, color = model)) +
+  geom_line(data = . %>% filter(!str_detect(model, "drag")), linetype = 2, size = 1.5) +
+  geom_line(data = . %>% filter(str_detect(model, "drag"))) +
+  coord_cartesian(xlim = c(0, 500), ylim = c(0, 150)) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+ggsave(filename = file_traj)
+```

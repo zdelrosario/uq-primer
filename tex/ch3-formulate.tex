@@ -937,10 +937,21 @@ projectile-atmosphere interaction, which would resolve nearly all the physical
 phenomena at play.\footnote{Even then, we neglect relativistic and quantum
   effects! These are usually less important at human scales, though.}
 
-A considerable step down in complexity would be to simply solve for projectile
-motion using Newton's laws, but model the effects of drag. A bevy of models is
-available to use, including familiar linear and quadratic approaches.
-\textcolor{red}{TODO} Finish example, provide plots
+A considerable step down in complexity would be to model projectile motion using
+Newton's laws with some form of drag model. We consider two different models of
+drag against synthetic data (Fig. \ref{fig:projectile-traj}). Clearly the `no
+drag' option is unacceptable here -- it is not capturing the symmetry-breaking
+properties of drag. However, even after tuning model parameters, the `linear
+drag' model does not match the observed behavior -- there is still some
+remaining model error, suggesting some uncertainty in the model form.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.85\textwidth]{./images/projectile_traj}
+
+  \caption{Projectile trajectories using different drag models.}
+  \label{fig:projectile-traj}
+\end{figure}
 
 As engineers and scientists with years of training in physics, it is easy --
 perhaps pedantic -- for us to clearly articulate the phenomena lost in dragless
