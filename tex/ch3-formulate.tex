@@ -388,8 +388,45 @@ useful for summarizing data.
     presented as a boxplot, which highlights a number of potential outliers.}
 \end{figure}
 
-\textcolor{red}{TODO} \textbf{Correlation} is important for studying the
-relationship between variables. \textcolor{red}{TODO} Spearman's $\rho$?
+\textbf{Correlation} is important for studying the relationship between
+variables. Correlation is defined for two random variables $\mX,\mY$ via
+
+\begin{equation} \label{eq:corr-pearson}
+  \rho_{\mX,\mY} = \frac{\text{Cov}(\mX,\mY)}{\sigma_{\mX}\sigma_{\mY}},
+\end{equation}
+
+\noindent where $\text{Cov}(\mX,\mY)\equiv\E[(\mX-\E[\mX])(\mY-\E[\mY])]$ is the
+covariance between $\mX,\mY$, and the $\sigma$ are their standard deviations. In
+truth \eqref{eq:corr-pearson} is called the \emph{pearson correlation}, to
+distinguish it from other correlation definitions. Pearson correlation measures
+\emph{linear} correlation between quantities; it well tend to fail to find
+nonlinear relations between variables.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.85\textwidth]{./images/corr_xy}\\
+  \includegraphics[width=0.85\textwidth]{./images/corr_xz}
+
+  \caption{Example data used for demonstrating correlation. The top case has a
+    true underlying correlation of $\f12$; with these $50$ data points the
+    pearson correlation is $\rho_{\mX,\mY} = 0.719$, and the spearman
+    correlation is $r_{\mX,\mY} = 0.661$. The bottom case has a perfect
+    monatonic relation; with these $50$ data points the pearson correlation is
+    $\rho_{\mX,\mY} = 0.711$, and the spearman correlation is $r_{\mX,\mY} =
+    1.0$.}
+\end{figure}
+
+An alternative formulation is \emph{spearman's rho} or \emph{spearman
+  correlation}, which is defined as the pearson correlation between \emph{rank
+  variables}
+
+\begin{equation}
+  r_{\mX,\mY} = \rho_{R_{k,\mX},R_{k,\mY}}
+\end{equation}
+
+\noindent where \emph{rank variables} $R_{k,\mX},R_{k,\mY}$ are simply the
+indices of the ordered observations of $\mX$ and $\mY$, much like computing
+order statistics.\textcolor{red}{TODO} Citation needed!
 
 \textbf{Skepticism} is vitally important when analyzing data. In practice, one
 should be skeptical both of the data, \emph{and} of the techniques used to
