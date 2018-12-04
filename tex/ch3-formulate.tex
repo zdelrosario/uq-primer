@@ -674,6 +674,12 @@ terms of their parameters.
 \noindent\textbf{Other Distributions} \textcolor{red}{TODO} A list and brief
 commentary on other distributions.
 
+\noindent\textbf{Lognormal Distribution}
+
+\noindent\textbf{Weibull Distribution}
+
+\noindent\textbf{F Distribution}
+
 \noindent\textbf{Matching Moments} is a simple way to fit a distribution to
 data. For a normal distribution this is easy, as it is parameterized in terms of
 its mean and variance -- given data, we could easily compute the sample mean and
@@ -858,7 +864,7 @@ Note that `data driven' does not necessarily mean `automatic,' or that knowledge
 of (and respect for) the underlying physical phenomena is not necessary for
 success. Building data driven models is a challenging task to do well, requiring
 both statistical, engineering, and domain knowledge. We will cover regression --
-a particular data driven approach -- in a bit of detail below.
+a particular data driven approach -- in a following chapter.
 
 Finally, we note that the distinction between models from physics and data is,
 at least philosophically, somewhat arbitrary. All physical laws are in some way
@@ -868,14 +874,20 @@ at falsification.\cite{popper2005logic} Physical laws represent our best
 understanding of the physical world to date, and therefore are usually more
 trustworthy than models derived from a particular dataset.
 
-Note also that models tend to be more trustworthy for simpler, more-extensively
-tested physical systems. Newton's laws provide an extremely accurate model for
-projectile motion. One could derive a \emph{stock and flow model} for ecological
-dynamics under conservation principles, but the analyst would need to account
-for all manner of sinks, sources, and interactions between species and the
-environment. Pilkey and Pilkey-Jarvis\cite{pilkey2007useless} provide numerous
-negative examples in environmental science, and warn against unwarranted trust
-in such models. A key step in building trust in a model is \emph{validation}.
+Where the distinction above becomes (actionably) useful is in realizing that
+models tend to be more trustworthy for simpler, more-extensively tested
+settings. Newton's laws provide an extremely accurate model for projectile
+motion. One could derive a \emph{stock and flow model} for ecological dynamics
+under conservation principles, but the analyst would need to account for all
+manner of sinks, sources, and interactions between species and the environment.
+Pilkey and Pilkey-Jarvis\cite{pilkey2007useless} provide numerous negative
+examples in environmental science, and warn against unwarranted trust in such
+models.
+
+However, as scientists and engineers, we would like to progress from simple,
+well-understood cases towards more complicated settings of interest. How can we
+confidently build from first principles and data towards a useful model? A key
+step in building trust in a model is \emph{validation}.
 
 \subsection{Validation}
 %% -------------------------
