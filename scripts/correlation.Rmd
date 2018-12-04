@@ -1,0 +1,53 @@
+---
+title: "Correlation"
+author: "Zach"
+date: 2018-12-03
+output:
+  github_document:
+    toc: true
+    toc_depth: 6
+---
+
+```{r setup, echo=FALSE}
+library(MASS)
+library(tidyverse)
+
+source("./comm.r") # Common theme
+
+set.seed(101)
+n <- 50
+Sigma <- matrix(c(1.0, 0.5, 1.0, 0.5), ncol = 2)
+X <- mvrnorm(n = n, mu = c(0, 0), Sigma = Sigma)
+Z <- 5 * X[, 1]^5
+
+df_data <-
+  tibble(
+    x = X[, 1],
+    y = X[, 2],
+    z = Z
+  )
+```
+
+```{r summaries}
+df_data %>%
+  summarize(
+    corr_xy = cor(x, y, method = "pearson"),
+    spear_xy = cor(x, y, method = "spearman"),
+    corr_xz = cor(x, z, method = "pearson"),
+    spear_xz = cor(x, z, method = "spearman")
+  )
+```
+
+```{r plots}
+df_data %>%
+  ggplot(aes(x, y)) +
+  geom_point() +
+  theme_common()
+ggsave("../images/corr_xy.eps")
+
+df_data %>%
+  ggplot(aes(x, z)) +
+  geom_point() +
+  theme_common()
+ggsave("../images/corr_xz.eps")
+```
