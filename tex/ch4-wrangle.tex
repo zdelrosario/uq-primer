@@ -156,8 +156,8 @@ For any function with finite ($\rho$-weighted) L2 norm\footnote{This assumption
 
 \noindent can be expanded in terms of an infinite polynomial series
 
-\begin{equation}
-  f(x) = \sum_{i=1}^{\infty} f_i \psi_i(x),
+\begin{equation} \label{eq:poly-expansion}
+  f(x) = \sum_{i=0}^{\infty} f_i \psi_i(x),
 \end{equation}
 
 \noindent where the $\psi_i(x)$ are polynomials in
@@ -166,11 +166,63 @@ $\{f_i\}$, we have a \emph{representation} of $f$. We could then integrate the
 the function via
 
 \begin{equation}
-  \E[f] = \sum_{i=1}^{\infty} f_i \E[\psi_i],
+  \E[Y] = \E[f(X)] = \sum_{i=0}^{\infty} f_i \E[\psi_i],
 \end{equation}
 
 \noindent and note that typically the $\E[\psi_i]$ will be easy to evaluate. The
-task is then to determine the $f_i$.
+task is then to determine the $f_i$. The values of $f_i$ will depend on the set
+of polynomials $\psi_i$ we choose.
+
+A common strategy for selecting $\psi_i$ is to choose polynomials
+\emph{orthogonal with respect to the density} $\rho$.\cite{xiu2002wiener} Such
+polynomials have the property $\E[\psi_i\psi_j] = 0$ when $i\neq j$. We will
+refer to \eqref{eq:poly-expansion} with orthogonal polynomials as the
+\emph{spectral expansion} of $f$. Table \ref{tab:pce-basis} gives the
+appropriate orthogonal polynomial basis for various densities.
+
+\begin{table}[!ht]
+  \centering
+  \begin{tabular}{@{}ll@{}}
+    Distribution & Polynomial Basis \\
+    \hline
+    Gaussian     & Hermite \\
+    Gamma        & Laguerre \\
+    Beta         & Jacobi \\
+    Uniform      & Legendre
+  \end{tabular}
+  \caption{Table of distributions $\rho$ and their corresponding family of
+    orthogonal polynomials. Note that unlike vector spaces, where there are
+    infinitely many orthogonal bases for the same vector space (just imagine
+    rotating them), the polynomial basis for functions -- under a specific
+    weight -- is \emph{unique}.}
+  \label{tab:pce-basis}
+\end{table}
+
+Suspending the computation of $f_i$ for the moment, the spectral
+expansion\footnote{For historical reasons, \eqref{eq:poly-expansion} with
+  orthogonal polynomials is called a \emph{polynomial chaos expansion} (PCE).
+  This is misleading terminology in our modern context, as the PCE is often used
+  in contexts that have no chaotic behavior. Ralph Smith uses the term
+  \emph{spectral expansion}, which is much more descriptive.} is particularly
+convenient for UQ, as it allows us to easily represent the first two moments of
+the random variable $Y\sim f(X)$ via
+
+\begin{equation} \begin{aligned}
+  \E[Y] &= f_0 \\
+  \V[Y] &= \sum_{i=1}^{\infty} f_i^2 \E[\psi_i\psi_i].
+\end{aligned} \end{equation}
+
+With the appropriate choice of orthogonal basis, we can symbolically `extract'
+the coefficients by multiplying $f$ against a selected basis function $\psi_i$,
+and taking the expectation. This is essentially a \emph{projection} against a
+basis function, which yields
+
+\begin{equation} \begin{aligned}
+  \E[f \psi_i] &= f_i \E[\psi_i \psi_i], \\
+  f_i &= \frac{\E[f \psi_i]}{\E[\psi_i \psi_i]}.
+\end{aligned} \end{equation}
+
+\noindent Of course, this still leaves us needing to evaluate $\E[f \psi_i]$.
 
 \section{Inverse}
 %% --------------------------------------------------
