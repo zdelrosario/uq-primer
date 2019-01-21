@@ -109,6 +109,22 @@ occasions, we will not be able to gather data on our qoi directly; in these
 cases, we may employ \emph{models} that link those quantities we can measure
 (inputs) to the downstream qoi with which we are ultimately concerned (outputs).
 
+However, in some cases we will may find a probabilistic characterization of the
+uncertainty inappropriate. This could be due to an extreme lack of data,
+possibly due to practical (or even legal) concerns. One may also choose to avoid
+a probabilistic characterization for \emph{computational} reasons, as full
+uncertainty propagation can be intractable for especially complicated, expensive
+simulations. In these cases, we might use \emph{intervals} -- without
+distributions -- to represent uncertainty. Note that such data-free approaches
+are the subject of active research, and do not have the same richness of
+material as the distribution-based means. Our treatment will be necessarily
+brief.
+
+Uncertainty enters not only through numerical values, but also into the
+\emph{structural form of equations used to model reality}. This is a very
+subtle, but extremely important topic. We will discuss the issues of \emph{model
+  form uncertainty} at length in this chapter.
+
 %% --------------------------------------------------
 \section{Data} \label{sec:data}
 %% --------------------------------------------------
@@ -182,7 +198,11 @@ For what follows, we will consider a set of data $X_i\in\R{}$ for $i =
 \epsilon_i$, where the $\epsilon_i$ are errors arising either from lurking
 variables or discrepancies.
 
-\section{Summaries}
+%% --------------------------------------------------
+\section{Probability Characterization}
+%% --------------------------------------------------
+
+\subsection{Summaries}
 %% -------------------------
 \marginnote{These summary values are more formally called \emph{summary
     statistics}. Since we are describing data here, really we should call the
@@ -460,7 +480,7 @@ crucial step where one seeks to understand the data, especially to check
 assumptions that subsequent analyses may rest upon. However, EDA is a broad
 subject, beyond the scope of this primer.
 
-\section{Distributions}
+\subsection{Distributions}
 %% -------------------------
 We will use distributions to model uncertain quantities. A \emph{distribution}
 defines a \emph{random variable} $X$ -- an uncertain quantity which takes
@@ -763,6 +783,102 @@ may be prudent to account for this additional approximation by using Student's t
 distribution.\footnote{One could do this by using a $t_c$ value in place of
   $z_c$, choosing from the inverse t CDF with appropriate degrees of freedom $df
   = n - 1$.}
+
+\subsection{Manipulating random variables}
+%% -------------------------
+Some basic understanding of how random variables interact is useful for hand
+calculations (useful for verifying stochastic does) and building intuition.
+We'll review a few simple calculations for random variables here.
+
+\textbf{Gaussian manipulations} are very common, and are important to recall.
+Let $X_1\sim\dN(\mu_1, \sigma_1^2), X_2\sim\dN(\mu_2, \sigma_2^2)$. The sum of
+two \emph{independent} gaussians satisfies
+
+\begin{equation} \label{eq:ch3-add-normal}
+  a X_1 + b X_2 \sim \dN(a \mu_1 + b \mu_2, a^2 \sigma_1^2 + b^2 \sigma_2^2).
+\end{equation}
+
+\noindent \Cref{eq:ch3-add-normal} shows us that while the central tendencies of
+gaussians adds, their \emph{standard deviations do not add}. This seemingly
+trivial result actually defies the common engineering intuition, and provides a
+very simple motivation for propagating uncertainty `properly'.
+
+Suppose a structural engineer were designing a simple member to carry a uniaxial
+load for an aircraft. According to the \emph{legal} requirements for aircraft
+airworthiness, the designer must use a quantile estimate\footnote{technically a
+  \emph{basis value}, required by Title 14 CFR 25.613} for material properties.
+This is to account for manufacturing variabilities; for a concrete example,
+suppose the yield strength of the material is distributed according to
+$\Sigma\sim\dN(\mu_{\Sigma}, \sigma_{\Sigma}^2)$, and the applied load is also
+uncertain, following $F\sim\dN(\mu_F, \sigma_F^2)$. Given a fixed
+cross-sectional area $A$ to carry the load, the probability of failure of the
+structure is
+
+\begin{equation} \label{eq:ch3-tension}
+    \P[ \Sigma < F/A ] = \Phi\left( %
+      \frac{\mu_{\Sigma} - \mu_F/A}{\sqrt{\sigma_{\Sigma}^2 + \sigma_F^2/A^2}}
+    \right).
+\end{equation}
+
+\noindent The quantile of $\Sigma - F/A$ relevant to achieving a desired failure
+probability $p_f$ is given by $g_{\text{true}} = (\mu_{\Sigma} - \mu_F/A) +
+\Phi^{-1}(p_f)\sqrt{\sigma_{\Sigma}^2 + \sigma_F^2/A^2}$. However, \emph{first}
+computing input quantiles -- separately, at the $p-f$ level -- and \emph{then
+  evaluating} those fixed values yields the value $g_{\text{eval}} =
+(\mu_{\Sigma} - \mu_F/A) + \Phi^{-1}(p_f)(\sigma_{\Sigma}^2 + \sigma_F^2/A^2)$.
+One can understand the current industrial practice as solving $g_{\text{eval}} =
+0$ for $A$.\footnote{The true industrial practice is actually a bit more
+  conservative than this, as basis values account for epistemic sampling
+  uncertainty, in addition to the aleatory manufacturing uncertainty.} The
+consequence of \emph{not propagating uncertainty} is to expose oneself to the
+unknown discrepancy $g_{\text{true}} - g_{\text{eval}} \neq 0$. Without
+rigorously quantifying the uncertainty -- even for this simple linear function
+-- one cannot control probabilities of failure.
+
+\textbf{Exercise:} Derive \eqref{eq:ch3-tension} using property
+\eqref{eq:ch3-add-normal}.
+
+\textbf{Exercise:} Suppose a designer solves $g_{\text{eval}} = 0$ for $A$ under
+a desired value of $p_f < 0.5$. How does the true value $\P[ \Sigma < F/A ]$
+compared to the designed value $p_f$?
+
+\textbf{Exercise:} Assess the appropriateness of the random variable model
+proposed above for $\Sigma$ and $F$; is the model reasonable, both from a
+physical and practical standpoint? What are its merits and failings?
+
+While independent gaussians are simple to manipulate, the case is somewhat more
+complicated for \emph{correlated} normal variables. If two or more variables are
+correlated, one must consider their \emph{joint} density. For a vector of normal
+variables $\mX\in\R{d}$ this is reasonably easy to handle; suppose $\mX \sim
+\dN(\v\mu, \m\Sigma)$, where $\v\mu\in\R{d}$ is the vector mean, and
+$\m\Sigma\in\R{d\times d}$ is the covariance matrix. For the distribution to be
+valid, we must have $\m\Sigma$ positive semi-definite \footnote{positive
+  semi-definite is often denoted $\m\Sigma\geq0$; that is for all $\vx\in\R{d}$,
+  we have $\vx^{\top}\m\Sigma\vx \geq 0$.} and $\m\Sigma^{\top} = \m\Sigma$. We
+can handle a linear combination of correlated normals by a transformation to
+uncorrelated normal variables.
+
+Let $\m\Sigma^{\f12}$ be the \emph{Cholesky decomposition} of $\m\Sigma$,
+satisfying
+
+\begin{equation}
+  \m\Sigma = \left(\m\Sigma^{\f12}\right)^{\top} \m\Sigma^{\f12},
+\end{equation}
+
+\noindent where $\m\Sigma^{\f12}$ is unique. Then $\mX$ is distributed the same
+as $\v\mu + \left(\m\Sigma^{\f12}\right)^{\top}\mZ$ with $\mZ\sim\dN(\v0, \mI)$.
+
+\textbf{Exercise:} Using property \eqref{eq:ch3-add-normal}, show that $\mX' =
+\v\mu + \left(\m\Sigma^{\f12}\right)^{\top}\mZ$ has the distribution $\dN(\v\mu,
+\m\Sigma)$.\footnote{Hint: It suffices to show that $\E[\mX'] = \v\mu$ and
+  $\V[\mX'] = \m\Sigma$, as a gaussian is fully defined by its first two
+  moments.}
+
+
+
+%% --------------------------------------------------
+\section{Interval Characterization} \label{sec:intervals}
+%% --------------------------------------------------
 
 %% --------------------------------------------------
 \section{Models} \label{sec:models}
@@ -1504,7 +1620,5 @@ is an \emph{upper} bound; if it is small, then we can be confident that $X_i$ is
 \emph{unimportant}.
 
 \textcolor{red}{TODO} Example
-
-
 
 \end{document}
