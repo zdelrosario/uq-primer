@@ -126,16 +126,30 @@ variance of $Y$ and the number of samples $m$ -- \emph{it is independent of
 an important observation: In very high-dimensional settings, Monte Carlo is our
 only viable option for propagation.
 
-The particular approach described above is called \emph{simple} Monte Carlo;
-there exist many different formulations of Monte Carlo that seek to improve
-convergence or handle particular issues. For instance, in some cases it is not
-possible to draw samples from the given distribution $\rho$, particularly when
-the target distribution is not known in closed form. In this case, a flavor of
-Monte Carlo might be used just to generate samples $\mX_i$. For more on Monte
-Carlo, a good introduction is Reference \cite{owen2013montecarlo}.
+To judge the convergence of Monte Carlo, we can construct a confidence interval
+for $\hat{\mu}_m$. A central limit argument applied to \eqref{eq:ch4-mc-mean}
+gives us
+
+\begin{equation} \label{eq:ch4-mc-clt}
+  \hat{\mu}_m \stackrel{d}{\to} \dN(\mu, \frac{\V[Y]}{m}).
+\end{equation}
+
+\noindent This motivates the \emph{approximate} confidence interval given by
+$[\mu_m - z_{\cC} S / \sqrt{m}, \mu_m + z_{\cC} S / \sqrt{m}]$, where $S^2$ is
+the sample variance of the Monte Carlo samples.
+
+Estimator \ref{eq:ch4-mc-mean} is called \emph{simple} Monte Carlo; there exist
+many different formulations of Monte Carlo that seek to improve convergence or
+handle particular issues. For instance, in some cases it is not possible to draw
+samples from the given distribution $\rho$, particularly when the target
+distribution is not known in closed form. In this case, a flavor of Monte Carlo
+might be used just to generate samples $\mX_i$. For more on Monte Carlo, a good
+introduction is Reference \cite{owen2013montecarlo}.
 
 \subsection{The Bootstrap}
 %% --------------------------------------------------
+
+
 PLACEHOLDER: Efron and Tibshirani\cite{efron1986} is an accessible treatment of
 this topic.
 
