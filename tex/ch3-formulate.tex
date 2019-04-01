@@ -661,9 +661,9 @@ estimate.
 
 The sample mean is asymptotically normal under fairly generous conditions; can
 we make a similar statement about the sample variance? The sample variance is
-also a sum of random variables,\footnote{Recall $S^2 = \sum_{i=1}^n (X_i -
-  \overline{X})^2$} but these may not be independent. \emph{However}, in the
-case where $X$ is (exactly) normally distributed, the terms in the sample
+also a sum of random variables,\footnote{Recall $S^2 = \frac{1}{n-1}\sum_{i=1}^n
+  (X_i - \overline{X})^2$} but these may not be independent. \emph{However}, in
+the case where $X$ is (exactly) normally distributed, the terms in the sample
 variance \emph{are} independent. In this case, each term is an independent,
 squared, standard normal random variable, which we denote
 
@@ -754,17 +754,17 @@ variance alone, other distributions have more parameters to fit. In general,
 higher-order moments -- larger exponents in $\E[X^k]$ -- are more difficult to
 estimate. This is because we loose \textbf{degrees of freedom} in the data by
 estimating the lower-moments. Recall that the sample mean $\overline{X}$ appears
-in each term of the sample variance;\footnote{given by $S^2 = \sum_{i=1}^n (X_i
-  - \overline{X})^2$} we have used the data to estimate the quantity
-$\overline{X}$, and have lost some available information in doing so. This
-notion of information is made formal in the degrees of freedom, which can be
-understood in terms of the dimension of the subspace spanned by the data --
-computing the sample mean essentially introduces a constraint, which reduces the
-dimension of the data available for the variance by one. This reduction reduces
-the effective sample size to $n-1$, which is captured in the Bessel correction,
-and points to the difficulty in estimating the variance, relative to the mean.
-Higher moments compound this difficulty with further reduction in degrees of
-freedom.
+in each term of the sample variance;\footnote{given by $S^2 = \frac{1}{n -
+    1}\sum_{i=1}^n (X_i - \overline{X})^2$} we have used the data to estimate
+the quantity $\overline{X}$, and have lost some available information in doing
+so. This notion of information is made formal in the degrees of freedom, which
+can be understood in terms of the dimension of the subspace spanned by the data
+-- computing the sample mean essentially introduces a constraint, which reduces
+the dimension of the data available for the variance by one. This reduction
+reduces the effective sample size to $n-1$, which is captured in the Bessel
+correction, and points to the difficulty in estimating the variance, relative to
+the mean. Higher moments compound this difficulty with further reduction in
+degrees of freedom.
 
 The difficulty in estimating higher moments is closely related to tail behavior,
 and is a fundamental issue. For instance, the kurtosis $\text{Kurt}[X] =
